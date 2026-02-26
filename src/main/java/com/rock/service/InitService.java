@@ -27,7 +27,7 @@ public class InitService {
     public List<HerbalMedicineDoc> loadHerbalMedicines() {
         //初始化药材列表
         List<HerbalMedicineDoc> medicineDocList = new ArrayList<>();
-        //读取资源ø
+        //读取资源
         try (InputStream is = getClass().getResourceAsStream(FILE_PATH_HERBAL_MEDICINE_FILE);
              //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
@@ -43,16 +43,16 @@ public class InitService {
                     continue;
                 }
                 //读取本行
-                String[] parts = line.split(",");
+                String[] partArr = line.split(",");
                 //如果满足条件
-                if (parts.length >= 5) {
+                if (partArr.length >= 5) {
                     //初始化实体
                     HerbalMedicineDoc medicine = new HerbalMedicineDoc(
-                            parts[0].trim(),
-                            parts[1].trim(),
-                            parts[2].trim(),
-                            parts[3].trim(),
-                            parts[4].trim()
+                            partArr[0].trim(),
+                            partArr[1].trim(),
+                            partArr[2].trim(),
+                            partArr[3].trim(),
+                            partArr[4].trim()
                     );
                     //组装到列表
                     medicineDocList.add(medicine);
@@ -73,53 +73,59 @@ public class InitService {
      * @return 丹药列表
      */
     public List<PillDoc> loadPills() {
-        List<PillDoc> pills = new ArrayList<>();
-
+        //初始化丹药列表
+        List<PillDoc> pillDocList = new ArrayList<>();
+        //读取资源
         try (InputStream is = getClass().getResourceAsStream(FILE_PATH_PILL_FILE);
+             //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-
+            //当前行
             String line;
-            // 跳过第一行标题
+            //跳过第一行标题
             reader.readLine();
-
+            //循环
             while ((line = reader.readLine()) != null) {
+                //判空
                 if (line.trim().isEmpty()) {
+                    //本轮过
                     continue;
                 }
-
-                // 按逗号分割，但要注意丹方部分包含逗号
+                //按逗号分割，但要注意丹方部分包含逗号
                 String[] parts = line.split(",");
+                //如果满足
                 if (parts.length >= 6) {
-                    // 丹药名称
+                    //丹药名称
                     String name = parts[0].trim();
-                    // 品级
+                    //品级
                     String grade = parts[1].trim();
-                    // 种类
+                    //种类
                     String type = parts[2].trim();
-                    // 价值
+                    //价值
                     int value = Integer.parseInt(parts[parts.length - 1].trim());
-
-                    // 丹方部分需要重新组合(从parts[3]到parts[length-2])
+                    //丹方部分需要重新组合(从parts[3]到parts[length-2])
                     StringBuilder formulaBuilder = new StringBuilder();
+                    //循环
                     for (int i = 3; i < parts.length - 1; i++) {
-                        if (i > 3) formulaBuilder.append(",");
-                        formulaBuilder.append(parts[i]);
+                        //
+                        if (i > 3) {
+                            formulaBuilder.append(",");
+                            formulaBuilder.append(parts[i]);
+                        }
                     }
-                    String formulaStr = formulaBuilder.toString();
-
-                    FormulaDoc formula = FormulaDoc.parse(formulaStr);
-
+                    //转为对应丹方实体
+                    FormulaDoc formula = FormulaDoc.parse(formulaBuilder.toString());
+                    //初始化丹药实体
                     PillDoc pill = new PillDoc(name, grade, type, formula, value);
-                    pills.add(pill);
+                    //组装
+                    pillDocList.add(pill);
                 }
             }
-
         } catch (Exception e) {
             System.err.println("读取丹药数据文件失败: " + e.getMessage());
             e.printStackTrace();
         }
-
-        return pills;
+        //返回列表
+        return pillDocList;
     }
 
 }
