@@ -90,33 +90,41 @@ public class InitService {
                     //本轮过
                     continue;
                 }
-                //按逗号分割，但要注意丹方部分包含逗号
-                String[] parts = line.split(",");
-                //如果满足
-                if (parts.length >= 6) {
-                    //丹药名称
-                    String name = parts[0].trim();
-                    //品级
-                    String grade = parts[1].trim();
-                    //种类
-                    String type = parts[2].trim();
-                    //价值
-                    int value = Integer.parseInt(parts[parts.length - 1].trim());
-                    //丹方部分需要重新组合(从parts[3]到parts[length-2])
-                    StringBuilder formulaBuilder = new StringBuilder();
+                //读取本行
+                String[] partArr = line.split(",");
+                //如果满足条件
+                if (partArr.length >= 6) {
+
+                    //初始化实体
+                    PillDoc pill = new PillDoc();
+                    //参数
+                    pill.setName(ArrayExtraUtils.getString(partArr, 0));
+                    pill.setGrade(ArrayExtraUtils.getString(partArr, 1));
+                    pill.setType(ArrayExtraUtils.getString(partArr, 2));
+                    //价格
+                    String valueStr = ArrayExtraUtils.getString(partArr, partArr.length - 1);
+                    //解析价格
+                    pill.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
+
+                    /**
+                     * 单方
+                     */
+
+                    //解析丹方部分
+                    String formulaStr = ArrayExtraUtils.getString(partArr, 3);
                     //循环
-                    for (int i = 3; i < parts.length - 1; i++) {
-                        //
-                        if (i > 3) {
-                            formulaBuilder.append(",");
-                            formulaBuilder.append(parts[i]);
-                        }
+                    for (int i = 4; i < partArr.length - 1; i++) {
+                        //拼接
+                        formulaStr += "," + ArrayExtraUtils.getString(partArr, i);
                     }
-                    //转为对应丹方实体
-                    FormulaDoc formula = FormulaDoc.parse(formulaBuilder.toString());
-                    //初始化丹药实体
-                    PillDoc pill = new PillDoc(name, grade, type, formula, value);
-                    //组装
+                    //解析并组装
+                    pill.setFormula(FormulaDoc.parse(formulaStr));
+
+                    /**
+                     * 组装
+                     */
+
+                    //组装到列表
                     pillDocList.add(pill);
                 }
             }
@@ -124,7 +132,7 @@ public class InitService {
             System.err.println("读取丹药数据文件失败: " + e.getMessage());
             e.printStackTrace();
         }
-        //返回列表
+        //返回结果
         return pillDocList;
     }
 
