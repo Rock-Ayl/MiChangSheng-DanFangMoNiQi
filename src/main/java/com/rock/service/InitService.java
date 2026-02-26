@@ -59,7 +59,6 @@ public class InitService {
                     medicineDocList.add(medicine);
                 }
             }
-
         } catch (Exception e) {
             System.err.println("读取药材数据文件失败: " + e.getMessage());
             e.printStackTrace();
