@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class InitService {
 
-    //资源
-    private static final String HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
-    private static final String PILL_FILE = "/觅长生-丹药.txt";
+    //配置资源
+    private static final String FILE_PATH_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
+    private static final String FILE_PATH_PILL_FILE = "/觅长生-丹药.txt";
 
     /**
      * 读取所有药材数据
@@ -25,30 +25,37 @@ public class InitService {
      * @return 药材列表
      */
     public List<HerbalMedicineDoc> loadHerbalMedicines() {
-        List<HerbalMedicineDoc> medicines = new ArrayList<>();
-
-        try (InputStream is = getClass().getResourceAsStream(HERBAL_MEDICINE_FILE);
+        //初始化药材列表
+        List<HerbalMedicineDoc> medicineDocList = new ArrayList<>();
+        //读取资源ø
+        try (InputStream is = getClass().getResourceAsStream(FILE_PATH_HERBAL_MEDICINE_FILE);
+             //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-
+            //当前行
             String line;
-            // 跳过第一行标题
+            //跳过第一行标题
             reader.readLine();
-
+            //循环
             while ((line = reader.readLine()) != null) {
+                //判空
                 if (line.trim().isEmpty()) {
+                    //本轮过
                     continue;
                 }
-
+                //读取本行
                 String[] parts = line.split(",");
+                //如果满足条件
                 if (parts.length >= 5) {
+                    //初始化实体
                     HerbalMedicineDoc medicine = new HerbalMedicineDoc(
-                            parts[0].trim(),  // 名称
-                            parts[1].trim(),  // 品级
-                            parts[2].trim(),  // 主药作用
-                            parts[3].trim(),  // 辅药作用
-                            parts[4].trim()   // 药引性质
+                            parts[0].trim(),
+                            parts[1].trim(),
+                            parts[2].trim(),
+                            parts[3].trim(),
+                            parts[4].trim()
                     );
-                    medicines.add(medicine);
+                    //组装到列表
+                    medicineDocList.add(medicine);
                 }
             }
 
@@ -56,8 +63,8 @@ public class InitService {
             System.err.println("读取药材数据文件失败: " + e.getMessage());
             e.printStackTrace();
         }
-
-        return medicines;
+        //返回结果
+        return medicineDocList;
     }
 
     /**
@@ -68,7 +75,7 @@ public class InitService {
     public List<PillDoc> loadPills() {
         List<PillDoc> pills = new ArrayList<>();
 
-        try (InputStream is = getClass().getResourceAsStream(PILL_FILE);
+        try (InputStream is = getClass().getResourceAsStream(FILE_PATH_PILL_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
 
             String line;
