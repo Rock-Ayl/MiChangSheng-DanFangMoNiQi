@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 药材性质 枚举
+ * 药引性质 枚举
  */
 @Getter
 @ToString
