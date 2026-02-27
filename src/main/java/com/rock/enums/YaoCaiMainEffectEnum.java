@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 药材功效 枚举
+ * 药材-主药作用 枚举
  */
 @Getter
 @ToString

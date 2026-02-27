@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 丹药种类 枚举
+ * 丹药-种类 枚举
  */
 @Getter
 @ToString
