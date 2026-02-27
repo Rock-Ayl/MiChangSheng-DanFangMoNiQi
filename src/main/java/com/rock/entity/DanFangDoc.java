@@ -3,12 +3,14 @@ package com.rock.entity;
 import com.rock.util.ArrayExtraUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 丹方 实体类
  */
 @Getter
 @Setter
+@ToString
 public class DanFangDoc {
 
     /**

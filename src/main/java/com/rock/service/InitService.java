@@ -4,6 +4,7 @@ import com.rock.entity.DanFangDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.enums.DanYaoGroupEnum;
+import com.rock.enums.DanYaoTypeEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -99,7 +100,8 @@ public class InitService {
                 danYaoDoc.setName(ArrayExtraUtils.getString(partArr, 0));
                 //解析枚举
                 danYaoDoc.setGrade(DanYaoGroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
-                danYaoDoc.setType(ArrayExtraUtils.getString(partArr, 2));
+                //解析枚举
+                danYaoDoc.setType(DanYaoTypeEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析丹方并组装
                 danYaoDoc.setFormula(DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
                 //价格

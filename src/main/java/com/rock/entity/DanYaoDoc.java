@@ -1,14 +1,17 @@
 package com.rock.entity;
 
 import com.rock.enums.DanYaoGroupEnum;
+import com.rock.enums.DanYaoTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 丹药 实体类
  */
 @Getter
 @Setter
+@ToString
 public class DanYaoDoc {
 
     /**
@@ -24,9 +27,11 @@ public class DanYaoDoc {
     private DanYaoGroupEnum grade;
 
     /**
-     * 丹药种类 (心境、战斗、恢复、修炼等)
+     * 丹药种类
+     * -
+     * {@link com.rock.enums.DanYaoTypeEnum } 枚举
      */
-    private String type;
+    private DanYaoTypeEnum type;
 
     /**
      * 丹方配方
