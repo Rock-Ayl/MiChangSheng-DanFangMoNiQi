@@ -17,7 +17,9 @@ public class DanYaoDoc {
     private String name;
 
     /**
-     * 丹药品级 (一品、二品、三品...)
+     * 丹药品级
+     * -
+     * {@link com.rock.enums.DanYaoGroupEnum } 枚举
      */
     private DanYaoGroupEnum grade;
 
