@@ -1,33 +1,31 @@
 package com.rock.enums;
 
 import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 丹药-品级 枚举
+ * 丹药品级 枚举
  */
 @Getter
+@ToString
 public enum PillGroupEnum {
 
-    NONE("none", "未知"),
+    NONE("none"),
 
-    ONE("一品", "一品"),
-    TWO("二品", "二品"),
-    THREE("三品", "三品"),
-    FOUR("四品", "四品"),
-    FIVE("五品", "五品"),
-    SIX("六品", "六品"),
+    ONE("一品"),
+    TWO("二品"),
+    THREE("三品"),
+    FOUR("四品"),
+    FIVE("五品"),
+    SIX("六品"),
 
     ;
 
     //编码
     private final String code;
 
-    //描述
-    private final String desc;
-
-    PillGroupEnum(String code, String desc) {
+    PillGroupEnum(String code) {
         this.code = code;
-        this.desc = desc;
     }
 
     /**

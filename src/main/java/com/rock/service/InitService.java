@@ -3,6 +3,7 @@ package com.rock.service;
 import com.rock.entity.FormulaDoc;
 import com.rock.entity.HerbalMedicineDoc;
 import com.rock.entity.PillDoc;
+import com.rock.enums.PillGroupEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -96,7 +97,8 @@ public class InitService {
                 PillDoc pill = new PillDoc();
                 //参数
                 pill.setName(ArrayExtraUtils.getString(partArr, 0));
-                pill.setGrade(ArrayExtraUtils.getString(partArr, 1));
+                //解析枚举
+                pill.setGrade(PillGroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
                 pill.setType(ArrayExtraUtils.getString(partArr, 2));
                 //解析丹方并组装
                 pill.setFormula(FormulaDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
