@@ -5,6 +5,7 @@ import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanYaoTypeEnum;
 import com.rock.enums.GroupEnum;
+import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiPropertyEnum;
 import com.rock.util.ArrayExtraUtils;
 
@@ -55,7 +56,7 @@ public class InitService {
                 //解析枚举
                 yaoCaiDoc.setGrade(GroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
                 //解析参数
-                yaoCaiDoc.setMainEffect(ArrayExtraUtils.getString(partArr, 2));
+                yaoCaiDoc.setMainEffect(YaoCaiMainEffectEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析参数
                 yaoCaiDoc.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
                 //解析枚举

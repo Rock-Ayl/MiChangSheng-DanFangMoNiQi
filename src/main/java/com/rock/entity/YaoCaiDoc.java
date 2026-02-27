@@ -1,6 +1,7 @@
 package com.rock.entity;
 
 import com.rock.enums.GroupEnum;
+import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiPropertyEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +29,10 @@ public class YaoCaiDoc {
 
     /**
      * 主药作用
+     * -
+     * {@link YaoCaiMainEffectEnum } 枚举
      */
-    private String mainEffect;
+    private YaoCaiMainEffectEnum mainEffect;
 
     /**
      * 辅药作用
