@@ -1,5 +1,6 @@
 package com.rock.entity;
 
+import com.rock.util.ArrayExtraUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,24 +37,6 @@ public class FormulaDoc {
     private String guideHerb;
 
     /**
-     * 默认初始化
-     */
-    public FormulaDoc() {
-
-    }
-
-    /**
-     * 初始化
-     */
-    public FormulaDoc(String mainHerb1, String mainHerb2, String secondaryHerb1, String secondaryHerb2, String guideHerb) {
-        this.mainHerb1 = mainHerb1;
-        this.mainHerb2 = mainHerb2;
-        this.secondaryHerb1 = secondaryHerb1;
-        this.secondaryHerb2 = secondaryHerb2;
-        this.guideHerb = guideHerb;
-    }
-
-    /**
      * 根据String,解析实体
      *
      * @param formulaStr 配方字符串
@@ -64,14 +47,16 @@ public class FormulaDoc {
         formulaStr = formulaStr.substring(1, formulaStr.length() - 1);
         //转为数组
         String[] partArr = formulaStr.split("_");
-        //解析参数
-        String mainHerb1 = partArr.length > 0 ? partArr[0].trim() : "/";
-        String mainHerb2 = partArr.length > 1 ? partArr[1].trim() : "/";
-        String secondaryHerb1 = partArr.length > 2 ? partArr[2].trim() : "/";
-        String secondaryHerb2 = partArr.length > 3 ? partArr[3].trim() : "/";
-        String guideHerb = partArr.length > 4 ? partArr[4].trim() : "/";
+        //初始化
+        FormulaDoc formulaDoc = new FormulaDoc();
+        //组装参数
+        formulaDoc.setMainHerb1(ArrayExtraUtils.getString(partArr, 0));
+        formulaDoc.setMainHerb2(ArrayExtraUtils.getString(partArr, 1));
+        formulaDoc.setSecondaryHerb1(ArrayExtraUtils.getString(partArr, 2));
+        formulaDoc.setSecondaryHerb2(ArrayExtraUtils.getString(partArr, 3));
+        formulaDoc.setGuideHerb(ArrayExtraUtils.getString(partArr, 4));
         //返回
-        return new FormulaDoc(mainHerb1, mainHerb2, secondaryHerb1, secondaryHerb2, guideHerb);
+        return formulaDoc;
     }
 
 }
