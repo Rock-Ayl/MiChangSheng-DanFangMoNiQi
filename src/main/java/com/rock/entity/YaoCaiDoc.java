@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class HerbalMedicineDoc {
+public class YaoCaiDoc {
 
     /**
      * 药材名称

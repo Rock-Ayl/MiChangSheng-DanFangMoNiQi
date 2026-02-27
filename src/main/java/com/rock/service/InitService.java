@@ -1,7 +1,7 @@
 package com.rock.service;
 
 import com.rock.entity.FormulaDoc;
-import com.rock.entity.HerbalMedicineDoc;
+import com.rock.entity.YaoCaiDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.enums.DanYaoGroupEnum;
 import com.rock.util.ArrayExtraUtils;
@@ -22,13 +22,13 @@ public class InitService {
     private static final String FILE_PATH_PILL_FILE = "/觅长生-丹药.txt";
 
     /**
-     * 读取所有药材数据
+     * 读取所有-药材数据
      *
      * @return 药材列表
      */
-    public List<HerbalMedicineDoc> loadHerbalMedicines() {
+    public List<YaoCaiDoc> loadYaoCai() {
         //初始化药材列表
-        List<HerbalMedicineDoc> medicineDocList = new ArrayList<>();
+        List<YaoCaiDoc> medicineDocList = new ArrayList<>();
         //读取资源
         try (InputStream is = getClass().getResourceAsStream(FILE_PATH_HERBAL_MEDICINE_FILE);
              //读取流
@@ -49,7 +49,7 @@ public class InitService {
                 //如果满足条件
                 if (partArr.length >= 5) {
                     //初始化实体
-                    HerbalMedicineDoc medicine = new HerbalMedicineDoc();
+                    YaoCaiDoc medicine = new YaoCaiDoc();
                     //参数
                     medicine.setName(ArrayExtraUtils.getString(partArr, 0));
                     medicine.setGrade(ArrayExtraUtils.getString(partArr, 1));
@@ -69,11 +69,11 @@ public class InitService {
     }
 
     /**
-     * 读取所有丹药数据
+     * 读取所有-丹药数据
      *
      * @return 丹药列表
      */
-    public List<DanYaoDoc> loadPills() {
+    public List<DanYaoDoc> loadDanYao() {
         //初始化丹药列表
         List<DanYaoDoc> danYaoDocList = new ArrayList<>();
         //读取资源

@@ -1,6 +1,6 @@
 package com.rock;
 
-import com.rock.entity.HerbalMedicineDoc;
+import com.rock.entity.YaoCaiDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.service.InitService;
 
@@ -29,10 +29,10 @@ public class Running {
         InitService dataService = new InitService();
 
         //读取药材数据
-        List<HerbalMedicineDoc> medicineDocList = dataService.loadHerbalMedicines();
+        List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
 
         //读取丹药数据
-        List<DanYaoDoc> danYaoDocList = dataService.loadPills();
+        List<DanYaoDoc> danYaoDocList = dataService.loadDanYao();
 
         System.out.println();
 
