@@ -3,8 +3,8 @@ package com.rock.service;
 import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
-import com.rock.enums.DanYaoGroupEnum;
 import com.rock.enums.DanYaoTypeEnum;
+import com.rock.enums.GroupEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -51,7 +51,8 @@ public class InitService {
                 YaoCaiDoc yaoCaiDoc = new YaoCaiDoc();
                 //参数
                 yaoCaiDoc.setName(ArrayExtraUtils.getString(partArr, 0));
-                yaoCaiDoc.setGrade(ArrayExtraUtils.getString(partArr, 1));
+                //解析枚举
+                yaoCaiDoc.setGrade(GroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
                 yaoCaiDoc.setMainEffect(ArrayExtraUtils.getString(partArr, 2));
                 yaoCaiDoc.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
                 yaoCaiDoc.setProperty(ArrayExtraUtils.getString(partArr, 4));
@@ -96,7 +97,7 @@ public class InitService {
                 //参数
                 danYaoDoc.setName(ArrayExtraUtils.getString(partArr, 0));
                 //解析枚举
-                danYaoDoc.setGrade(DanYaoGroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
+                danYaoDoc.setGrade(GroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
                 //解析枚举
                 danYaoDoc.setType(DanYaoTypeEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析丹方并组装

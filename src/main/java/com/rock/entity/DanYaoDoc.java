@@ -1,6 +1,6 @@
 package com.rock.entity;
 
-import com.rock.enums.DanYaoGroupEnum;
+import com.rock.enums.GroupEnum;
 import com.rock.enums.DanYaoTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +20,11 @@ public class DanYaoDoc {
     private String name;
 
     /**
-     * 丹药品级
+     * 品级
      * -
-     * {@link com.rock.enums.DanYaoGroupEnum } 枚举
+     * {@link GroupEnum } 枚举
      */
-    private DanYaoGroupEnum grade;
+    private GroupEnum grade;
 
     /**
      * 丹药种类

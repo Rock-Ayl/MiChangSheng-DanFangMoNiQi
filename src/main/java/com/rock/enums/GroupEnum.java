@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 丹药品级 枚举
+ * 品级 枚举
  */
 @Getter
 @ToString
-public enum DanYaoGroupEnum {
+public enum GroupEnum {
 
     NONE("none"),
 
@@ -24,7 +24,7 @@ public enum DanYaoGroupEnum {
     //编码
     private final String code;
 
-    DanYaoGroupEnum(String code) {
+    GroupEnum(String code) {
         this.code = code;
     }
 
@@ -34,11 +34,11 @@ public enum DanYaoGroupEnum {
      * @param code
      * @return
      */
-    public static DanYaoGroupEnum parseByCode(String code) {
+    public static GroupEnum parseByCode(String code) {
         //判空
         if (code != null) {
             //循环
-            for (DanYaoGroupEnum object : DanYaoGroupEnum.values()) {
+            for (GroupEnum object : GroupEnum.values()) {
                 //对比
                 if (object.getCode().equals(code)) {
                     //返回

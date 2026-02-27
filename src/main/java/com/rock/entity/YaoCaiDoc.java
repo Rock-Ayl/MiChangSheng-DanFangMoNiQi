@@ -1,5 +1,6 @@
 package com.rock.entity;
 
+import com.rock.enums.GroupEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,9 +19,11 @@ public class YaoCaiDoc {
     private String name;
 
     /**
-     * 药材品级 (一品、二品、三品...)
+     * 品级
+     * -
+     * {@link GroupEnum } 枚举
      */
-    private String grade;
+    private GroupEnum grade;
 
     /**
      * 主药作用
