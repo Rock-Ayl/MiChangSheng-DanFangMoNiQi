@@ -92,41 +92,20 @@ public class InitService {
                 }
                 //读取本行
                 String[] partArr = line.split(",");
-                //如果满足条件
-                if (partArr.length >= 6) {
-
-                    //初始化实体
-                    PillDoc pill = new PillDoc();
-                    //参数
-                    pill.setName(ArrayExtraUtils.getString(partArr, 0));
-                    pill.setGrade(ArrayExtraUtils.getString(partArr, 1));
-                    pill.setType(ArrayExtraUtils.getString(partArr, 2));
-                    //价格
-                    String valueStr = ArrayExtraUtils.getString(partArr, partArr.length - 1);
-                    //解析价格
-                    pill.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
-
-                    /**
-                     * 单方
-                     */
-
-                    //解析丹方部分
-                    String formulaStr = ArrayExtraUtils.getString(partArr, 3);
-                    //循环
-                    for (int i = 4; i < partArr.length - 1; i++) {
-                        //拼接
-                        formulaStr += "," + ArrayExtraUtils.getString(partArr, i);
-                    }
-                    //解析并组装
-                    pill.setFormula(FormulaDoc.parse(formulaStr));
-
-                    /**
-                     * 组装
-                     */
-
-                    //组装到列表
-                    pillDocList.add(pill);
-                }
+                //初始化实体
+                PillDoc pill = new PillDoc();
+                //参数
+                pill.setName(ArrayExtraUtils.getString(partArr, 0));
+                pill.setGrade(ArrayExtraUtils.getString(partArr, 1));
+                pill.setType(ArrayExtraUtils.getString(partArr, 2));
+                //解析丹方并组装
+                pill.setFormula(FormulaDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
+                //价格
+                String valueStr = ArrayExtraUtils.getString(partArr, 4);
+                //解析价格
+                pill.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
+                //组装到列表
+                pillDocList.add(pill);
             }
         } catch (Exception e) {
             System.err.println("读取丹药数据文件失败: " + e.getMessage());

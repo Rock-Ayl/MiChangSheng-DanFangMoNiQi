@@ -60,10 +60,10 @@ public class FormulaDoc {
      * @return Formula对象
      */
     public static FormulaDoc parse(String formulaStr) {
-        //去除方括号
-        String content = formulaStr.replaceAll("[\\[\\]]", "");
+        //删除头尾[]
+        formulaStr = formulaStr.substring(1, formulaStr.length() - 1);
         //转为数组
-        String[] partArr = content.split(",");
+        String[] partArr = formulaStr.split("_");
         //解析参数
         String mainHerb1 = partArr.length > 0 ? partArr[0].trim() : "/";
         String mainHerb2 = partArr.length > 1 ? partArr[1].trim() : "/";
