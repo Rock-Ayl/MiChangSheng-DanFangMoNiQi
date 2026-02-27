@@ -47,19 +47,16 @@ public class InitService {
                 }
                 //读取本行
                 String[] partArr = line.split(",");
-                //如果满足条件
-                if (partArr.length >= 5) {
-                    //初始化实体
-                    YaoCaiDoc medicine = new YaoCaiDoc();
-                    //参数
-                    medicine.setName(ArrayExtraUtils.getString(partArr, 0));
-                    medicine.setGrade(ArrayExtraUtils.getString(partArr, 1));
-                    medicine.setMainEffect(ArrayExtraUtils.getString(partArr, 2));
-                    medicine.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
-                    medicine.setProperty(ArrayExtraUtils.getString(partArr, 4));
-                    //组装到列表
-                    medicineDocList.add(medicine);
-                }
+                //初始化实体
+                YaoCaiDoc yaoCaiDoc = new YaoCaiDoc();
+                //参数
+                yaoCaiDoc.setName(ArrayExtraUtils.getString(partArr, 0));
+                yaoCaiDoc.setGrade(ArrayExtraUtils.getString(partArr, 1));
+                yaoCaiDoc.setMainEffect(ArrayExtraUtils.getString(partArr, 2));
+                yaoCaiDoc.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
+                yaoCaiDoc.setProperty(ArrayExtraUtils.getString(partArr, 4));
+                //组装到列表
+                medicineDocList.add(yaoCaiDoc);
             }
         } catch (Exception e) {
             System.err.println("读取药材数据文件失败: " + e.getMessage());
