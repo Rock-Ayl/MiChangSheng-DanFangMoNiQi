@@ -1,8 +1,8 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
-import com.rock.entity.YaoCaiDoc;
 import com.rock.entity.DanYaoDoc;
+import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanYaoGroupEnum;
 import com.rock.enums.DanYaoTypeEnum;
 import com.rock.util.ArrayExtraUtils;
@@ -104,10 +104,8 @@ public class InitService {
                 danYaoDoc.setType(DanYaoTypeEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析丹方并组装
                 danYaoDoc.setFormula(DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
-                //价格
-                String valueStr = ArrayExtraUtils.getString(partArr, 4);
                 //解析价格
-                danYaoDoc.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
+                danYaoDoc.setAmount(Integer.parseInt(ArrayExtraUtils.getString(partArr, 4)));
                 //组装到列表
                 danYaoDocList.add(danYaoDoc);
             }

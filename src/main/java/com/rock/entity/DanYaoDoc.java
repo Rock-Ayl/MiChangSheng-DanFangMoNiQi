@@ -39,8 +39,8 @@ public class DanYaoDoc {
     private DanFangDoc formula;
 
     /**
-     * 丹药价值
+     * 丹药价格
      */
-    private int value;
+    private Integer amount;
 
 }
