@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FormulaDoc {
+public class DanFangDoc {
 
     /**
      * 主药1 (格式: 药材名*数量)
@@ -37,26 +37,26 @@ public class FormulaDoc {
     private String guideHerb;
 
     /**
-     * 根据String,解析实体
+     * 解析实体
      *
-     * @param formulaStr 配方字符串
+     * @param danFangStr 丹方字符串
      * @return Formula对象
      */
-    public static FormulaDoc parse(String formulaStr) {
+    public static DanFangDoc parse(String danFangStr) {
         //删除头尾[]
-        formulaStr = formulaStr.substring(1, formulaStr.length() - 1);
+        danFangStr = danFangStr.substring(1, danFangStr.length() - 1);
         //转为数组
-        String[] partArr = formulaStr.split("_");
+        String[] partArr = danFangStr.split("_");
         //初始化
-        FormulaDoc formulaDoc = new FormulaDoc();
+        DanFangDoc danFangDoc = new DanFangDoc();
         //组装参数
-        formulaDoc.setMainHerb1(ArrayExtraUtils.getString(partArr, 0));
-        formulaDoc.setMainHerb2(ArrayExtraUtils.getString(partArr, 1));
-        formulaDoc.setSecondaryHerb1(ArrayExtraUtils.getString(partArr, 2));
-        formulaDoc.setSecondaryHerb2(ArrayExtraUtils.getString(partArr, 3));
-        formulaDoc.setGuideHerb(ArrayExtraUtils.getString(partArr, 4));
+        danFangDoc.setMainHerb1(ArrayExtraUtils.getString(partArr, 0));
+        danFangDoc.setMainHerb2(ArrayExtraUtils.getString(partArr, 1));
+        danFangDoc.setSecondaryHerb1(ArrayExtraUtils.getString(partArr, 2));
+        danFangDoc.setSecondaryHerb2(ArrayExtraUtils.getString(partArr, 3));
+        danFangDoc.setGuideHerb(ArrayExtraUtils.getString(partArr, 4));
         //返回
-        return formulaDoc;
+        return danFangDoc;
     }
 
 }

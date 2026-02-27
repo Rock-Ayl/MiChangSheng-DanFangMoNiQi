@@ -29,7 +29,7 @@ public class DanYaoDoc {
     /**
      * 丹方配方
      */
-    private FormulaDoc formula;
+    private DanFangDoc formula;
 
     /**
      * 丹药价值
