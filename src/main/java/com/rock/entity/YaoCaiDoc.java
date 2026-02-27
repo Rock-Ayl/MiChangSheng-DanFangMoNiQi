@@ -1,6 +1,7 @@
 package com.rock.entity;
 
 import com.rock.enums.GroupEnum;
+import com.rock.enums.YaoCaiPropertyEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,8 +37,10 @@ public class YaoCaiDoc {
     private String secondaryEffect;
 
     /**
-     * 药引性质 (性平、性寒、性热)
+     * 药引性质
+     * -
+     * {@link YaoCaiPropertyEnum } 枚举
      */
-    private String property;
+    private YaoCaiPropertyEnum property;
 
 }

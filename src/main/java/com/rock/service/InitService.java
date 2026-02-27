@@ -5,6 +5,7 @@ import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanYaoTypeEnum;
 import com.rock.enums.GroupEnum;
+import com.rock.enums.YaoCaiPropertyEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -53,9 +54,12 @@ public class InitService {
                 yaoCaiDoc.setName(ArrayExtraUtils.getString(partArr, 0));
                 //解析枚举
                 yaoCaiDoc.setGrade(GroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
+                //解析参数
                 yaoCaiDoc.setMainEffect(ArrayExtraUtils.getString(partArr, 2));
+                //解析参数
                 yaoCaiDoc.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
-                yaoCaiDoc.setProperty(ArrayExtraUtils.getString(partArr, 4));
+                //解析枚举
+                yaoCaiDoc.setProperty(YaoCaiPropertyEnum.parseByCode(ArrayExtraUtils.getString(partArr, 4)));
                 //组装到列表
                 medicineDocList.add(yaoCaiDoc);
             }
