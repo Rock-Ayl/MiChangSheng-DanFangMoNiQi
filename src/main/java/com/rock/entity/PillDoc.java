@@ -35,22 +35,4 @@ public class PillDoc {
      */
     private int value;
 
-    /**
-     * 默认初始化
-     */
-    public PillDoc() {
-
-    }
-
-    /**
-     * 初始化
-     */
-    public PillDoc(String name, String grade, String type, FormulaDoc formula, int value) {
-        this.name = name;
-        this.grade = grade;
-        this.type = type;
-        this.formula = formula;
-        this.value = value;
-    }
-
 }

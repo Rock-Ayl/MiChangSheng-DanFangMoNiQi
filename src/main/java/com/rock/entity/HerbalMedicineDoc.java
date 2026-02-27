@@ -35,22 +35,4 @@ public class HerbalMedicineDoc {
      */
     private String property;
 
-    /**
-     * 默认初始化
-     */
-    public HerbalMedicineDoc() {
-
-    }
-
-    /**
-     * 初始化
-     */
-    public HerbalMedicineDoc(String name, String grade, String mainEffect, String secondaryEffect, String property) {
-        this.name = name;
-        this.grade = grade;
-        this.mainEffect = mainEffect;
-        this.secondaryEffect = secondaryEffect;
-        this.property = property;
-    }
-
 }
