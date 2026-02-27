@@ -2,8 +2,8 @@ package com.rock.service;
 
 import com.rock.entity.FormulaDoc;
 import com.rock.entity.HerbalMedicineDoc;
-import com.rock.entity.PillDoc;
-import com.rock.enums.PillGroupEnum;
+import com.rock.entity.DanYaoDoc;
+import com.rock.enums.DanYaoGroupEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -73,9 +73,9 @@ public class InitService {
      *
      * @return 丹药列表
      */
-    public List<PillDoc> loadPills() {
+    public List<DanYaoDoc> loadPills() {
         //初始化丹药列表
-        List<PillDoc> pillDocList = new ArrayList<>();
+        List<DanYaoDoc> danYaoDocList = new ArrayList<>();
         //读取资源
         try (InputStream is = getClass().getResourceAsStream(FILE_PATH_PILL_FILE);
              //读取流
@@ -94,27 +94,27 @@ public class InitService {
                 //读取本行
                 String[] partArr = line.split(",");
                 //初始化实体
-                PillDoc pill = new PillDoc();
+                DanYaoDoc danYaoDoc = new DanYaoDoc();
                 //参数
-                pill.setName(ArrayExtraUtils.getString(partArr, 0));
+                danYaoDoc.setName(ArrayExtraUtils.getString(partArr, 0));
                 //解析枚举
-                pill.setGrade(PillGroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
-                pill.setType(ArrayExtraUtils.getString(partArr, 2));
+                danYaoDoc.setGrade(DanYaoGroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
+                danYaoDoc.setType(ArrayExtraUtils.getString(partArr, 2));
                 //解析丹方并组装
-                pill.setFormula(FormulaDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
+                danYaoDoc.setFormula(FormulaDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
                 //价格
                 String valueStr = ArrayExtraUtils.getString(partArr, 4);
                 //解析价格
-                pill.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
+                danYaoDoc.setValue(valueStr != null ? Integer.parseInt(valueStr) : 0);
                 //组装到列表
-                pillDocList.add(pill);
+                danYaoDocList.add(danYaoDoc);
             }
         } catch (Exception e) {
             System.err.println("读取丹药数据文件失败: " + e.getMessage());
             e.printStackTrace();
         }
         //返回结果
-        return pillDocList;
+        return danYaoDocList;
     }
 
 }

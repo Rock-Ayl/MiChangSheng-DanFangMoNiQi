@@ -1,6 +1,6 @@
 package com.rock.entity;
 
-import com.rock.enums.PillGroupEnum;
+import com.rock.enums.DanYaoGroupEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PillDoc {
+public class DanYaoDoc {
 
     /**
      * 丹药名称
@@ -19,7 +19,7 @@ public class PillDoc {
     /**
      * 丹药品级 (一品、二品、三品...)
      */
-    private PillGroupEnum grade;
+    private DanYaoGroupEnum grade;
 
     /**
      * 丹药种类 (心境、战斗、恢复、修炼等)

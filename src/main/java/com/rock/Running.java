@@ -1,7 +1,7 @@
 package com.rock;
 
 import com.rock.entity.HerbalMedicineDoc;
-import com.rock.entity.PillDoc;
+import com.rock.entity.DanYaoDoc;
 import com.rock.service.InitService;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class Running {
         List<HerbalMedicineDoc> medicineDocList = dataService.loadHerbalMedicines();
 
         //读取丹药数据
-        List<PillDoc> pillDocList = dataService.loadPills();
+        List<DanYaoDoc> danYaoDocList = dataService.loadPills();
 
         System.out.println();
 

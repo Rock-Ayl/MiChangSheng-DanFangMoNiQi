@@ -8,7 +8,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public enum PillGroupEnum {
+public enum DanYaoGroupEnum {
 
     NONE("none"),
 
@@ -24,7 +24,7 @@ public enum PillGroupEnum {
     //编码
     private final String code;
 
-    PillGroupEnum(String code) {
+    DanYaoGroupEnum(String code) {
         this.code = code;
     }
 
@@ -34,11 +34,11 @@ public enum PillGroupEnum {
      * @param code
      * @return
      */
-    public static PillGroupEnum parseByCode(String code) {
+    public static DanYaoGroupEnum parseByCode(String code) {
         //判空
         if (code != null) {
             //循环
-            for (PillGroupEnum object : PillGroupEnum.values()) {
+            for (DanYaoGroupEnum object : DanYaoGroupEnum.values()) {
                 //对比
                 if (object.getCode().equals(code)) {
                     //返回
