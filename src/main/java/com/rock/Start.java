@@ -24,12 +24,13 @@ public class Start {
      */
     public static void main(String[] args) {
 
+        //初始化服务
+        InitService dataService = new InitService();
+        CombinationService combinationService = new CombinationService();
+
         /**
          * 读取 药材 配置
          */
-
-        //初始化服务
-        InitService dataService = new InitService();
 
         //读取药材数据
         List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
@@ -38,11 +39,10 @@ public class Start {
          * 读取 丹药(包含丹方) 配置
          */
 
-        //药材转为map
+        //转为 药材名称map
         Map<String, YaoCaiDoc> yaoCaiDocMap = yaoCaiDocList
                 .stream()
                 .collect(Collectors.toMap(YaoCaiDoc::getName, p -> p));
-
         //基于药材,读取丹药数据
         List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocMap);
 
@@ -52,8 +52,6 @@ public class Start {
 
         //初始化丹方列表
         List<DanFangDoc> danFangDocList = new ArrayList<>();
-        //初始化服务
-        CombinationService combinationService = new CombinationService();
         //循环所有丹药
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
