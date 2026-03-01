@@ -18,27 +18,27 @@ public class DanFangDoc {
     /**
      * 主药1
      */
-    private YaoCaiShuLiangDoc mainHerb1;
+    private DanFangItemDoc mainHerb1;
 
     /**
      * 主药2
      */
-    private YaoCaiShuLiangDoc mainHerb2;
+    private DanFangItemDoc mainHerb2;
 
     /**
      * 辅药1
      */
-    private YaoCaiShuLiangDoc secondaryHerb1;
+    private DanFangItemDoc secondaryHerb1;
 
     /**
      * 辅药2
      */
-    private YaoCaiShuLiangDoc secondaryHerb2;
+    private DanFangItemDoc secondaryHerb2;
 
     /**
      * 药引
      */
-    private YaoCaiShuLiangDoc guideHerb;
+    private DanFangItemDoc guideHerb;
 
     /**
      * 解析实体
@@ -55,11 +55,11 @@ public class DanFangDoc {
         //初始化
         DanFangDoc danFangDoc = new DanFangDoc();
         //解析并组装参数
-        danFangDoc.setMainHerb1(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 0), yaoCaiDocMap));
-        danFangDoc.setMainHerb2(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 1), yaoCaiDocMap));
-        danFangDoc.setSecondaryHerb1(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 2), yaoCaiDocMap));
-        danFangDoc.setSecondaryHerb2(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap));
-        danFangDoc.setGuideHerb(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 4), yaoCaiDocMap));
+        danFangDoc.setMainHerb1(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 0), yaoCaiDocMap));
+        danFangDoc.setMainHerb2(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 1), yaoCaiDocMap));
+        danFangDoc.setSecondaryHerb1(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 2), yaoCaiDocMap));
+        danFangDoc.setSecondaryHerb2(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap));
+        danFangDoc.setGuideHerb(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 4), yaoCaiDocMap));
         //返回
         return danFangDoc;
     }

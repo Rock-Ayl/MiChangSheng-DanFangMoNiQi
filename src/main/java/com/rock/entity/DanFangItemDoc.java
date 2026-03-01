@@ -7,12 +7,12 @@ import lombok.ToString;
 import java.util.Map;
 
 /**
- * 药材 & 数量 实体类
+ * 丹方-明细 实体类
  */
 @Getter
 @Setter
 @ToString
-public class YaoCaiShuLiangDoc {
+public class DanFangItemDoc {
 
     /**
      * 药材实体
@@ -30,7 +30,7 @@ public class YaoCaiShuLiangDoc {
      * @param yaoCaiShuLiangStr 药材 & 数量 字符串
      * @param yaoCaiDocMap      药材map
      **/
-    public static YaoCaiShuLiangDoc parse(String yaoCaiShuLiangStr, Map<String, YaoCaiDoc> yaoCaiDocMap) {
+    public static DanFangItemDoc parse(String yaoCaiShuLiangStr, Map<String, YaoCaiDoc> yaoCaiDocMap) {
         //判空
         if (yaoCaiShuLiangStr == null || yaoCaiShuLiangStr.isEmpty()) {
             //过
@@ -53,12 +53,12 @@ public class YaoCaiShuLiangDoc {
             return null;
         }
         //初始化实体
-        YaoCaiShuLiangDoc yaoCaiShuLiangDoc = new YaoCaiShuLiangDoc();
+        DanFangItemDoc danFangItemDoc = new DanFangItemDoc();
         //组装
-        yaoCaiShuLiangDoc.setYaoCai(yaoCaiDoc);
-        yaoCaiShuLiangDoc.setQuantity(Integer.parseInt(parts[1]));
+        danFangItemDoc.setYaoCai(yaoCaiDoc);
+        danFangItemDoc.setQuantity(Integer.parseInt(parts[1]));
         //返回
-        return yaoCaiShuLiangDoc;
+        return danFangItemDoc;
     }
 
 }
