@@ -25,10 +25,7 @@ public class Start {
     public static void main(String[] args) {
 
         /**
-         * 读取文件、转为所需实体
-         * -
-         * 1. 药材
-         * 2. 丹药(包含丹方)
+         * 读取 药材 配置
          */
 
         //初始化服务
@@ -37,6 +34,10 @@ public class Start {
         //读取药材数据
         List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
 
+        /**
+         * 读取 丹药(包含丹方) 配置
+         */
+
         //药材转为map
         Map<String, YaoCaiDoc> yaoCaiDocMap = yaoCaiDocList
                 .stream()
@@ -44,8 +45,6 @@ public class Start {
 
         //基于药材,读取丹药数据
         List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocMap);
-
-        System.out.println();
 
         /**
          * 组合排列生成所有丹方
