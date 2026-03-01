@@ -1,7 +1,6 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
-import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
@@ -66,13 +65,15 @@ public class CombinationService {
         boolean hasSecondary2 = danLuEnum.isSecondary2();
 
         /**
-         * 组合排列
+         * todo 组合排列
          */
 
-        //获取主药1所有草药
-        List<YaoCaiDoc> yaoCaiDocList1 = yaoCaiMainEffectMap.get(baseFormula.getMainHerb1().getYaoCai().getMainEffect());
+        //获取主药1可能的草药
+        List<YaoCaiDoc> main1YaoCaiList = yaoCaiMainEffectMap.get(baseFormula.getMainHerb1().getYaoCai().getMainEffect());
+        //循环
+        for (YaoCaiDoc main1YaoCai : main1YaoCaiList) {
 
-        System.out.println();
+        }
 
         /**
          * 返回结果
