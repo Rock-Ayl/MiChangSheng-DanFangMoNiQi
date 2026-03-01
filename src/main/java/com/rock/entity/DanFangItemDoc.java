@@ -23,6 +23,11 @@ public class DanFangItemDoc {
     private Integer quantity;
 
     /**
+     * 所需总药力
+     */
+    private Integer totalPower;
+
+    /**
      * 解析实体
      *
      * @param yaoCaiShuLiangStr 药材 & 数量 字符串
@@ -55,6 +60,8 @@ public class DanFangItemDoc {
         //组装
         danFangItemDoc.setYaoCai(yaoCaiDoc);
         danFangItemDoc.setQuantity(Integer.parseInt(parts[1]));
+        //计算所需总药力
+        danFangItemDoc.setTotalPower(yaoCaiDoc.getGrade().getPower() * danFangItemDoc.getQuantity());
         //返回
         return danFangItemDoc;
     }
@@ -62,7 +69,7 @@ public class DanFangItemDoc {
     //方便调试
     @Override
     public String toString() {
-        return this.yaoCai.getName() + "*" + this.quantity;
+        return this.yaoCai.getName() + "*" + this.quantity + "(" + this.totalPower + ")";
     }
 
 }
