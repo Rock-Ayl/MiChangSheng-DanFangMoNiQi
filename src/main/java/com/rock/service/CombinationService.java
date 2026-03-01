@@ -87,8 +87,15 @@ public class CombinationService {
              * 计算主药1是否条件
              */
 
-            //当前丹方
-            DanFangDoc danFangDoc = new DanFangDoc();
+            //主药1所需的药力
+            Integer totalPower = baseFormula.getMainHerb1().getTotalPower();
+            //药材1所需数量
+            Integer main1YaoCaiCount = calculateMinCount(totalPower, main1YaoCai.getGrade().getPower());
+            //如果超过丹炉最大,则跳过
+            if (main1YaoCaiCount > maxCount) {
+                //跳过
+                continue;
+            }
 
             System.out.println();
 
@@ -100,6 +107,17 @@ public class CombinationService {
 
         //返回
         return result;
+    }
+
+    /**
+     * 根据所需药力、药材药力,计算最小需要几个
+     *
+     * @param totalPower 所需总药力
+     * @param power      单个药材药力
+     * @return
+     */
+    private Integer calculateMinCount(Integer totalPower, Integer power) {
+        return (totalPower / power) + (totalPower % power != 0 ? 1 : 0);
     }
 
 }
