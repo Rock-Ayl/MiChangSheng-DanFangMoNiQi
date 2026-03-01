@@ -1,7 +1,6 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
-import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.enums.DanLuEnum;
 
@@ -37,17 +36,6 @@ public class CombinationService {
         if (danLuEnum == null || danLuEnum == DanLuEnum.NONE) {
             //过
             return new ArrayList<>();
-        }
-
-        /**
-         * todo 抽取丹方所需药力
-         */
-
-        //获取主药1
-        DanFangItemDoc formulaMainHerb1 = formula.getMainHerb1();
-        //如果有主药1
-        if (formulaMainHerb1 != null) {
-
         }
 
         /**
