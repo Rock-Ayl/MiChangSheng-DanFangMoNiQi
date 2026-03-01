@@ -2,7 +2,6 @@ package com.rock.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@ToString
 public class DanFangItemDoc {
 
     /**
@@ -59,6 +57,12 @@ public class DanFangItemDoc {
         danFangItemDoc.setQuantity(Integer.parseInt(parts[1]));
         //返回
         return danFangItemDoc;
+    }
+
+    //方便调试
+    @Override
+    public String toString() {
+        return this.yaoCai.getName() + "*" + this.quantity;
     }
 
 }
