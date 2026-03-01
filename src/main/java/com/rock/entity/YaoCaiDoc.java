@@ -3,6 +3,7 @@ package com.rock.entity;
 import com.rock.enums.GroupEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiPropertyEnum;
+import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,8 +37,10 @@ public class YaoCaiDoc {
 
     /**
      * 辅药作用
+     * -
+     * {@link YaoCaiSecondaryEffectEnum } 枚举
      */
-    private String secondaryEffect;
+    private YaoCaiSecondaryEffectEnum secondaryEffect;
 
     /**
      * 药引性质

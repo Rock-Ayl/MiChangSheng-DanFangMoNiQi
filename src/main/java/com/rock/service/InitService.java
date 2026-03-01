@@ -7,6 +7,7 @@ import com.rock.enums.DanYaoTypeEnum;
 import com.rock.enums.GroupEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiPropertyEnum;
+import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -58,7 +59,7 @@ public class InitService {
                 //解析参数
                 yaoCaiDoc.setMainEffect(YaoCaiMainEffectEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析参数
-                yaoCaiDoc.setSecondaryEffect(ArrayExtraUtils.getString(partArr, 3));
+                yaoCaiDoc.setSecondaryEffect(YaoCaiSecondaryEffectEnum.parseByCode(ArrayExtraUtils.getString(partArr, 3)));
                 //解析枚举
                 yaoCaiDoc.setProperty(YaoCaiPropertyEnum.parseByCode(ArrayExtraUtils.getString(partArr, 4)));
                 //组装到列表
