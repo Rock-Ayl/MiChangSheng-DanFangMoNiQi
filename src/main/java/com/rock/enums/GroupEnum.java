@@ -10,22 +10,26 @@ import lombok.ToString;
 @ToString
 public enum GroupEnum {
 
-    NONE("none"),
+    NONE("none", -1),
 
-    ONE("一品"),
-    TWO("二品"),
-    THREE("三品"),
-    FOUR("四品"),
-    FIVE("五品"),
-    SIX("六品"),
+    ONE("一品", 1),
+    TWO("二品", 3),
+    THREE("三品", 9),
+    FOUR("四品", 36),
+    FIVE("五品", 180),
+    SIX("六品", 1080),
 
     ;
 
     //编码
     private final String code;
 
-    GroupEnum(String code) {
+    //单个药材,对应品级,对应的药力
+    private final Integer power;
+
+    GroupEnum(String code, Integer power) {
         this.code = code;
+        this.power = power;
     }
 
     /**
