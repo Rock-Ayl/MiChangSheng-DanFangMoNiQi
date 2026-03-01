@@ -1,6 +1,7 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
+import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.enums.DanLuEnum;
 
@@ -22,7 +23,7 @@ public class CombinationService {
     public List<DanFangDoc> combination(DanYaoDoc danYaoDoc, DanLuEnum danLuEnum) {
 
         /**
-         * todo 校验
+         * todo 校验参数
          */
 
         //获取基础丹方
@@ -39,10 +40,21 @@ public class CombinationService {
         }
 
         /**
+         * todo 抽取丹方所需药力
+         */
+
+        //获取主药1
+        DanFangItemDoc formulaMainHerb1 = formula.getMainHerb1();
+        //如果有主药1
+        if (formulaMainHerb1 != null) {
+
+        }
+
+        /**
          * todo 计算
          */
 
-        return null;
+        return new ArrayList<>();
     }
 
 }
