@@ -2,10 +2,14 @@ package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
+import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
+import com.rock.enums.YaoCaiMainEffectEnum;
+import com.rock.enums.YaoCaiSecondaryEffectEnum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 组合排列服务
@@ -15,11 +19,17 @@ public class CombinationService {
     /**
      * 组合排列
      *
-     * @param danYaoDoc 丹药
-     * @param danLuEnum 丹炉
+     * @param danYaoDoc                丹药
+     * @param danLuEnum                丹炉
+     * @param yaoCaiMainEffectMap      药材主药分组map
+     * @param yaoCaiSecondaryEffectMap 药材副药分组map
      * @return
      */
-    public List<DanFangDoc> combination(DanYaoDoc danYaoDoc, DanLuEnum danLuEnum) {
+    public List<DanFangDoc> combination(
+            DanYaoDoc danYaoDoc,
+            DanLuEnum danLuEnum,
+            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap,
+            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
         /**
          * todo 校验参数
