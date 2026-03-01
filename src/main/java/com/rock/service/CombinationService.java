@@ -63,6 +63,16 @@ public class CombinationService {
         boolean hasMain2 = danLuEnum.isMain2();
         //是否有辅药2槽位
         boolean hasSecondary2 = danLuEnum.isSecondary2();
+        //如果没有主药2槽位 and 需要主药2
+        if (hasMain2 == false && baseFormula.getMainHerb2() != null) {
+            //过
+            return new ArrayList<>();
+        }
+        //如果没有辅药2槽位 and 需要辅药2
+        if (hasSecondary2 == false && baseFormula.getSecondaryHerb2() != null) {
+            //过
+            return new ArrayList<>();
+        }
 
         /**
          * todo 组合排列
