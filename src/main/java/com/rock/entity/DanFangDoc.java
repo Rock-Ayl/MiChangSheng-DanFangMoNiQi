@@ -14,29 +14,29 @@ import lombok.ToString;
 public class DanFangDoc {
 
     /**
-     * 主药1 (格式: 药材名*数量)
+     * 主药1
      */
-    private String mainHerb1;
+    private YaoCaiShuLiangDoc mainHerb1;
 
     /**
-     * 主药2 (格式: 药材名*数量)
+     * 主药2
      */
-    private String mainHerb2;
+    private YaoCaiShuLiangDoc mainHerb2;
 
     /**
-     * 辅药1 (格式: 药材名*数量)
+     * 辅药1
      */
-    private String secondaryHerb1;
+    private YaoCaiShuLiangDoc secondaryHerb1;
 
     /**
-     * 辅药2 (格式: 药材名*数量)
+     * 辅药2
      */
-    private String secondaryHerb2;
+    private YaoCaiShuLiangDoc secondaryHerb2;
 
     /**
-     * 药引 (格式: 药材名*数量)
+     * 药引
      */
-    private String guideHerb;
+    private YaoCaiShuLiangDoc guideHerb;
 
     /**
      * 解析实体
@@ -51,12 +51,12 @@ public class DanFangDoc {
         String[] partArr = danFangStr.split("_");
         //初始化
         DanFangDoc danFangDoc = new DanFangDoc();
-        //组装参数
-        danFangDoc.setMainHerb1(ArrayExtraUtils.getString(partArr, 0));
-        danFangDoc.setMainHerb2(ArrayExtraUtils.getString(partArr, 1));
-        danFangDoc.setSecondaryHerb1(ArrayExtraUtils.getString(partArr, 2));
-        danFangDoc.setSecondaryHerb2(ArrayExtraUtils.getString(partArr, 3));
-        danFangDoc.setGuideHerb(ArrayExtraUtils.getString(partArr, 4));
+        //解析并组装参数
+        danFangDoc.setMainHerb1(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 0)));
+        danFangDoc.setMainHerb2(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 1)));
+        danFangDoc.setSecondaryHerb1(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 2)));
+        danFangDoc.setSecondaryHerb2(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
+        danFangDoc.setGuideHerb(YaoCaiShuLiangDoc.parse(ArrayExtraUtils.getString(partArr, 4)));
         //返回
         return danFangDoc;
     }
