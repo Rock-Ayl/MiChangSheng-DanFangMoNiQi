@@ -56,6 +56,11 @@ public class DanFangDoc {
         DanFangDoc danFangDoc = new DanFangDoc();
         //解析并组装参数
         danFangDoc.setMainHerb1(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 0), yaoCaiDocMap));
+        //如果没有主药,视为没有丹方
+        if (danFangDoc.getMainHerb1() == null) {
+            //过
+            return null;
+        }
         danFangDoc.setMainHerb2(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 1), yaoCaiDocMap));
         danFangDoc.setSecondaryHerb1(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 2), yaoCaiDocMap));
         danFangDoc.setSecondaryHerb2(DanFangItemDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap));
