@@ -10,14 +10,14 @@ import lombok.ToString;
 @ToString
 public enum DanLuEnum {
 
-    NONE("none", GroupEnum.NONE),
+    NONE("none", GroupEnum.NONE, 0),
 
-    ONE("一品丹炉", GroupEnum.ONE),
-    TWO("二品丹炉", GroupEnum.TWO),
-    THREE("三品丹炉", GroupEnum.THREE),
-    FOUR("四品丹炉", GroupEnum.FOUR),
-    FIVE("五品丹炉", GroupEnum.FIVE),
-    SIX("六品丹炉", GroupEnum.SIX),
+    ONE("一品丹炉", GroupEnum.ONE, 9),
+    TWO("二品丹炉", GroupEnum.TWO, 10),
+    THREE("三品丹炉", GroupEnum.THREE, 11),
+    FOUR("四品丹炉", GroupEnum.FOUR, 12),
+    FIVE("五品丹炉", GroupEnum.FIVE, 13),
+    SIX("六品丹炉", GroupEnum.SIX, 14),
 
     ;
 
@@ -27,10 +27,14 @@ public enum DanLuEnum {
     //丹炉品级
     private final GroupEnum groupEnum;
 
+    //最大草药数
+    private final Integer maxCount;
+
     //初始化
-    DanLuEnum(String code, GroupEnum groupEnum) {
+    DanLuEnum(String code, GroupEnum groupEnum, Integer maxCount) {
         this.code = code;
         this.groupEnum = groupEnum;
+        this.maxCount = maxCount;
     }
 
 }
