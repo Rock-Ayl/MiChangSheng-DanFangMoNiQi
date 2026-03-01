@@ -4,6 +4,8 @@ import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
+import com.rock.enums.YaoCaiMainEffectEnum;
+import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
@@ -45,6 +47,24 @@ public class Start {
                 .collect(Collectors.toMap(YaoCaiDoc::getName, p -> p));
         //基于药材,读取丹药数据
         List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocMap);
+
+        /**
+         * 转为 主药药性map(同药性药材一组)
+         */
+
+        //药材主药分组map
+        Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap = yaoCaiDocList
+                .stream()
+                .collect(Collectors.groupingBy(YaoCaiDoc::getMainEffect));
+
+        /**
+         * 转为 辅药药性map(同药性药材一组)
+         */
+
+        //药材辅药分组map
+        Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap = yaoCaiDocList
+                .stream()
+                .collect(Collectors.groupingBy(YaoCaiDoc::getSecondaryEffect));
 
         /**
          * 组合排列生成所有丹方
