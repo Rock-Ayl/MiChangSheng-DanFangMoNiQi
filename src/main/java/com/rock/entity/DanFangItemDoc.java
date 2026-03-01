@@ -23,9 +23,26 @@ public class DanFangItemDoc {
     private Integer quantity;
 
     /**
-     * 所需总药力
+     * 总药力
      */
     private Integer totalPower;
+
+    /**
+     * 初始化
+     */
+    public DanFangItemDoc() {
+
+    }
+
+    /**
+     * 初始化2
+     */
+    public DanFangItemDoc(YaoCaiDoc yaoCai, Integer quantity) {
+        this.yaoCai = yaoCai;
+        this.quantity = quantity;
+        //计算总药效
+        this.totalPower = yaoCai.getGrade().getPower() * quantity;
+    }
 
     /**
      * 解析实体
@@ -55,15 +72,8 @@ public class DanFangItemDoc {
             //过
             return null;
         }
-        //初始化实体
-        DanFangItemDoc danFangItemDoc = new DanFangItemDoc();
-        //组装
-        danFangItemDoc.setYaoCai(yaoCaiDoc);
-        danFangItemDoc.setQuantity(Integer.parseInt(parts[1]));
-        //计算所需总药力
-        danFangItemDoc.setTotalPower(yaoCaiDoc.getGrade().getPower() * danFangItemDoc.getQuantity());
-        //返回
-        return danFangItemDoc;
+        //初始化实体,返回
+        return new DanFangItemDoc(yaoCaiDoc, Integer.parseInt(parts[1]));
     }
 
     //方便调试

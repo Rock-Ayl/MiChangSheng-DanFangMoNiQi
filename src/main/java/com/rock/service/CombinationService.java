@@ -83,6 +83,15 @@ public class CombinationService {
         //循环
         for (YaoCaiDoc main1YaoCai : main1YaoCaiList) {
 
+            /**
+             * 计算主药1是否条件
+             */
+
+            //当前丹方
+            DanFangDoc danFangDoc = new DanFangDoc();
+
+            System.out.println();
+
         }
 
         /**
