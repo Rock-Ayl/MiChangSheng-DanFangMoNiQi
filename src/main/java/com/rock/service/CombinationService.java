@@ -21,6 +21,7 @@ public class CombinationService {
      *
      * @param danYaoDoc                丹药
      * @param danLuEnum                丹炉
+     * @param yaoCaiDocList            药材列表
      * @param yaoCaiMainEffectMap      药材主药分组map
      * @param yaoCaiSecondaryEffectMap 药材副药分组map
      * @return
@@ -28,6 +29,7 @@ public class CombinationService {
     public List<DanFangDoc> combination(
             DanYaoDoc danYaoDoc,
             DanLuEnum danLuEnum,
+            List<YaoCaiDoc> yaoCaiDocList,
             Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 

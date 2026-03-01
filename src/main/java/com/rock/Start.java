@@ -80,6 +80,7 @@ public class Start {
                 danFangDocList.addAll(combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
+                        yaoCaiDocList,
                         yaoCaiMainEffectMap,
                         yaoCaiSecondaryEffectMap
                 ));
