@@ -34,7 +34,7 @@ public class DanYaoDoc {
     private DanYaoTypeEnum type;
 
     /**
-     * 丹方配方
+     * 基础丹方
      */
     private DanFangDoc formula;
 
