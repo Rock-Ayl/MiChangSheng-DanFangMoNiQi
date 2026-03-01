@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 /**
  * 药材 & 数量 实体类
  */
@@ -26,8 +28,9 @@ public class YaoCaiShuLiangDoc {
      * 解析实体
      *
      * @param yaoCaiShuLiangStr 药材 & 数量 字符串
-     */
-    public static YaoCaiShuLiangDoc parse(String yaoCaiShuLiangStr) {
+     * @param yaoCaiDocMap      药材map
+     **/
+    public static YaoCaiShuLiangDoc parse(String yaoCaiShuLiangStr, Map<String, YaoCaiDoc> yaoCaiDocMap) {
         //判空
         if (yaoCaiShuLiangStr == null || yaoCaiShuLiangStr.isEmpty()) {
             //过
@@ -40,10 +43,19 @@ public class YaoCaiShuLiangDoc {
             //过
             return null;
         }
+        //获取药材名称
+        String yaoCaiName = parts[0].trim();
+        //获取药材实体
+        YaoCaiDoc yaoCaiDoc = yaoCaiDocMap.get(yaoCaiName);
+        //如果不存在
+        if (yaoCaiDoc == null) {
+            //过
+            return null;
+        }
         //初始化实体
         YaoCaiShuLiangDoc yaoCaiShuLiangDoc = new YaoCaiShuLiangDoc();
-        //todo 组装
-        yaoCaiShuLiangDoc.setYaoCai(null);
+        //组装
+        yaoCaiShuLiangDoc.setYaoCai(yaoCaiDoc);
         yaoCaiShuLiangDoc.setQuantity(Integer.parseInt(parts[1]));
         //返回
         return yaoCaiShuLiangDoc;

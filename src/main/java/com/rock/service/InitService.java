@@ -3,11 +3,7 @@ package com.rock.service;
 import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
-import com.rock.enums.DanYaoTypeEnum;
-import com.rock.enums.GroupEnum;
-import com.rock.enums.YaoCaiMainEffectEnum;
-import com.rock.enums.YaoCaiPropertyEnum;
-import com.rock.enums.YaoCaiSecondaryEffectEnum;
+import com.rock.enums.*;
 import com.rock.util.ArrayExtraUtils;
 
 import java.io.BufferedReader;
@@ -15,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 读取文件,转为实体
@@ -76,9 +73,10 @@ public class InitService {
     /**
      * 读取所有-丹药数据
      *
+     * @param yaoCaiDocMap 药材map
      * @return 丹药列表
      */
-    public List<DanYaoDoc> loadDanYao() {
+    public List<DanYaoDoc> loadDanYao(Map<String, YaoCaiDoc> yaoCaiDocMap) {
         //初始化丹药列表
         List<DanYaoDoc> danYaoDocList = new ArrayList<>();
         //读取资源
@@ -107,7 +105,7 @@ public class InitService {
                 //解析枚举
                 danYaoDoc.setType(DanYaoTypeEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
                 //解析丹方并组装
-                danYaoDoc.setFormula(DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3)));
+                danYaoDoc.setFormula(DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap));
                 //解析价格
                 danYaoDoc.setAmount(Integer.parseInt(ArrayExtraUtils.getString(partArr, 4)));
                 //组装到列表

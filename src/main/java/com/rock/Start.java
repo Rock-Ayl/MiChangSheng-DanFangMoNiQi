@@ -1,10 +1,12 @@
 package com.rock;
 
-import com.rock.entity.YaoCaiDoc;
 import com.rock.entity.DanYaoDoc;
+import com.rock.entity.YaoCaiDoc;
 import com.rock.service.InitService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 启动器
@@ -31,8 +33,13 @@ public class Start {
         //读取药材数据
         List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
 
-        //读取丹药数据
-        List<DanYaoDoc> danYaoDocList = dataService.loadDanYao();
+        //药材转为map
+        Map<String, YaoCaiDoc> yaoCaiDocMap = yaoCaiDocList
+                .stream()
+                .collect(Collectors.toMap(YaoCaiDoc::getName, p -> p));
+
+        //基于药材,读取丹药数据
+        List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocMap);
 
         System.out.println();
 
