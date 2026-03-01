@@ -50,7 +50,7 @@ public class CombinationService {
         }
 
         /**
-         * todo 计算所有可能结果
+         * 所需其他参数
          */
 
         //初始化结果列表
@@ -63,6 +63,10 @@ public class CombinationService {
         //是否有辅药2槽位
         boolean hasSecondary2 = danLuEnum.isSecondary2();
 
+        /**
+         * 每种药的单独可能
+         */
+
         //生成主药组合
         List<List<DanFangItemDoc>> mainHerbCombinations = generateMainHerbCombinations(
                 baseFormula, yaoCaiMainEffectMap, hasMain2);
@@ -73,6 +77,12 @@ public class CombinationService {
 
         //生成药引组合
         List<DanFangItemDoc> guideHerbCombinations = generateGuideHerbCombinations(baseFormula);
+
+        /**
+         * 组合排列
+         */
+
+        System.out.println();
 
         //组合所有可能的结果
         for (List<DanFangItemDoc> mainHerbs : mainHerbCombinations) {

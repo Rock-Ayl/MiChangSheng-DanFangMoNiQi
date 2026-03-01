@@ -76,7 +76,7 @@ public class Start {
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
-                //生成所有组合,并加入列表
+                //todo 生成所有组合,并加入列表
                 danFangDocList.addAll(combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
