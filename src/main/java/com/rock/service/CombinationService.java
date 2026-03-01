@@ -32,7 +32,7 @@ public class CombinationService {
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
         /**
-         * todo 校验参数
+         * 校验参数
          */
 
         //获取基础丹方
@@ -49,10 +49,13 @@ public class CombinationService {
         }
 
         /**
-         * todo 计算
+         * todo 计算所有可能结果
          */
 
-        return new ArrayList<>();
+        //初始化结果列表
+        List<DanFangDoc> result = new ArrayList<>();
+        //返回
+        return result;
     }
 
 }
