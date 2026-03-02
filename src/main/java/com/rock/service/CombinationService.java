@@ -1,7 +1,6 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
-import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
@@ -76,37 +75,22 @@ public class CombinationService {
         }
 
         /**
-         * 组合排列-主药1
+         * 组合排列
          */
 
-        //获取主药1
-        DanFangItemDoc mainHerb1 = baseFormula.getMainHerb1();
-        //获取主药1可能的草药
-        List<YaoCaiDoc> main1YaoCaiList = yaoCaiMainEffectMap.get(mainHerb1.getYaoCai().getMainEffect());
-        //循环
-        for (YaoCaiDoc main1YaoCai : main1YaoCaiList) {
+        //todo 主药1
 
-            /**
-             * 组合排列-主药1-是否满足药力条件
-             */
+        //todo 主药2
 
-            //主药1所需的药力
-            Integer totalPower = mainHerb1.getTotalPower();
-            //药材1所需数量
-            Integer main1YaoCaiCount = calculateMinCount(totalPower, main1YaoCai.getGrade().getPower());
-            //如果超过丹炉最大,则跳过
-            if (main1YaoCaiCount > maxCount) {
-                //跳过
-                continue;
-            }
+        //todo 辅药1
 
-            /**
-             * todo 组合排列-主药2
-             */
+        //todo 辅药2
 
-            DanFangItemDoc mainHerb2 = baseFormula.getMainHerb2();
+        //todo 药引
 
-        }
+        //todo 检查寒热平衡
+
+        //todo 检查是否有覆盖的更高级配方
 
         /**
          * 返回结果
