@@ -78,15 +78,16 @@ public class CombinationService {
          * 组合排列
          */
 
-        //todo 主药1
+        //todo 构建主药1
+        result = buildMain1(result);
 
-        //todo 主药2
+        //todo 构建主药2
 
-        //todo 辅药1
+        //todo 构建辅药1
 
-        //todo 辅药2
+        //todo 构建辅药2
 
-        //todo 药引
+        //todo 构建药引
 
         //todo 检查寒热平衡
 
@@ -98,6 +99,15 @@ public class CombinationService {
 
         //返回
         return result;
+    }
+
+    /**
+     * todo 构建主药1
+     *
+     * @return
+     */
+    private List<DanFangDoc> buildMain1(List<DanFangDoc> danFangDocList) {
+        return null;
     }
 
     /**
