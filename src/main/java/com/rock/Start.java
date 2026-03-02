@@ -9,7 +9,7 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -70,14 +70,14 @@ public class Start {
          * 组合排列生成所有丹方
          */
 
-        //初始化丹方列表
-        List<DanFangDoc> danFangDocList = new ArrayList<>();
+        //丹方map
+        Map<DanYaoDoc, List<DanFangDoc>> danFangDocMap = new HashMap<>();
         //循环所有丹药
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
-                //todo 生成所有组合,并加入列表
-                danFangDocList.addAll(combinationService.combination(
+                //todo 生成所有组合,并加入map
+                danFangDocMap.put(danYaoDoc, combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
                         yaoCaiDocList,
