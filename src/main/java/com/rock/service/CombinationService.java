@@ -150,11 +150,16 @@ public class CombinationService {
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
                 //设置主药1
                 newDanFang.setMainHerb1(new DanFangItemDoc(main1YaoCai, minCount));
+                //如果当前单方的药材总数 大于 丹炉最大药材数量
+                if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
+                    //炸炉,过
+                    continue;
+                }
                 //添加到结果列表
                 newResultList.add(newDanFang);
             }
         }
-        //返回结果
+        //返回新的结果
         return newResultList;
     }
 
