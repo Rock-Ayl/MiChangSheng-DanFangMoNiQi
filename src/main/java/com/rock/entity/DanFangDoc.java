@@ -41,6 +41,43 @@ public class DanFangDoc {
     private DanFangItemDoc guideHerb;
 
     /**
+     * 返回当前单方的药材总数
+     *
+     * @return
+     */
+    public Integer getCurrentYaoCaiCount() {
+        //初始化
+        Integer count = 0;
+        //主药1
+        if (this.mainHerb1 != null) {
+            //叠加
+            count += this.mainHerb1.getQuantity();
+        }
+        //主药2
+        if (this.mainHerb2 != null) {
+            //叠加
+            count += this.mainHerb2.getQuantity();
+        }
+        //辅药1
+        if (this.secondaryHerb1 != null) {
+            //叠加
+            count += this.secondaryHerb1.getQuantity();
+        }
+        //辅药2
+        if (this.secondaryHerb2 != null) {
+            //叠加
+            count += this.secondaryHerb2.getQuantity();
+        }
+        //药引
+        if (this.guideHerb != null) {
+            //叠加
+            count += this.guideHerb.getQuantity();
+        }
+        //返回
+        return count;
+    }
+
+    /**
      * 解析实体
      *
      * @param danFangStr   丹方字符串
