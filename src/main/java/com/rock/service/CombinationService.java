@@ -1,11 +1,13 @@
 package com.rock.service;
 
 import com.rock.entity.DanFangDoc;
+import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
+import com.rock.util.FastJsonExtraUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,8 +80,11 @@ public class CombinationService {
          * 组合排列
          */
 
-        //todo 构建主药1
-        result = buildMain1(result);
+        //创建空丹方,加入列表
+        result.add(new DanFangDoc());
+
+        //构建主药1
+        result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
 
         //todo 构建主药2
 
@@ -102,12 +107,55 @@ public class CombinationService {
     }
 
     /**
-     * todo 构建主药1
+     * 构建主药1
      *
+     * @param danFangDocList      当前丹方列表
+     * @param baseFormula         基础丹方
+     * @param maxCount            丹炉最大药材数量
+     * @param yaoCaiMainEffectMap 药材主药分组map
      * @return
      */
-    private List<DanFangDoc> buildMain1(List<DanFangDoc> danFangDocList) {
-        return null;
+    private List<DanFangDoc> buildMain1(
+            List<DanFangDoc> danFangDocList,
+            DanFangDoc baseFormula,
+            Integer maxCount,
+            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap) {
+
+        /**
+         * 获取主药1
+         */
+
+        //获取基础丹方-主药1
+        DanFangItemDoc baseMainHerb1 = baseFormula.getMainHerb1();
+        //获取主药1-所需总药力
+        Integer requiredPower = baseMainHerb1.getTotalPower();
+        //获取主药1-主药作用
+        YaoCaiMainEffectEnum requiredMainEffect = baseMainHerb1.getYaoCai().getMainEffect();
+        //获取主药1-对应药材列表
+        List<YaoCaiDoc> Main1YaocaiList = yaoCaiMainEffectMap.get(requiredMainEffect);
+
+        /**
+         * 组合排列
+         */
+
+        //组合排列后的丹方列表
+        List<DanFangDoc> newResultList = new ArrayList<>();
+        //循环
+        for (YaoCaiDoc main1YaoCai : Main1YaocaiList) {
+            //计算需要的最小数量
+            Integer minCount = calculateMinCount(requiredPower, main1YaoCai.getGrade().getPower());
+            //为单方新增新的组合
+            for (DanFangDoc danFang : danFangDocList) {
+                //克隆实体
+                DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //设置主药1
+                newDanFang.setMainHerb1(new DanFangItemDoc(main1YaoCai, minCount));
+                //添加到结果列表
+                newResultList.add(newDanFang);
+            }
+        }
+        //返回结果
+        return newResultList;
     }
 
     /**
