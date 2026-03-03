@@ -220,8 +220,11 @@ public class CombinationService {
             for (DanFangDoc danFang : danFangDocList) {
                 //克隆实体
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
-                //设置辅药1
-                newDanFang.setSecondaryHerb1(new DanFangItemDoc(secondary1YaoCai, minCount));
+                //如果有辅药1
+                if (secondary1YaoCai != null) {
+                    //设置辅药1
+                    newDanFang.setSecondaryHerb1(new DanFangItemDoc(secondary1YaoCai, minCount));
+                }
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
                 if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
                     //炸炉,过
