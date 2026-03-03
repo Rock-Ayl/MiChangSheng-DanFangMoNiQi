@@ -91,7 +91,8 @@ public class CombinationService {
         //构建辅药1
         result = buildSecondary1(result, baseFormula, maxCount, yaoCaiDocList, yaoCaiSecondaryEffectMap);
 
-        //todo 构建辅药2
+        //构建辅药2
+        result = buildSecondary2(result, baseFormula, maxCount, yaoCaiDocList, yaoCaiSecondaryEffectMap);
 
         //todo 构建药引
 
