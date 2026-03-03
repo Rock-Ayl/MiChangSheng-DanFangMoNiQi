@@ -89,7 +89,7 @@ public class CombinationService {
         //todo 构建主药2
 
         //构建辅药1
-        result = buildSecondary1(result, baseFormula, maxCount, yaoCaiSecondaryEffectMap);
+        result = buildSecondary1(result, baseFormula, maxCount, yaoCaiDocList, yaoCaiSecondaryEffectMap);
 
         //todo 构建辅药2
 
@@ -170,13 +170,15 @@ public class CombinationService {
      * @param danFangDocList           当前丹方列表
      * @param baseFormula              基础丹方
      * @param maxCount                 丹炉最大药材数量
+     * @param yaoCaiDocList            所有药材列表
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
-     * @return
+     * @returno
      */
     private List<DanFangDoc> buildSecondary1(
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
+            List<YaoCaiDoc> yaoCaiDocList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
         /**
