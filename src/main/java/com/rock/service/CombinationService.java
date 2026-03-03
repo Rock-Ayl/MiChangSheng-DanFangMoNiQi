@@ -560,65 +560,15 @@ public class CombinationService {
     /**
      * 检查新丹方是否覆盖其他单方药性
      * -
-     * 判断标准：新丹方的主药和辅药是否完全包含另一个丹方的主药和辅药
+     * 判断标准：
+     * 新丹方的主药和辅药是否完全覆盖另一个丹方的主药和辅药,对应药力也要完全覆盖
      *
      * @param newFormula 新丹方
      * @param oldFormula 旧丹方
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
-
-        //获取新丹方的主药药性列表
-        List<String> newMainEffects = new ArrayList<>();
-        if (newFormula.getMainHerb1() != null) {
-            newMainEffects.add(newFormula.getMainHerb1().getYaoCai().getMainEffect().getCode());
-        }
-        if (newFormula.getMainHerb2() != null) {
-            newMainEffects.add(newFormula.getMainHerb2().getYaoCai().getMainEffect().getCode());
-        }
-
-        //获取旧丹方的主药药性列表
-        List<String> oldMainEffects = new ArrayList<>();
-        if (oldFormula.getMainHerb1() != null) {
-            oldMainEffects.add(oldFormula.getMainHerb1().getYaoCai().getMainEffect().getCode());
-        }
-        if (oldFormula.getMainHerb2() != null) {
-            oldMainEffects.add(oldFormula.getMainHerb2().getYaoCai().getMainEffect().getCode());
-        }
-
-        //检查新丹方是否包含旧丹方的所有主药药性
-        for (String oldMainEffect : oldMainEffects) {
-            if (!newMainEffects.contains(oldMainEffect)) {
-                return false;
-            }
-        }
-
-        //获取新丹方的辅药药性列表
-        List<String> newSecondaryEffects = new ArrayList<>();
-        if (newFormula.getSecondaryHerb1() != null) {
-            newSecondaryEffects.add(newFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect().getCode());
-        }
-        if (newFormula.getSecondaryHerb2() != null) {
-            newSecondaryEffects.add(newFormula.getSecondaryHerb2().getYaoCai().getSecondaryEffect().getCode());
-        }
-
-        //获取旧丹方的辅药药性列表
-        List<String> oldSecondaryEffects = new ArrayList<>();
-        if (oldFormula.getSecondaryHerb1() != null) {
-            oldSecondaryEffects.add(oldFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect().getCode());
-        }
-        if (oldFormula.getSecondaryHerb2() != null) {
-            oldSecondaryEffects.add(oldFormula.getSecondaryHerb2().getYaoCai().getSecondaryEffect().getCode());
-        }
-
-        //检查新丹方是否包含旧丹方的所有辅药药性
-        for (String oldSecondaryEffect : oldSecondaryEffects) {
-            if (!newSecondaryEffects.contains(oldSecondaryEffect)) {
-                return false;
-            }
-        }
-
-        //如果新丹方包含旧丹方的所有主药和辅药药性，则认为覆盖
+        //todo
         return true;
     }
 
