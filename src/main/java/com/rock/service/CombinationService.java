@@ -96,7 +96,8 @@ public class CombinationService {
         //构建辅药2
         result = buildSecondary2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
-        //todo 构建药引
+        //构建药引
+        result = buildGuideHerb(result, baseFormula, maxCount, yaoCaiDocAndNullList);
 
         //todo 检查寒热平衡
 
@@ -437,6 +438,68 @@ public class CombinationService {
                 //判断寒热
                 if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 1) {
                     //寒热肯定不平,过
+                    continue;
+                }
+                //添加到结果列表
+                newResultList.add(newDanFang);
+            }
+        }
+        //返回新的结果
+        return newResultList;
+    }
+
+    /**
+     * 构建药引
+     *
+     * @param danFangDocList       当前丹方列表
+     * @param baseFormula          基础丹方
+     * @param maxCount             丹炉最大药材数量
+     * @param yaoCaiDocAndNullList 所有药材列表(包含NULL)
+     * @return
+     */
+    private List<DanFangDoc> buildGuideHerb(
+            List<DanFangDoc> danFangDocList,
+            DanFangDoc baseFormula,
+            Integer maxCount,
+            List<YaoCaiDoc> yaoCaiDocAndNullList) {
+
+        /**
+         * 获取药引
+         */
+
+        //获取基础丹方-药引
+        DanFangItemDoc baseGuideHerb = baseFormula.getGuideHerb();
+        //目标药引列表
+        List<YaoCaiDoc> guideYaoCaiList = new ArrayList<>(yaoCaiDocAndNullList);
+        //不能有空的药引
+        guideYaoCaiList.remove(null);
+        //获取药引-所需总药力
+        Integer requiredPower = baseGuideHerb.getTotalPower();
+
+        /**
+         * 组合排列
+         */
+
+        //组合排列后的丹方列表
+        List<DanFangDoc> newResultList = new ArrayList<>();
+        //循环
+        for (YaoCaiDoc guideYaoCai : guideYaoCaiList) {
+            //计算需要的最小数量,如果不需要药引,则默认1个填充平衡
+            Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, guideYaoCai.getGrade().getPower());
+            //为单方新增新的组合
+            for (DanFangDoc danFang : danFangDocList) {
+                //克隆实体
+                DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //设置药引
+                newDanFang.setGuideHerb(new DanFangItemDoc(guideYaoCai, minCount));
+                //如果当前单方的药材总数 大于 丹炉最大药材数量
+                if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
+                    //炸炉,过
+                    continue;
+                }
+                //判断寒热
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 0) {
+                    //寒热不平,过
                     continue;
                 }
                 //添加到结果列表
