@@ -456,7 +456,7 @@ public class CombinationService {
                 //循环
                 for (String key : keyList) {
                     //获取相似的丹方,循环
-                    for (DanYaoDoc danYaoDoc : danFangGroupMap.get(key)) {
+                    for (DanYaoDoc danYaoDoc : danFangGroupMap.getOrDefault(key, new ArrayList<>())) {
                         //获取对应单方单方
                         DanFangDoc formula = danYaoDoc.getFormula();
                         //如果覆盖其他单方药性
