@@ -289,7 +289,7 @@ public class CombinationService {
             for (DanFangDoc danFang : danFangDocList) {
 
                 /**
-                 * 特殊填充
+                 * 特殊填充逻辑
                  * -
                  * 如果辅药1 存在
                  * 如果辅药1 与辅药2是同一种药材
@@ -309,18 +309,13 @@ public class CombinationService {
                         .map(DanFangDoc::getSecondaryHerb1)
                         .map(DanFangItemDoc::getQuantity)
                         .orElse(1);
-                //如果满足特殊填充
-                if (secondary2YaoCai.getName().equals(sec1Name) && sec1Quantity > 1) {
-                    //todo
-                    continue;
-                }
-
-                /**
-                 * 标准填充
-                 */
-
                 //克隆实体
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //如果满足特殊填充
+                if (secondary2YaoCai.getName().equals(sec1Name) && sec1Quantity > 1) {
+                    //辅药1数量-1(因为辅药2使得药性多了一个)
+                    newDanFang.getSecondaryHerb1().setQuantity(newDanFang.getSecondaryHerb1().getQuantity() - 1);
+                }
                 //设置辅药2
                 newDanFang.setSecondaryHerb2(new DanFangItemDoc(secondary2YaoCai, minCount));
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
