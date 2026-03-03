@@ -398,6 +398,8 @@ public class CombinationService {
         for (YaoCaiDoc secondary2YaoCai : secondary2YaocaiList) {
             //计算需要的最小数量,如果不需要辅药2,则默认1个填充平衡
             Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary2YaoCai.getGrade().getPower());
+            //跳出标记
+            out:
             //为单方新增新的组合
             for (DanFangDoc danFang : danFangDocList) {
 
@@ -450,6 +452,26 @@ public class CombinationService {
                  * -
                  * 主药辅药满足更高一级的丹方,要不丹药升级为别的丹药,要不寒热不平(药引不足)
                  * 主药辅药满足其他单方,则药性相冲(药性相冲)
+                 */
+
+                //所有相关key列表
+                List<String> keyList = newDanFang.getKey();
+                //循环
+                for (String key : keyList) {
+                    //获取相似的丹方,循环
+                    for (DanYaoDoc danYaoDoc : danFangGroupMap.get(key)) {
+                        //获取对应单方单方
+                        DanFangDoc formula = danYaoDoc.getFormula();
+                        //如果与其他单方药性相同
+                        if (formula.equals(newDanFang)) {
+                            //冲突 or 升级,跳过
+                            continue out;
+                        }
+                    }
+                }
+
+                /**
+                 * 加入结果
                  */
 
                 //添加到结果列表
