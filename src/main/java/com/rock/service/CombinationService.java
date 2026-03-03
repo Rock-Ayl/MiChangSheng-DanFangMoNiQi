@@ -185,20 +185,22 @@ public class CombinationService {
          * 获取辅药1
          */
 
+        //目标辅药1列表
+        List<YaoCaiDoc> secondary1YaocaiList = new ArrayList<>();
         //获取基础丹方-辅药1
         DanFangItemDoc baseSecondaryHerb1 = baseFormula.getSecondaryHerb1();
         //如果不需要辅药1
         if (baseSecondaryHerb1 == null) {
-            //todo
-            //直接返回
-            return danFangDocList;
+            //尝试用每种药材填充(平衡寒热)
+            secondary1YaocaiList = yaoCaiDocList;
+        } else {
+            //获取辅药1-所需总药力
+            Integer requiredPower = baseSecondaryHerb1.getTotalPower();
+            //获取辅药1-辅药作用
+            YaoCaiSecondaryEffectEnum requiredSecondaryEffect = baseSecondaryHerb1.getYaoCai().getSecondaryEffect();
+            //获取辅药1-对应药材列表
+            secondary1YaocaiList = yaoCaiSecondaryEffectMap.get(requiredSecondaryEffect);
         }
-        //获取辅药1-所需总药力
-        Integer requiredPower = baseSecondaryHerb1.getTotalPower();
-        //获取辅药1-辅药作用
-        YaoCaiSecondaryEffectEnum requiredSecondaryEffect = baseSecondaryHerb1.getYaoCai().getSecondaryEffect();
-        //获取辅药1-对应药材列表
-        List<YaoCaiDoc> secondary1YaocaiList = yaoCaiSecondaryEffectMap.get(requiredSecondaryEffect);
 
         /**
          * 组合排列
