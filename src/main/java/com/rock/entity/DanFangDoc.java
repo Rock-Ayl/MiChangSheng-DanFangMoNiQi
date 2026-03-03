@@ -149,6 +149,11 @@ public class DanFangDoc {
          * todo 主药药性
          */
 
+        //主药1
+        String mainHerb1Key = this.mainHerb1 != null ? this.mainHerb1.getYaoCai().getMainEffect().getCode() : "";
+        //主药2
+        String mainHerb2Key = this.mainHerb2 != null ? this.mainHerb2.getYaoCai().getMainEffect().getCode() : "";
+
         /**
          * todo 辅药药性
          */
