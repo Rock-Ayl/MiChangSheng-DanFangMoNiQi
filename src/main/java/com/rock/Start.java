@@ -68,11 +68,11 @@ public class Start {
                 .collect(Collectors.groupingBy(YaoCaiDoc::getSecondaryEffect));
 
         /**
-         * todo 丹药的丹方按照药性分组(主药+辅药)
+         * 丹药的丹方按照药性分组(主药+辅药),为丹方覆盖做准备
          */
 
-        //丹方分组key的map
-        Map<String, List<DanYaoDoc>> danFangKeyMap = new HashMap<>();
+        //丹方分组map
+        Map<String, List<DanYaoDoc>> danFangGroupMap = new HashMap<>();
         //循环
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //判空
@@ -83,11 +83,11 @@ public class Start {
             //循环所有key
             for (String key : danYaoDoc.getFormula().getKey()) {
                 //获取当前key的列表
-                List<DanYaoDoc> keyGroupList = danFangKeyMap.getOrDefault(key, new ArrayList<>());
+                List<DanYaoDoc> keyGroupList = danFangGroupMap.getOrDefault(key, new ArrayList<>());
                 //加入当前丹药
                 keyGroupList.add(danYaoDoc);
                 //加入map (覆盖)
-                danFangKeyMap.put(key, keyGroupList);
+                danFangGroupMap.put(key, keyGroupList);
             }
         }
 
@@ -112,7 +112,8 @@ public class Start {
                         danLuEnum,
                         yaoCaiDocAndNullList,
                         yaoCaiMainEffectMap,
-                        yaoCaiSecondaryEffectMap
+                        yaoCaiSecondaryEffectMap,
+                        danFangGroupMap
                 ));
             }
         }

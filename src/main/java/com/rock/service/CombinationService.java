@@ -27,6 +27,7 @@ public class CombinationService {
      * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
      * @param yaoCaiMainEffectMap      药材主药分组map
      * @param yaoCaiSecondaryEffectMap 药材副药分组map
+     * @param danFangGroupMap          丹方分组map
      * @return
      */
     public List<DanFangDoc> combination(
@@ -34,7 +35,8 @@ public class CombinationService {
             DanLuEnum danLuEnum,
             List<YaoCaiDoc> yaoCaiDocAndNullList,
             Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap,
-            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
+            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
+            Map<String, List<DanYaoDoc>> danFangGroupMap) {
 
         /**
          * 校验参数
