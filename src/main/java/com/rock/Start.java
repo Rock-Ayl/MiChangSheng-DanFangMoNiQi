@@ -9,6 +9,7 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,11 @@ public class Start {
          * 组合排列生成所有丹方
          */
 
+        //所有药材列表(包含NULL)
+        List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
+        //把空也放里面,这也是一种情况
+        yaoCaiDocAndNullList.add(null);
+
         //丹方map
         Map<DanYaoDoc, List<DanFangDoc>> danFangDocMap = new HashMap<>();
         //循环所有丹药
@@ -80,7 +86,7 @@ public class Start {
                 danFangDocMap.put(danYaoDoc, combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
-                        yaoCaiDocList,
+                        yaoCaiDocAndNullList,
                         yaoCaiMainEffectMap,
                         yaoCaiSecondaryEffectMap
                 ));
