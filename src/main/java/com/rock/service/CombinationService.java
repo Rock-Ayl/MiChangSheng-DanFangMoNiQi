@@ -96,14 +96,7 @@ public class CombinationService {
         result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
         //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
-
-        /**
-         * todo 检查 主药1+主药2+辅药1+辅药2 满足其他单方,则略过
-         * -
-         * 主药辅药满足更高一级的丹方,要不丹药升级为别的丹药,要不寒热不平(药引不足)
-         * 主药辅药满足其他单方,则药性相冲(药性相冲)
-         */
+        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap, danFangGroupMap);
 
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
@@ -360,6 +353,7 @@ public class CombinationService {
      * @param maxHotAndCold            最大寒热数值
      * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
+     * @param danFangGroupMap          丹方分组map
      * @return
      */
     private List<DanFangDoc> buildSecondary2(
@@ -368,7 +362,8 @@ public class CombinationService {
             Integer maxCount,
             Integer maxHotAndCold,
             List<YaoCaiDoc> yaoCaiDocAndNullList,
-            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
+            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
+            Map<String, List<DanYaoDoc>> danFangGroupMap) {
 
         /**
          * 获取辅药2
@@ -449,6 +444,14 @@ public class CombinationService {
                     //寒热肯定不平,过
                     continue;
                 }
+
+                /**
+                 * todo 检查 主药1+主药2+辅药1+辅药2 满足其他单方,则略过
+                 * -
+                 * 主药辅药满足更高一级的丹方,要不丹药升级为别的丹药,要不寒热不平(药引不足)
+                 * 主药辅药满足其他单方,则药性相冲(药性相冲)
+                 */
+
                 //添加到结果列表
                 newResultList.add(newDanFang);
             }
