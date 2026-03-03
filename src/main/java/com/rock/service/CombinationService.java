@@ -9,7 +9,10 @@ import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.FastJsonExtraUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * 组合排列服务
@@ -589,47 +592,7 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isMainHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        //获取新丹方的主药列表
-        List<DanFangItemDoc> newMainHerbs = new ArrayList<>();
-        if (newFormula.getMainHerb1() != null) {
-            newMainHerbs.add(newFormula.getMainHerb1());
-        }
-        if (newFormula.getMainHerb2() != null) {
-            newMainHerbs.add(newFormula.getMainHerb2());
-        }
-        //获取旧丹方的主药列表
-        List<DanFangItemDoc> oldMainHerbs = new ArrayList<>();
-        if (oldFormula.getMainHerb1() != null) {
-            oldMainHerbs.add(oldFormula.getMainHerb1());
-        }
-        if (oldFormula.getMainHerb2() != null) {
-            oldMainHerbs.add(oldFormula.getMainHerb2());
-        }
-        //按主药作用分组统计新丹方的总药力
-        Map<YaoCaiMainEffectEnum, Integer> newMainPowerMap = new HashMap<>();
-        for (DanFangItemDoc herb : newMainHerbs) {
-            YaoCaiMainEffectEnum effect = herb.getYaoCai().getMainEffect();
-            Integer power = herb.getTotalPower();
-            newMainPowerMap.put(effect, newMainPowerMap.getOrDefault(effect, 0) + power);
-        }
-        //按主药作用分组统计旧丹方的总药力
-        Map<YaoCaiMainEffectEnum, Integer> oldMainPowerMap = new HashMap<>();
-        for (DanFangItemDoc herb : oldMainHerbs) {
-            YaoCaiMainEffectEnum effect = herb.getYaoCai().getMainEffect();
-            Integer power = herb.getTotalPower();
-            oldMainPowerMap.put(effect, oldMainPowerMap.getOrDefault(effect, 0) + power);
-        }
-        //检查新丹方是否覆盖旧丹方的所有主药作用，且药力不低于旧丹方
-        for (Map.Entry<YaoCaiMainEffectEnum, Integer> entry : oldMainPowerMap.entrySet()) {
-            YaoCaiMainEffectEnum effect = entry.getKey();
-            Integer requiredPower = entry.getValue();
-            Integer actualPower = newMainPowerMap.getOrDefault(effect, 0);
-            //如果新丹方的药力小于旧丹方的药力，则不覆盖
-            if (actualPower < requiredPower) {
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
 
     /**
@@ -640,47 +603,7 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isSecondaryHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        //获取新丹方的辅药列表
-        List<DanFangItemDoc> newSecondaryHerbs = new ArrayList<>();
-        if (newFormula.getSecondaryHerb1() != null) {
-            newSecondaryHerbs.add(newFormula.getSecondaryHerb1());
-        }
-        if (newFormula.getSecondaryHerb2() != null) {
-            newSecondaryHerbs.add(newFormula.getSecondaryHerb2());
-        }
-        //获取旧丹方的辅药列表
-        List<DanFangItemDoc> oldSecondaryHerbs = new ArrayList<>();
-        if (oldFormula.getSecondaryHerb1() != null) {
-            oldSecondaryHerbs.add(oldFormula.getSecondaryHerb1());
-        }
-        if (oldFormula.getSecondaryHerb2() != null) {
-            oldSecondaryHerbs.add(oldFormula.getSecondaryHerb2());
-        }
-        //按辅药作用分组统计新丹方的总药力
-        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryPowerMap = new HashMap<>();
-        for (DanFangItemDoc herb : newSecondaryHerbs) {
-            YaoCaiSecondaryEffectEnum effect = herb.getYaoCai().getSecondaryEffect();
-            Integer power = herb.getTotalPower();
-            newSecondaryPowerMap.put(effect, newSecondaryPowerMap.getOrDefault(effect, 0) + power);
-        }
-        //按辅药作用分组统计旧丹方的总药力
-        Map<YaoCaiSecondaryEffectEnum, Integer> oldSecondaryPowerMap = new HashMap<>();
-        for (DanFangItemDoc herb : oldSecondaryHerbs) {
-            YaoCaiSecondaryEffectEnum effect = herb.getYaoCai().getSecondaryEffect();
-            Integer power = herb.getTotalPower();
-            oldSecondaryPowerMap.put(effect, oldSecondaryPowerMap.getOrDefault(effect, 0) + power);
-        }
-        //检查新丹方是否覆盖旧丹方的所有辅药作用，且药力不低于旧丹方
-        for (Map.Entry<YaoCaiSecondaryEffectEnum, Integer> entry : oldSecondaryPowerMap.entrySet()) {
-            YaoCaiSecondaryEffectEnum effect = entry.getKey();
-            Integer requiredPower = entry.getValue();
-            Integer actualPower = newSecondaryPowerMap.getOrDefault(effect, 0);
-            //如果新丹方的药力小于旧丹方的药力，则不覆盖
-            if (actualPower <= requiredPower) {
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
 
 }
