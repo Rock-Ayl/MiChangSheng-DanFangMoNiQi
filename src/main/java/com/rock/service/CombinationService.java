@@ -562,6 +562,7 @@ public class CombinationService {
      * -
      * 判断标准：
      * 新丹方的主药和辅药是否完全覆盖另一个丹方的主药和辅药,对应药力也要完全覆盖
+     * 主药只考虑主药的药力,辅药只考虑辅药的药力
      *
      * @param newFormula 新丹方
      * @param oldFormula 旧丹方
