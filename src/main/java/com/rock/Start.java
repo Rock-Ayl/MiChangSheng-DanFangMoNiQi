@@ -9,10 +9,7 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -66,6 +63,20 @@ public class Start {
         Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap = yaoCaiDocList
                 .stream()
                 .collect(Collectors.groupingBy(YaoCaiDoc::getSecondaryEffect));
+
+        /**
+         * todo 丹药的丹方按照药性分组(主药+辅药)
+         */
+
+        List<Map.Entry<String, List<DanYaoDoc>>> test = danYaoDocList
+                .stream()
+                .filter(p -> p.getFormula() != null)
+                .collect(Collectors.groupingBy(p -> p.getFormula().getKey()))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toList());
+        System.out.println();
 
         /**
          * 组合排列生成所有丹方
