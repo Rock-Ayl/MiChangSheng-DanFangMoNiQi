@@ -10,8 +10,10 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.FastJsonExtraUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 /**
@@ -568,7 +570,146 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        //todo
+        //检查主药是否覆盖
+        if (isMainHerbCovered(newFormula, oldFormula) == false) {
+            //不覆盖
+            return false;
+        }
+        // 检查辅药是否覆盖
+        if (isSecondaryHerbCovered(newFormula, oldFormula) == false) {
+            //不覆盖
+            return false;
+        }
+        //所有条件满足，新丹方覆盖旧丹方
+        return true;
+    }
+
+    /**
+     * 检查新丹方的主药是否覆盖旧丹方的主药
+     *
+     * @param newFormula 新丹方
+     * @param oldFormula 旧丹方
+     * @return true-覆盖，false-不覆盖
+     */
+    private boolean isMainHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
+        // 获取新丹方的主药列表
+        List<DanFangItemDoc> newMainHerbs = getMainHerbs(newFormula);
+        // 获取旧丹方的主药列表
+        List<DanFangItemDoc> oldMainHerbs = getMainHerbs(oldFormula);
+
+        // 检查新丹方的主药是否覆盖旧丹方的主药
+        return isHerbListCovered(newMainHerbs, oldMainHerbs);
+    }
+
+    /**
+     * 检查新丹方的辅药是否覆盖旧丹方的辅药
+     *
+     * @param newFormula 新丹方
+     * @param oldFormula 旧丹方
+     * @return true-覆盖，false-不覆盖
+     */
+    private boolean isSecondaryHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
+        // 获取新丹方的辅药列表
+        List<DanFangItemDoc> newSecondaryHerbs = getSecondaryHerbs(newFormula);
+        // 获取旧丹方的辅药列表
+        List<DanFangItemDoc> oldSecondaryHerbs = getSecondaryHerbs(oldFormula);
+
+        // 检查新丹方的辅药是否覆盖旧丹方的辅药
+        return isHerbListCovered(newSecondaryHerbs, oldSecondaryHerbs);
+    }
+
+    /**
+     * 获取丹方的主药列表
+     *
+     * @param formula 丹方
+     * @return 主药列表
+     */
+    private List<DanFangItemDoc> getMainHerbs(DanFangDoc formula) {
+        List<DanFangItemDoc> mainHerbs = new ArrayList<>();
+        if (formula.getMainHerb1() != null) {
+            mainHerbs.add(formula.getMainHerb1());
+        }
+        if (formula.getMainHerb2() != null) {
+            mainHerbs.add(formula.getMainHerb2());
+        }
+        return mainHerbs;
+    }
+
+    /**
+     * 获取丹方的辅药列表
+     *
+     * @param formula 丹方
+     * @return 辅药列表
+     */
+    private List<DanFangItemDoc> getSecondaryHerbs(DanFangDoc formula) {
+        List<DanFangItemDoc> secondaryHerbs = new ArrayList<>();
+        if (formula.getSecondaryHerb1() != null) {
+            secondaryHerbs.add(formula.getSecondaryHerb1());
+        }
+        if (formula.getSecondaryHerb2() != null) {
+            secondaryHerbs.add(formula.getSecondaryHerb2());
+        }
+        return secondaryHerbs;
+    }
+
+    /**
+     * 检查新药材列表是否覆盖旧药材列表
+     * 覆盖条件：
+     * 1. 新列表包含旧列表中所有药材的主药作用（或辅药作用）
+     * 2. 新列表中对应药材的总药力不低于旧列表中对应药材的总药力
+     *
+     * @param newHerbList 新药材列表
+     * @param oldHerbList 旧药材列表
+     * @return true-覆盖，false-不覆盖
+     */
+    private boolean isHerbListCovered(List<DanFangItemDoc> newHerbList, List<DanFangItemDoc> oldHerbList) {
+        // 如果旧列表为空，则认为覆盖
+        if (oldHerbList == null || oldHerbList.isEmpty()) {
+            return true;
+        }
+
+        // 如果新列表为空但旧列表不为空，则不覆盖
+        if (newHerbList == null || newHerbList.isEmpty()) {
+            return false;
+        }
+
+        // 按药材名称和作用分组，计算总药力
+        Map<String, Integer> newHerbPowerMap = new HashMap<>();
+        Map<String, Integer> oldHerbPowerMap = new HashMap<>();
+
+        // 处理新药材列表
+        for (DanFangItemDoc herb : newHerbList) {
+            if (herb == null || herb.getYaoCai() == null) {
+                continue;
+            }
+            String key = herb.getYaoCai().getName();
+            Integer power = herb.getTotalPower() != null ? herb.getTotalPower() : 0;
+            newHerbPowerMap.put(key, newHerbPowerMap.getOrDefault(key, 0) + power);
+        }
+
+        // 处理旧药材列表
+        for (DanFangItemDoc herb : oldHerbList) {
+            if (herb == null || herb.getYaoCai() == null) {
+                continue;
+            }
+            String key = herb.getYaoCai().getName();
+            Integer power = herb.getTotalPower() != null ? herb.getTotalPower() : 0;
+            oldHerbPowerMap.put(key, oldHerbPowerMap.getOrDefault(key, 0) + power);
+        }
+
+        // 检查新列表是否覆盖旧列表
+        for (Map.Entry<String, Integer> entry : oldHerbPowerMap.entrySet()) {
+            String herbName = entry.getKey();
+            Integer oldPower = entry.getValue();
+            Integer newPower = newHerbPowerMap.getOrDefault(herbName, 0);
+
+            // 如果新列表中没有对应药材或者药力不足，则不覆盖
+            if (newPower < oldPower) {
+                return false;
+            }
+        }
+
+        // 所有条件满足，新列表覆盖旧列表
         return true;
     }
 
