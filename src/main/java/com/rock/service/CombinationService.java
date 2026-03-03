@@ -330,6 +330,11 @@ public class CombinationService {
                     //炸炉,过
                     continue;
                 }
+                //判断寒热
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 2) {
+                    //寒热肯定不平,过
+                    continue;
+                }
                 //添加到结果列表
                 newResultList.add(newDanFang);
             }
@@ -427,6 +432,11 @@ public class CombinationService {
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
                 if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
                     //炸炉,过
+                    continue;
+                }
+                //判断寒热
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 1) {
+                    //寒热肯定不平,过
                     continue;
                 }
                 //添加到结果列表
