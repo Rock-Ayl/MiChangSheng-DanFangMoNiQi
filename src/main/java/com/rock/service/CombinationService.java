@@ -96,7 +96,7 @@ public class CombinationService {
         result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
         //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap, danFangGroupMap);
+        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
 
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
@@ -354,6 +354,7 @@ public class CombinationService {
      * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @param danFangGroupMap          丹方分组map
+     * @param danYaoDoc                当前丹药
      * @return
      */
     private List<DanFangDoc> buildSecondary2(
@@ -363,7 +364,8 @@ public class CombinationService {
             Integer maxHotAndCold,
             List<YaoCaiDoc> yaoCaiDocAndNullList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
-            Map<String, List<DanYaoDoc>> danFangGroupMap) {
+            Map<String, List<DanYaoDoc>> danFangGroupMap,
+            DanYaoDoc danYaoDoc) {
 
         /**
          * 获取辅药2
@@ -459,11 +461,16 @@ public class CombinationService {
                 //循环
                 for (String key : keyList) {
                     //获取相似的丹方,循环
-                    for (DanYaoDoc danYaoDoc : danFangGroupMap.getOrDefault(key, new ArrayList<>())) {
+                    for (DanYaoDoc sameDanYaoDoc : danFangGroupMap.getOrDefault(key, new ArrayList<>())) {
+                        //如果是同一种丹药
+                        if (sameDanYaoDoc.getName().equals(danYaoDoc.getName())) {
+                            //本轮过
+                            continue;
+                        }
                         //获取对应单方单方
-                        DanFangDoc formula = danYaoDoc.getFormula();
+                        DanFangDoc sameFormula = sameDanYaoDoc.getFormula();
                         //如果覆盖其他单方药性
-                        if (isCoverOtherFormula(newDanFang, formula)) {
+                        if (isCoverOtherFormula(newDanFang, sameFormula)) {
                             //冲突 or 升级,跳过
                             continue out;
                         }
