@@ -235,6 +235,75 @@ public class CombinationService {
     }
 
     /**
+     * 构建辅药2
+     *
+     * @param danFangDocList           当前丹方列表
+     * @param baseFormula              基础丹方
+     * @param maxCount                 丹炉最大药材数量
+     * @param yaoCaiDocList            所有药材列表
+     * @param yaoCaiSecondaryEffectMap 药材辅药分组map
+     * @return
+     */
+    private List<DanFangDoc> buildSecondary2(
+            List<DanFangDoc> danFangDocList,
+            DanFangDoc baseFormula,
+            Integer maxCount,
+            List<YaoCaiDoc> yaoCaiDocList,
+            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
+
+        /**
+         * 获取辅药2
+         */
+
+        //目标辅药2列表
+        List<YaoCaiDoc> secondary2YaocaiList = new ArrayList<>();
+        //获取基础丹方-辅药2
+        DanFangItemDoc baseSecondaryHerb2 = baseFormula.getSecondaryHerb2();
+        //获取辅药2-所需总药力,默认null
+        Integer requiredPower = null;
+        //如果不需要辅药2
+        if (baseSecondaryHerb2 == null) {
+            //尝试用每种药材填充(平衡寒热)
+            secondary2YaocaiList = yaoCaiDocList;
+        } else {
+            //获取辅药2-所需总药力
+            requiredPower = baseSecondaryHerb2.getTotalPower();
+            //获取辅药2-辅药作用
+            YaoCaiSecondaryEffectEnum requiredSecondaryEffect = baseSecondaryHerb2.getYaoCai().getSecondaryEffect();
+            //获取辅药2-对应药材列表
+            secondary2YaocaiList = yaoCaiSecondaryEffectMap.get(requiredSecondaryEffect);
+        }
+
+        /**
+         * 组合排列
+         */
+
+        //组合排列后的丹方列表
+        List<DanFangDoc> newResultList = new ArrayList<>();
+        //循环
+        for (YaoCaiDoc secondary2YaoCai : secondary2YaocaiList) {
+            //计算需要的最小数量,如果不需要辅药2,则默认1个填充平衡
+            Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary2YaoCai.getGrade().getPower());
+            //为单方新增新的组合
+            for (DanFangDoc danFang : danFangDocList) {
+                //克隆实体
+                DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //设置辅药2
+                newDanFang.setSecondaryHerb2(new DanFangItemDoc(secondary2YaoCai, minCount));
+                //如果当前单方的药材总数 大于 丹炉最大药材数量
+                if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
+                    //炸炉,过
+                    continue;
+                }
+                //添加到结果列表
+                newResultList.add(newDanFang);
+            }
+        }
+        //返回新的结果
+        return newResultList;
+    }
+
+    /**
      * 根据所需药力、药材药力,计算最小需要几个
      *
      * @param totalPower 所需总药力
