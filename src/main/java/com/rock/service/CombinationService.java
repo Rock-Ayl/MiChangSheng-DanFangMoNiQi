@@ -12,6 +12,7 @@ import com.rock.util.FastJsonExtraUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 组合排列服务
@@ -291,14 +292,25 @@ public class CombinationService {
                  * 特殊填充
                  * -
                  * 如果辅药1 存在
-                 * 如果辅药1 辅药2是同一种药材
+                 * 如果辅药1 与辅药2是同一种药材
                  * 如果辅药1 有多个
                  * -
-                 * 那么就不仅仅是平衡药引了,还可以平衡辅药1辅药2的数量
+                 * 那么就不仅仅是平衡药性的药引了,还可以平衡辅药1的数量
                  */
 
+                //辅药1-药材名称
+                String sec1Name = Optional.ofNullable(danFang)
+                        .map(DanFangDoc::getSecondaryHerb1)
+                        .map(DanFangItemDoc::getYaoCai)
+                        .map(YaoCaiDoc::getName)
+                        .orElse(null);
+                //辅药1-药材数量
+                Integer sec1Quantity = Optional.ofNullable(danFang)
+                        .map(DanFangDoc::getSecondaryHerb1)
+                        .map(DanFangItemDoc::getQuantity)
+                        .orElse(1);
                 //如果满足特殊填充
-                if (danFang.getSecondaryHerb1() != null && danFang.getSecondaryHerb1().getYaoCai().getName().equals(secondary2YaoCai.getName())) {
+                if (secondary2YaoCai.getName().equals(sec1Name) && sec1Quantity > 1) {
                     //todo
                     continue;
                 }
