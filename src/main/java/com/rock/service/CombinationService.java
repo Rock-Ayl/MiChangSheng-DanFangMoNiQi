@@ -570,39 +570,6 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        //检查辅药是否覆盖
-        if (isSecondaryHerbCovered(newFormula, oldFormula) == false) {
-            //不覆盖
-            return false;
-        }
-        //检查主药是否覆盖
-        if (isMainHerbCovered(newFormula, oldFormula) == false) {
-            //不覆盖
-            return false;
-        }
-        //所有条件满足，新丹方覆盖旧丹方
-        return true;
-    }
-
-    /**
-     * 检查新丹方的主药是否覆盖旧丹方的主药
-     *
-     * @param newFormula 新丹方
-     * @param oldFormula 旧丹方
-     * @return true-覆盖，false-不覆盖
-     */
-    private boolean isMainHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        return false;
-    }
-
-    /**
-     * 检查新丹方的辅药是否覆盖旧丹方的辅药
-     *
-     * @param newFormula 新丹方
-     * @param oldFormula 旧丹方
-     * @return true-覆盖，false-不覆盖
-     */
-    private boolean isSecondaryHerbCovered(DanFangDoc newFormula, DanFangDoc oldFormula) {
         return false;
     }
 
