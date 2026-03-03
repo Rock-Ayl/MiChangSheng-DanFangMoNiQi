@@ -82,7 +82,7 @@ public class Start {
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
-                //todo 生成所有组合,并加入map
+                //生成所有组合,并加入map
                 danFangDocMap.put(danYaoDoc, combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
