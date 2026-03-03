@@ -97,7 +97,7 @@ public class CombinationService {
 
         //todo 检查寒热平衡
 
-        //todo 检查是否有覆盖的更高级配方
+        //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的)
 
         /**
          * 返回结果
