@@ -286,6 +286,27 @@ public class CombinationService {
             Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary2YaoCai.getGrade().getPower());
             //为单方新增新的组合
             for (DanFangDoc danFang : danFangDocList) {
+
+                /**
+                 * 特殊填充
+                 * -
+                 * 如果辅药1 存在
+                 * 如果辅药1 辅药2是同一种药材
+                 * 如果辅药1 有多个
+                 * -
+                 * 那么就不仅仅是平衡药引了,还可以平衡辅药1辅药2的数量
+                 */
+
+                //如果满足特殊填充
+                if (danFang.getSecondaryHerb1() != null && danFang.getSecondaryHerb1().getYaoCai().getName().equals(secondary2YaoCai.getName())) {
+                    //todo
+                    continue;
+                }
+
+                /**
+                 * 标准填充
+                 */
+
                 //克隆实体
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
                 //设置辅药2
