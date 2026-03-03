@@ -87,7 +87,8 @@ public class CombinationService {
         //构建主药1
         result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
 
-        //todo 构建主药2
+        //构建主药2
+        result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
 
         //构建辅药1
         result = buildSecondary1(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
@@ -153,6 +154,105 @@ public class CombinationService {
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
                 //设置主药1
                 newDanFang.setMainHerb1(new DanFangItemDoc(main1YaoCai, minCount));
+                //如果当前单方的药材总数 大于 丹炉最大药材数量
+                if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
+                    //炸炉,过
+                    continue;
+                }
+                //添加到结果列表
+                newResultList.add(newDanFang);
+            }
+        }
+        //返回新的结果
+        return newResultList;
+    }
+
+    /**
+     * 构建主药2
+     *
+     * @param danFangDocList       当前丹方列表
+     * @param baseFormula          基础丹方
+     * @param maxCount             丹炉最大药材数量
+     * @param yaoCaiDocAndNullList 所有药材列表(包含NULL)
+     * @param yaoCaiMainEffectMap  药材主药分组map
+     * @return
+     */
+    private List<DanFangDoc> buildMain2(
+            List<DanFangDoc> danFangDocList,
+            DanFangDoc baseFormula,
+            Integer maxCount,
+            List<YaoCaiDoc> yaoCaiDocAndNullList,
+            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap) {
+
+        /**
+         * 获取主药2
+         */
+
+        //目标主药22列表
+        List<YaoCaiDoc> main2YaoCaiList = new ArrayList<>();
+        //获取基础丹方-主药2
+        DanFangItemDoc mainHerb2 = baseFormula.getMainHerb2();
+        //获取主药2-所需总药力,默认null
+        Integer requiredPower = null;
+        //如果不需要主药2
+        if (mainHerb2 == null) {
+            //尝试用每种药材填充(平衡寒热)
+            main2YaoCaiList = yaoCaiDocAndNullList;
+        } else {
+            //获取主药2-所需总药力
+            requiredPower = mainHerb2.getTotalPower();
+            //获取主药2-主药作用
+            YaoCaiMainEffectEnum requiredMainEffect = mainHerb2.getYaoCai().getMainEffect();
+            //获取主药2-对应药材列表
+            main2YaoCaiList = yaoCaiMainEffectMap.get(requiredMainEffect);
+        }
+
+        /**
+         * 组合排列
+         */
+
+        //组合排列后的丹方列表
+        List<DanFangDoc> newResultList = new ArrayList<>();
+        //循环
+        for (YaoCaiDoc main2YaoCai : main2YaoCaiList) {
+            //计算需要的最小数量,如果不需要辅药2,则默认1个填充平衡
+            Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, main2YaoCai.getGrade().getPower());
+            //为单方新增新的组合
+            for (DanFangDoc danFang : danFangDocList) {
+
+                /**
+                 * 特殊填充逻辑
+                 * -
+                 * 如果主药1 存在
+                 * 如果主药1 与主药2是同一种药材
+                 * 如果主药1 有多个
+                 * -
+                 * 那么就不仅仅是平衡药性的药引了,还可以平衡主药1的数量
+                 */
+
+                //主药1-药材名称
+                String main1Name = Optional.ofNullable(danFang)
+                        .map(DanFangDoc::getMainHerb1)
+                        .map(DanFangItemDoc::getYaoCai)
+                        .map(YaoCaiDoc::getName)
+                        .orElse(null);
+                //主药1-药材数量
+                Integer main1Quantity = Optional.ofNullable(danFang)
+                        .map(DanFangDoc::getMainHerb1)
+                        .map(DanFangItemDoc::getQuantity)
+                        .orElse(1);
+                //克隆实体
+                DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //如果有主药2
+                if (main2YaoCai != null) {
+                    //如果满足特殊填充
+                    if (main2YaoCai.getName().equals(main1Name) && main1Quantity > 1) {
+                        //主药1数量-1(因为主药2使得药性多了一个)
+                        newDanFang.getMainHerb1().setQuantity(newDanFang.getMainHerb1().getQuantity() - 1);
+                    }
+                    //设置主药2
+                    newDanFang.setMainHerb2(new DanFangItemDoc(main2YaoCai, minCount));
+                }
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
                 if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
                     //炸炉,过
