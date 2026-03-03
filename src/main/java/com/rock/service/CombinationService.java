@@ -99,7 +99,7 @@ public class CombinationService {
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
 
-        //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的)
+        //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的,主药辅药满足就算，药引不够属于寒热不平的废丹)
 
         /**
          * 返回结果
