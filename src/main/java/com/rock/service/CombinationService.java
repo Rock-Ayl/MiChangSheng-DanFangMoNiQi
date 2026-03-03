@@ -91,13 +91,13 @@ public class CombinationService {
         result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
 
         //构建辅药1
-        result = buildSecondary1(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
+        result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
         //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
+        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
         //构建药引
-        result = buildGuideHerb(result, baseFormula, maxCount, yaoCaiDocAndNullList);
+        result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
 
         //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的)
 
@@ -271,6 +271,7 @@ public class CombinationService {
      * @param danFangDocList           当前丹方列表
      * @param baseFormula              基础丹方
      * @param maxCount                 丹炉最大药材数量
+     * @param maxHotAndCold            最大寒热数值
      * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @returno
@@ -279,6 +280,7 @@ public class CombinationService {
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
+            Integer maxHotAndCold,
             List<YaoCaiDoc> yaoCaiDocAndNullList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
@@ -330,7 +332,7 @@ public class CombinationService {
                     continue;
                 }
                 //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 2) {
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
                     //寒热肯定不平,过
                     continue;
                 }
@@ -348,6 +350,7 @@ public class CombinationService {
      * @param danFangDocList           当前丹方列表
      * @param baseFormula              基础丹方
      * @param maxCount                 丹炉最大药材数量
+     * @param maxHotAndCold            最大寒热数值
      * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @return
@@ -356,6 +359,7 @@ public class CombinationService {
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
+            Integer maxHotAndCold,
             List<YaoCaiDoc> yaoCaiDocAndNullList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
@@ -434,7 +438,7 @@ public class CombinationService {
                     continue;
                 }
                 //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 1) {
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
                     //寒热肯定不平,过
                     continue;
                 }
@@ -459,6 +463,7 @@ public class CombinationService {
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
+            Integer maxHotAndCold,
             List<YaoCaiDoc> yaoCaiDocAndNullList) {
 
         /**
@@ -496,7 +501,7 @@ public class CombinationService {
                     continue;
                 }
                 //判断寒热
-                if (newDanFang.getCurrentYaoCaiHeatAndColdValue() != 0) {
+                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
                     //寒热不平,过
                     continue;
                 }
