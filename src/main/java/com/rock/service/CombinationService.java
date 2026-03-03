@@ -314,13 +314,16 @@ public class CombinationService {
                         .orElse(1);
                 //克隆实体
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
-                //如果满足特殊填充
-                if (secondary2YaoCai.getName().equals(sec1Name) && sec1Quantity > 1) {
-                    //辅药1数量-1(因为辅药2使得药性多了一个)
-                    newDanFang.getSecondaryHerb1().setQuantity(newDanFang.getSecondaryHerb1().getQuantity() - 1);
+                //如果有辅药2
+                if (secondary2YaoCai != null) {
+                    //如果满足特殊填充
+                    if (secondary2YaoCai.getName().equals(sec1Name) && sec1Quantity > 1) {
+                        //辅药1数量-1(因为辅药2使得药性多了一个)
+                        newDanFang.getSecondaryHerb1().setQuantity(newDanFang.getSecondaryHerb1().getQuantity() - 1);
+                    }
+                    //设置辅药2
+                    newDanFang.setSecondaryHerb2(new DanFangItemDoc(secondary2YaoCai, minCount));
                 }
-                //设置辅药2
-                newDanFang.setSecondaryHerb2(new DanFangItemDoc(secondary2YaoCai, minCount));
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
                 if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
                     //炸炉,过
