@@ -88,7 +88,8 @@ public class CombinationService {
 
         //todo 构建主药2
 
-        //todo 构建辅药1
+        //构建辅药1
+        result = buildSecondary1(result, baseFormula, maxCount, yaoCaiSecondaryEffectMap);
 
         //todo 构建辅药2
 
@@ -150,6 +151,69 @@ public class CombinationService {
                 DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
                 //设置主药1
                 newDanFang.setMainHerb1(new DanFangItemDoc(main1YaoCai, minCount));
+                //如果当前单方的药材总数 大于 丹炉最大药材数量
+                if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
+                    //炸炉,过
+                    continue;
+                }
+                //添加到结果列表
+                newResultList.add(newDanFang);
+            }
+        }
+        //返回新的结果
+        return newResultList;
+    }
+
+    /**
+     * 构建辅药1
+     *
+     * @param danFangDocList           当前丹方列表
+     * @param baseFormula              基础丹方
+     * @param maxCount                 丹炉最大药材数量
+     * @param yaoCaiSecondaryEffectMap 药材辅药分组map
+     * @return
+     */
+    private List<DanFangDoc> buildSecondary1(
+            List<DanFangDoc> danFangDocList,
+            DanFangDoc baseFormula,
+            Integer maxCount,
+            Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
+
+        /**
+         * 获取辅药1
+         */
+
+        //获取基础丹方-辅药1
+        DanFangItemDoc baseSecondaryHerb1 = baseFormula.getSecondaryHerb1();
+        //如果不需要辅药1
+        if (baseSecondaryHerb1 == null) {
+            //todo
+            //直接返回
+            return danFangDocList;
+        }
+        //获取辅药1-所需总药力
+        Integer requiredPower = baseSecondaryHerb1.getTotalPower();
+        //获取辅药1-辅药作用
+        YaoCaiSecondaryEffectEnum requiredSecondaryEffect = baseSecondaryHerb1.getYaoCai().getSecondaryEffect();
+        //获取辅药1-对应药材列表
+        List<YaoCaiDoc> secondary1YaocaiList = yaoCaiSecondaryEffectMap.get(requiredSecondaryEffect);
+
+        /**
+         * 组合排列
+         */
+
+        //组合排列后的丹方列表
+        List<DanFangDoc> newResultList = new ArrayList<>();
+        //循环
+        for (YaoCaiDoc secondary1YaoCai : secondary1YaocaiList) {
+            //计算需要的最小数量
+            Integer minCount = calculateMinCount(requiredPower, secondary1YaoCai.getGrade().getPower());
+            //为单方新增新的组合
+            for (DanFangDoc danFang : danFangDocList) {
+                //克隆实体
+                DanFangDoc newDanFang = FastJsonExtraUtils.deepClone(danFang, DanFangDoc.class);
+                //设置辅药1
+                newDanFang.setSecondaryHerb1(new DanFangItemDoc(secondary1YaoCai, minCount));
                 //如果当前单方的药材总数 大于 丹炉最大药材数量
                 if (newDanFang.getCurrentYaoCaiCount() > maxCount) {
                     //炸炉,过
