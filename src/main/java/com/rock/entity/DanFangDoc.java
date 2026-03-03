@@ -138,4 +138,26 @@ public class DanFangDoc {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * 返回该单方,丹方所需药性唯一key(完全相同的key具有覆盖作用)
+     *
+     * @return
+     */
+    public String getKey() {
+
+        /**
+         * todo 主药药性
+         */
+
+        /**
+         * todo 辅药药性
+         */
+
+        /**
+         * todo 组合并返回
+         */
+
+        return null;
+    }
+
 }
