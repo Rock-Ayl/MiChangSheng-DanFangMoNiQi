@@ -146,13 +146,16 @@ public class DanFangDoc {
     public String getKey() {
 
         /**
-         * todo 主药药性
+         * 主药药性
          */
 
         //主药1
         String mainHerb1Key = this.mainHerb1 != null ? this.mainHerb1.getYaoCai().getMainEffect().getCode() : "";
         //主药2
         String mainHerb2Key = this.mainHerb2 != null ? this.mainHerb2.getYaoCai().getMainEffect().getCode() : "";
+
+        //主药1和主药2的key,按字典顺序排序
+        String mainHerbKey = mainHerb1Key.compareTo(mainHerb2Key) < 0 ? mainHerb1Key + mainHerb2Key : mainHerb2Key + mainHerb1Key;
 
         /**
          * todo 辅药药性
