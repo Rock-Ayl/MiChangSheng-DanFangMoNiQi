@@ -99,8 +99,6 @@ public class CombinationService {
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, yaoCaiDocAndNullList);
 
-        //todo 检查寒热平衡
-
         //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的)
 
         /**
@@ -498,7 +496,7 @@ public class CombinationService {
                     continue;
                 }
                 //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > 0) {
+                if (newDanFang.getCurrentYaoCaiHeatAndColdValue() != 0) {
                     //寒热不平,过
                     continue;
                 }

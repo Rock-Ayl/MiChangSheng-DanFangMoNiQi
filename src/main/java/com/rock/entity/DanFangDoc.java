@@ -116,7 +116,7 @@ public class DanFangDoc {
      *
      * @return
      */
-    public Integer getCurrentYaoCaiHeatAndColdValue() {
+    public int getCurrentYaoCaiHeatAndColdValue() {
         //所有可能的寒热平衡列表
         List<DanFangItemDoc> danFangItemDocList = new ArrayList<>();
         //按顺序添加
