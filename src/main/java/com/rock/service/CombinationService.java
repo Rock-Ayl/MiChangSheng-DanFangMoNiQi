@@ -469,9 +469,9 @@ public class CombinationService {
                         }
                         //获取对应单方单方
                         DanFangDoc sameFormula = sameDanYaoDoc.getFormula();
-                        //如果覆盖其他单方药性
+                        //检查新丹方是否完全覆盖其他单方药性
                         if (isCoverOtherFormula(newDanFang, sameFormula)) {
-                            //冲突 or 升级,跳过
+                            //视为 药性冲突 or 药力升级,跳过
                             continue out;
                         }
                     }
@@ -565,7 +565,7 @@ public class CombinationService {
     }
 
     /**
-     * 检查新丹方是否覆盖其他单方药性
+     * 检查新丹方是否完全覆盖其他单方药性
      * -
      * 判断标准：
      * 新丹方的主药和辅药是否完全覆盖另一个丹方的主药和辅药,对应药力也要完全覆盖
