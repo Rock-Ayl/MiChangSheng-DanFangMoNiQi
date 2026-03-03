@@ -456,6 +456,7 @@ public class CombinationService {
      * @param danFangDocList       当前丹方列表
      * @param baseFormula          基础丹方
      * @param maxCount             丹炉最大药材数量
+     * @param maxHotAndCold        最大寒热数值
      * @param yaoCaiDocAndNullList 所有药材列表(包含NULL)
      * @return
      */
