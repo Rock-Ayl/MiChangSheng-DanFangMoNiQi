@@ -96,12 +96,15 @@ public class CombinationService {
         //构建辅药2
         result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
 
+        /**
+         * todo 检查 主药1+主药2+辅药1+辅药2 满足其他单方,则略过
+         * -
+         * 主药辅药满足更高一级的丹方,要不丹药升级为别的丹药,要不寒热不平(药引不足)
+         * 主药辅药满足其他单方,则药性相冲(药性相冲)
+         */
+
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
-
-        //todo 检查是否有覆盖的更高级配方(完全相同单方分组,取品级最高的,主药辅药满足就算，药引不够属于寒热不平的废丹)
-
-        //todo 检查药性相冲(满足多个单方,但不是同一个分组的)
 
         /**
          * 返回结果
