@@ -9,7 +9,10 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -68,15 +71,25 @@ public class Start {
          * todo 丹药的丹方按照药性分组(主药+辅药)
          */
 
-        List<Map.Entry<String, List<DanYaoDoc>>> test = danYaoDocList
-                .stream()
-                .filter(p -> p.getFormula() != null)
-                .collect(Collectors.groupingBy(p -> p.getFormula().getKey()))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toList());
-        System.out.println();
+        //丹方分组key的map
+        Map<String, List<DanYaoDoc>> danFangKeyMap = new HashMap<>();
+        //循环
+        for (DanYaoDoc danYaoDoc : danYaoDocList) {
+            //判空
+            if (danYaoDoc.getFormula() == null) {
+                //本轮过
+                continue;
+            }
+            //循环所有key
+            for (String key : danYaoDoc.getFormula().getKey()) {
+                //获取当前key的列表
+                List<DanYaoDoc> keyGroupList = danFangKeyMap.getOrDefault(key, new ArrayList<>());
+                //加入当前丹药
+                keyGroupList.add(danYaoDoc);
+                //加入map (覆盖)
+                danFangKeyMap.put(key, keyGroupList);
+            }
+        }
 
         /**
          * 组合排列生成所有丹方

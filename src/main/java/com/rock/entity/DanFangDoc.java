@@ -143,7 +143,10 @@ public class DanFangDoc {
      *
      * @return
      */
-    public String getKey() {
+    public List<String> getKey() {
+
+        //key列表
+        List<String> keyList = new ArrayList<>();
 
         /**
          * 主药药性
@@ -159,22 +162,35 @@ public class DanFangDoc {
 
         /**
          * 辅药药性
+         *
          */
 
         //辅药1
-        String secondaryHerb1Key = this.secondaryHerb1 != null ? this.secondaryHerb1.getYaoCai().getSecondaryEffect().getCode() : "";
+        String secondaryHerb1Key = this.secondaryHerb1 != null ? this.secondaryHerb1.getYaoCai().getSecondaryEffect().getCode() : null;
+        //判空
+        if (secondaryHerb1Key != null) {
+            //加入key列表
+            keyList.add(mainHerbKey + "_" + secondaryHerb1Key);
+        }
         //辅药2
-        String secondaryHerb2Key = this.secondaryHerb2 != null ? this.secondaryHerb2.getYaoCai().getSecondaryEffect().getCode() : "";
-
-        //辅药1和辅药2的key,按字典顺序排序
-        String secondaryHerbKey = secondaryHerb1Key.compareTo(secondaryHerb2Key) < 0 ? secondaryHerb1Key + secondaryHerb2Key : secondaryHerb2Key + secondaryHerb1Key;
+        String secondaryHerb2Key = this.secondaryHerb2 != null ? this.secondaryHerb2.getYaoCai().getSecondaryEffect().getCode() : null;
+        //判空
+        if (secondaryHerb2Key != null) {
+            //加入key列表
+            keyList.add(mainHerbKey + "_" + secondaryHerb2Key);
+        }
+        //如果没有辅药
+        if (keyList.isEmpty()) {
+            //加入key列表
+            keyList.add(mainHerbKey + "_" + "无");
+        }
 
         /**
-         * todo 组合并返回
+         * 返回
          */
 
         //返回
-        return mainHerbKey + "_" + secondaryHerbKey;
+        return keyList;
     }
 
 }
