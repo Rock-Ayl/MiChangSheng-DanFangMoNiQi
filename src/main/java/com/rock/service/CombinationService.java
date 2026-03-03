@@ -566,13 +566,13 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
-        //检查主药是否覆盖
-        if (isMainHerbCovered(newFormula, oldFormula) == false) {
+        //检查辅药是否覆盖
+        if (isSecondaryHerbCovered(newFormula, oldFormula) == false) {
             //不覆盖
             return false;
         }
-        //检查辅药是否覆盖
-        if (isSecondaryHerbCovered(newFormula, oldFormula) == false) {
+        //检查主药是否覆盖
+        if (isMainHerbCovered(newFormula, oldFormula) == false) {
             //不覆盖
             return false;
         }
