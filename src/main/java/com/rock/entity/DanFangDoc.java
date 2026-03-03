@@ -106,4 +106,72 @@ public class DanFangDoc {
         return count;
     }
 
+    /**
+     * 返回该单方 寒热数值总和
+     * 热+1，寒-1，主要辅药药引均算，不考虑数量
+     *
+     * @return
+     */
+    public Integer getCurrentYaoCaiHeatAndColdValue() {
+        //初始化寒热数值
+        Integer value = 0;
+        //主药1
+        if (this.mainHerb1 != null) {
+            //判断性质
+            if (this.mainHerb1.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.HOT) {
+                //热+1
+                value += 1;
+            } else if (this.mainHerb1.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.COLD) {
+                //寒-1
+                value -= 1;
+            }
+        }
+        //主药2
+        if (this.mainHerb2 != null) {
+            //判断性质
+            if (this.mainHerb2.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.HOT) {
+                //热+1
+                value += 1;
+            } else if (this.mainHerb2.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.COLD) {
+                //寒-1
+                value -= 1;
+            }
+        }
+        //辅药1
+        if (this.secondaryHerb1 != null) {
+            //判断性质
+            if (this.secondaryHerb1.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.HOT) {
+                //热+1
+                value += 1;
+            } else if (this.secondaryHerb1.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.COLD) {
+                //寒-1
+                value -= 1;
+            }
+        }
+        //辅药2
+        if (this.secondaryHerb2 != null) {
+            //判断性质
+            if (this.secondaryHerb2.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.HOT) {
+                //热+1
+                value += 1;
+            } else if (this.secondaryHerb2.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.COLD) {
+                //寒-1
+                value -= 1;
+            }
+        }
+        //药引
+        if (this.guideHerb != null) {
+            //判断性质
+            if (this.guideHerb.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.HOT) {
+                //热+1
+                value += 1;
+            } else if (this.guideHerb.getYaoCai().getProperty() == com.rock.enums.YaoCaiPropertyEnum.COLD) {
+                //寒-1
+                value -= 1;
+            }
+        }
+        //返回
+        return value;
+    }
+
 }

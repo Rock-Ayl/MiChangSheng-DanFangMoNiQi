@@ -10,19 +10,23 @@ import lombok.ToString;
 @ToString
 public enum YaoCaiPropertyEnum {
 
-    NONE("none"),
+    NONE("none", 0),
 
-    COLD("性寒"),
-    HOT("性热"),
-    NEUTRAL("性平"),
+    COLD("性寒", -1),
+    HOT("性热", 1),
+    NEUTRAL("性平", 0),
 
     ;
 
     //编码
     private final String code;
 
-    YaoCaiPropertyEnum(String code) {
+    //寒热平衡值
+    private final Integer value;
+
+    YaoCaiPropertyEnum(String code, Integer value) {
         this.code = code;
+        this.value = value;
     }
 
     /**
