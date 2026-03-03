@@ -189,13 +189,15 @@ public class CombinationService {
         List<YaoCaiDoc> secondary1YaocaiList = new ArrayList<>();
         //获取基础丹方-辅药1
         DanFangItemDoc baseSecondaryHerb1 = baseFormula.getSecondaryHerb1();
+        //获取辅药1-所需总药力,默认null
+        Integer requiredPower = null;
         //如果不需要辅药1
         if (baseSecondaryHerb1 == null) {
             //尝试用每种药材填充(平衡寒热)
             secondary1YaocaiList = yaoCaiDocList;
         } else {
             //获取辅药1-所需总药力
-            Integer requiredPower = baseSecondaryHerb1.getTotalPower();
+            requiredPower = baseSecondaryHerb1.getTotalPower();
             //获取辅药1-辅药作用
             YaoCaiSecondaryEffectEnum requiredSecondaryEffect = baseSecondaryHerb1.getYaoCai().getSecondaryEffect();
             //获取辅药1-对应药材列表
@@ -210,8 +212,8 @@ public class CombinationService {
         List<DanFangDoc> newResultList = new ArrayList<>();
         //循环
         for (YaoCaiDoc secondary1YaoCai : secondary1YaocaiList) {
-            //计算需要的最小数量
-            Integer minCount = calculateMinCount(requiredPower, secondary1YaoCai.getGrade().getPower());
+            //计算需要的最小数量,如果不需要辅药1,则默认1个填充平衡
+            Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary1YaoCai.getGrade().getPower());
             //为单方新增新的组合
             for (DanFangDoc danFang : danFangDocList) {
                 //克隆实体
