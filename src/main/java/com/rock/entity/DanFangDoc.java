@@ -1,5 +1,6 @@
 package com.rock.entity;
 
+import com.rock.enums.YaoCaiPropertyEnum;
 import com.rock.util.ArrayExtraUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -129,9 +130,10 @@ public class DanFangDoc {
                 .stream()
                 //过滤空的
                 .filter(Objects::nonNull)
-                .map(p -> p.getYaoCai())
-                .map(p -> p.getProperty())
-                .map(p -> p.getValue())
+                //收集寒热属性
+                .map(DanFangItemDoc::getYaoCai)
+                .map(YaoCaiDoc::getProperty)
+                .map(YaoCaiPropertyEnum::getValue)
                 //求和
                 .reduce(0, Integer::sum);
     }
