@@ -570,7 +570,7 @@ public class CombinationService {
      * 不考虑药引
      *
      * @param newFormula 新丹方
-     * @param oldFormula 旧丹方
+     * @param oldFormula 旧丹方(原始丹方)
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
