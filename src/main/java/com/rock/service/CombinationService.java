@@ -583,22 +583,20 @@ public class CombinationService {
         Map<YaoCaiMainEffectEnum, Integer> newMainHerbMap = new HashMap<>();
         //判空
         if (newFormula.getMainHerb1() != null) {
-            //写入
-            newMainHerbMap.put(
-                    //药性
+            //累加
+            newMainHerbMap.merge(
                     newFormula.getMainHerb1().getYaoCai().getMainEffect(),
-                    //总药力
-                    newFormula.getMainHerb1().getTotalPower()
+                    newFormula.getMainHerb1().getTotalPower(),
+                    Integer::sum
             );
         }
         //判空
         if (newFormula.getMainHerb2() != null) {
-            //写入
-            newMainHerbMap.put(
-                    //药性
+            //累加
+            newMainHerbMap.merge(
                     newFormula.getMainHerb2().getYaoCai().getMainEffect(),
-                    //总药力
-                    newFormula.getMainHerb2().getTotalPower()
+                    newFormula.getMainHerb2().getTotalPower(),
+                    Integer::sum
             );
         }
 
