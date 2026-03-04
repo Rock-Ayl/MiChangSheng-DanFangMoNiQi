@@ -121,6 +121,10 @@ public class Start {
                 danFangDocMap.put(danYaoDoc, combinationList);
                 //加入列表
                 allDanFangDocList.addAll(combinationList);
+                //打印丹药+丹炉+丹方数量
+                System.out.println(
+                        "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
+                                "]的丹方,丹炉是[" + danLuEnum.getCode() + "]");
             }
         }
         System.out.println();
