@@ -580,50 +580,14 @@ public class CombinationService {
          */
 
         //新丹方-主药药性、对应总药力
-        Map<YaoCaiMainEffectEnum, Integer> newMainHerbMap = new HashMap<>();
-        //判空
-        if (newFormula.getMainHerb1() != null) {
-            //累加
-            newMainHerbMap.merge(
-                    newFormula.getMainHerb1().getYaoCai().getMainEffect(),
-                    newFormula.getMainHerb1().getTotalPower(),
-                    Integer::sum
-            );
-        }
-        //判空
-        if (newFormula.getMainHerb2() != null) {
-            //累加
-            newMainHerbMap.merge(
-                    newFormula.getMainHerb2().getYaoCai().getMainEffect(),
-                    newFormula.getMainHerb2().getTotalPower(),
-                    Integer::sum
-            );
-        }
+        Map<YaoCaiMainEffectEnum, Integer> newMainHerbMap = buildMainHerbMap(newFormula);
 
         /**
          * 统计新丹方-辅药药性
          */
 
         //新丹方-辅药药性、对应总药力
-        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = new HashMap<>();
-        //判空
-        if (newFormula.getSecondaryHerb1() != null) {
-            //累加
-            newSecondaryHerbMap.merge(
-                    newFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect(),
-                    newFormula.getSecondaryHerb1().getTotalPower(),
-                    Integer::sum
-            );
-        }
-        //判空
-        if (newFormula.getSecondaryHerb2() != null) {
-            //累加
-            newSecondaryHerbMap.merge(
-                    newFormula.getSecondaryHerb2().getYaoCai().getSecondaryEffect(),
-                    newFormula.getSecondaryHerb2().getTotalPower(),
-                    Integer::sum
-            );
-        }
+        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = buildSecondaryHerbMap(newFormula);
 
         /**
          * 检查是否完全覆盖旧丹方
@@ -688,6 +652,68 @@ public class CombinationService {
 
         //全部满足,视为覆盖
         return true;
+    }
+
+    /**
+     * 构建丹方对应主药总药力map
+     *
+     * @param danFangDoc 丹方
+     * @return
+     */
+    private Map<YaoCaiMainEffectEnum, Integer> buildMainHerbMap(DanFangDoc danFangDoc) {
+        //丹方-主药药性、对应总药力
+        Map<YaoCaiMainEffectEnum, Integer> mainHerbMap = new HashMap<>();
+        //判空
+        if (danFangDoc.getMainHerb1() != null) {
+            //累加
+            mainHerbMap.merge(
+                    danFangDoc.getMainHerb1().getYaoCai().getMainEffect(),
+                    danFangDoc.getMainHerb1().getTotalPower(),
+                    Integer::sum
+            );
+        }
+        //判空
+        if (danFangDoc.getMainHerb2() != null) {
+            //累加
+            mainHerbMap.merge(
+                    danFangDoc.getMainHerb2().getYaoCai().getMainEffect(),
+                    danFangDoc.getMainHerb2().getTotalPower(),
+                    Integer::sum
+            );
+        }
+        //返回
+        return mainHerbMap;
+    }
+
+    /**
+     * 构建丹方对应辅药总药力map
+     *
+     * @param danFangDoc 丹方
+     * @return
+     */
+    private Map<YaoCaiSecondaryEffectEnum, Integer> buildSecondaryHerbMap(DanFangDoc danFangDoc) {
+        //丹方-辅药药性、对应总药力
+        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = new HashMap<>();
+        //判空
+        if (danFangDoc.getSecondaryHerb1() != null) {
+            //累加
+            newSecondaryHerbMap.merge(
+                    danFangDoc.getSecondaryHerb1().getYaoCai().getSecondaryEffect(),
+                    danFangDoc.getSecondaryHerb1().getTotalPower(),
+                    Integer::sum
+            );
+        }
+        //判空
+        if (danFangDoc.getSecondaryHerb2() != null) {
+            //累加
+            newSecondaryHerbMap.merge(
+                    danFangDoc.getSecondaryHerb2().getYaoCai().getSecondaryEffect(),
+                    danFangDoc.getSecondaryHerb2().getTotalPower(),
+                    Integer::sum
+            );
+        }
+        //返回
+        return newSecondaryHerbMap;
     }
 
 }
