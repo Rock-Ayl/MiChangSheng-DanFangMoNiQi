@@ -576,16 +576,11 @@ public class CombinationService {
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
 
         /**
-         * 统计新丹方-主药药性
+         * 统计新丹方-药性
          */
 
         //新丹方-主药药性、对应总药力
         Map<YaoCaiMainEffectEnum, Integer> newMainHerbMap = buildMainHerbMap(newFormula);
-
-        /**
-         * 统计新丹方-辅药药性
-         */
-
         //新丹方-辅药药性、对应总药力
         Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = buildSecondaryHerbMap(newFormula);
 
