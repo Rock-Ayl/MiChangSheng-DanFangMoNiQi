@@ -629,8 +629,27 @@ public class CombinationService {
             );
         }
 
-        //todo
-        return false;
+        /**
+         * 检查是否完全覆盖旧丹方
+         */
+
+        //如果有辅药1
+        if (oldFormula.getSecondaryHerb1() != null) {
+            //获取旧丹方-辅药1药性
+            YaoCaiSecondaryEffectEnum oldSecondaryEffect1 = oldFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect();
+            //获取旧丹方-辅药1总药力
+            Integer oldTotalPower1 = oldFormula.getSecondaryHerb1().getTotalPower();
+            //获取新丹方-辅药1总药力
+            Integer newTotalPower1 = newSecondaryHerbMap.getOrDefault(oldSecondaryEffect1, 0);
+            //判断是否完全覆盖
+            if (newTotalPower1 < oldTotalPower1) {
+                //不完全覆盖,返回false
+                return false;
+            }
+        }
+
+        //默认覆盖
+        return true;
     }
 
 }
