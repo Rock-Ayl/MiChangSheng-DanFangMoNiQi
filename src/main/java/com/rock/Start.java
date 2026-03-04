@@ -100,14 +100,12 @@ public class Start {
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
 
-        //所有单方列表
-        List<DanFangDoc> allDanFangDocList = new ArrayList<>();
-        //丹方map
-        Map<DanYaoDoc, List<DanFangDoc>> danFangDocMap = new HashMap<>();
         //循环所有丹药
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
+                //开始时间
+                long startTime = System.currentTimeMillis();
                 //生成本次组合
                 List<DanFangDoc> combinationList = combinationService.combination(
                         danYaoDoc,
@@ -117,14 +115,13 @@ public class Start {
                         yaoCaiSecondaryEffectMap,
                         danFangGroupMap
                 );
-                //加入maap
-                danFangDocMap.put(danYaoDoc, combinationList);
-                //加入列表
-                allDanFangDocList.addAll(combinationList);
+                //结束时间
+                long endTime = System.currentTimeMillis();
                 //打印丹药+丹炉+丹方数量
                 System.out.println(
                         "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
-                                "]的丹方,丹炉是[" + danLuEnum.getCode() + "]");
+                                "]的丹方,丹炉是[" + danLuEnum.getCode() +
+                                "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
             }
         }
         System.out.println();
