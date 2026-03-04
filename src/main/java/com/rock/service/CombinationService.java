@@ -87,7 +87,7 @@ public class CombinationService {
         result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
 
         //构建主药2
-        //result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
+        result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
 
         //构建辅药1
         result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
