@@ -9,10 +9,7 @@ import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.FastJsonExtraUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 组合排列服务
@@ -90,7 +87,7 @@ public class CombinationService {
         result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
 
         //构建主药2
-        result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
+        //result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
 
         //构建辅药1
         result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
@@ -577,6 +574,34 @@ public class CombinationService {
      * @return true-覆盖，false-不覆盖
      */
     private boolean isCoverOtherFormula(DanFangDoc newFormula, DanFangDoc oldFormula) {
+
+        /**
+         * 统计新丹方-主药药性
+         */
+
+        //新丹方-主药药性、对应总药力
+        Map<YaoCaiMainEffectEnum, Integer> newMainHerbMap = new HashMap<>();
+        //判空
+        if (newFormula.getMainHerb1() != null) {
+            //写入
+            newMainHerbMap.put(
+                    //主要药性
+                    newFormula.getMainHerb1().getYaoCai().getMainEffect(),
+                    //总药力
+                    newFormula.getMainHerb1().getTotalPower()
+            );
+        }
+        //判空
+        if (newFormula.getMainHerb2() != null) {
+            //写入
+            newMainHerbMap.put(
+                    //主要药性
+                    newFormula.getMainHerb2().getYaoCai().getMainEffect(),
+                    //总药力
+                    newFormula.getMainHerb2().getTotalPower()
+            );
+        }
+
         //todo
         return false;
     }
