@@ -697,11 +697,11 @@ public class CombinationService {
      */
     private Map<YaoCaiSecondaryEffectEnum, Integer> buildSecondaryHerbMap(DanFangDoc danFangDoc) {
         //丹方-辅药药性、对应总药力
-        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = new HashMap<>();
+        Map<YaoCaiSecondaryEffectEnum, Integer> secondaryHerbMap = new HashMap<>();
         //判空
         if (danFangDoc.getSecondaryHerb1() != null) {
             //累加
-            newSecondaryHerbMap.merge(
+            secondaryHerbMap.merge(
                     danFangDoc.getSecondaryHerb1().getYaoCai().getSecondaryEffect(),
                     danFangDoc.getSecondaryHerb1().getTotalPower(),
                     Integer::sum
@@ -710,14 +710,14 @@ public class CombinationService {
         //判空
         if (danFangDoc.getSecondaryHerb2() != null) {
             //累加
-            newSecondaryHerbMap.merge(
+            secondaryHerbMap.merge(
                     danFangDoc.getSecondaryHerb2().getYaoCai().getSecondaryEffect(),
                     danFangDoc.getSecondaryHerb2().getTotalPower(),
                     Integer::sum
             );
         }
         //返回
-        return newSecondaryHerbMap;
+        return secondaryHerbMap;
     }
 
 }
