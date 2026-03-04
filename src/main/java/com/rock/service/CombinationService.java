@@ -585,6 +585,15 @@ public class CombinationService {
         Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = buildSecondaryHerbMap(newFormula);
 
         /**
+         * 统计旧丹方-药性
+         */
+
+        //旧丹方-主药药性、对应总药力
+        Map<YaoCaiMainEffectEnum, Integer> oldMainHerbMap = buildMainHerbMap(oldFormula);
+        //旧丹方-辅药药性、对应总药力
+        Map<YaoCaiSecondaryEffectEnum, Integer> oldSecondaryHerbMap = buildSecondaryHerbMap(oldFormula);
+
+        /**
          * 检查是否完全覆盖旧丹方
          */
 
