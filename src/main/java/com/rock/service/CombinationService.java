@@ -585,7 +585,7 @@ public class CombinationService {
         if (newFormula.getMainHerb1() != null) {
             //写入
             newMainHerbMap.put(
-                    //主要药性
+                    //药性
                     newFormula.getMainHerb1().getYaoCai().getMainEffect(),
                     //总药力
                     newFormula.getMainHerb1().getTotalPower()
@@ -595,10 +595,37 @@ public class CombinationService {
         if (newFormula.getMainHerb2() != null) {
             //写入
             newMainHerbMap.put(
-                    //主要药性
+                    //药性
                     newFormula.getMainHerb2().getYaoCai().getMainEffect(),
                     //总药力
                     newFormula.getMainHerb2().getTotalPower()
+            );
+        }
+
+        /**
+         * 统计新丹方-辅药药性
+         */
+
+        //新丹方-辅药药性、对应总药力
+        Map<YaoCaiSecondaryEffectEnum, Integer> newSecondaryHerbMap = new HashMap<>();
+        //判空
+        if (newFormula.getSecondaryHerb1() != null) {
+            //写入
+            newSecondaryHerbMap.put(
+                    //药性
+                    newFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect(),
+                    //总药效
+                    newFormula.getSecondaryHerb1().getTotalPower()
+            );
+        }
+        //判空
+        if (newFormula.getSecondaryHerb2() != null) {
+            //写入
+            newSecondaryHerbMap.put(
+                    //药性
+                    newFormula.getSecondaryHerb2().getYaoCai().getSecondaryEffect(),
+                    //总药效
+                    newFormula.getSecondaryHerb2().getTotalPower()
             );
         }
 
