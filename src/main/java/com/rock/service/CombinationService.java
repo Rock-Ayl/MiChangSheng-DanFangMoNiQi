@@ -597,12 +597,12 @@ public class CombinationService {
          * 检查是否完全覆盖旧丹方
          */
 
-        //如果有辅药1
-        if (oldFormula.getSecondaryHerb1() != null) {
+        //循环辅药
+        for (Map.Entry<YaoCaiSecondaryEffectEnum, Integer> entry : oldSecondaryHerbMap.entrySet()) {
             //获取旧丹方-辅药1药性
-            YaoCaiSecondaryEffectEnum oldSecondaryEffect1 = oldFormula.getSecondaryHerb1().getYaoCai().getSecondaryEffect();
+            YaoCaiSecondaryEffectEnum oldSecondaryEffect1 = entry.getKey();
             //获取旧丹方-辅药1总药力
-            Integer oldTotalPower1 = oldFormula.getSecondaryHerb1().getTotalPower();
+            Integer oldTotalPower1 = entry.getValue();
             //获取新丹方-辅药1总药力
             Integer newTotalPower1 = newSecondaryHerbMap.getOrDefault(oldSecondaryEffect1, 0);
             //判断是否完全覆盖
@@ -611,44 +611,16 @@ public class CombinationService {
                 return false;
             }
         }
-        //如果有辅药2
-        if (oldFormula.getSecondaryHerb2() != null) {
-            //获取旧丹方-辅药2药性
-            YaoCaiSecondaryEffectEnum oldSecondaryEffect2 = oldFormula.getSecondaryHerb2().getYaoCai().getSecondaryEffect();
-            //获取旧丹方-辅药2总药力
-            Integer oldTotalPower2 = oldFormula.getSecondaryHerb2().getTotalPower();
-            //获取新丹方-辅药2总药力
-            Integer newTotalPower2 = newSecondaryHerbMap.getOrDefault(oldSecondaryEffect2, 0);
-            //判断是否完全覆盖
-            if (newTotalPower2 < oldTotalPower2) {
-                //不完全覆盖,返回false
-                return false;
-            }
-        }
-        //如果有主药1
-        if (oldFormula.getMainHerb1() != null) {
+        //循环主药
+        for (Map.Entry<YaoCaiMainEffectEnum, Integer> entry : oldMainHerbMap.entrySet()) {
             //获取旧丹方-主药1药性
-            YaoCaiMainEffectEnum oldMainEffect1 = oldFormula.getMainHerb1().getYaoCai().getMainEffect();
+            YaoCaiMainEffectEnum oldMainEffect1 = entry.getKey();
             //获取旧丹方-主药1总药力
-            Integer oldTotalPower1 = oldFormula.getMainHerb1().getTotalPower();
-            //获取新丹方-主药1总药力
+            Integer oldTotalPower1 = entry.getValue();
+            //获取新丹方-主药1总药效
             Integer newTotalPower1 = newMainHerbMap.getOrDefault(oldMainEffect1, 0);
             //判断是否完全覆盖
             if (newTotalPower1 < oldTotalPower1) {
-                //不完全覆盖,返回false
-                return false;
-            }
-        }
-        //如果有主药2
-        if (oldFormula.getMainHerb2() != null) {
-            //获取旧丹方-主药2药性
-            YaoCaiMainEffectEnum oldMainEffect2 = oldFormula.getMainHerb2().getYaoCai().getMainEffect();
-            //获取旧丹方-主药2总药力
-            Integer oldTotalPower2 = oldFormula.getMainHerb2().getTotalPower();
-            //获取新丹方-主药2总药力
-            Integer newTotalPower2 = newMainHerbMap.getOrDefault(oldMainEffect2, 0);
-            //判断是否完全覆盖
-            if (newTotalPower2 < oldTotalPower2) {
                 //不完全覆盖,返回false
                 return false;
             }
