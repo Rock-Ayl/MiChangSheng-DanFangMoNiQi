@@ -661,8 +661,36 @@ public class CombinationService {
                 return false;
             }
         }
+        //如果有主药1
+        if (oldFormula.getMainHerb1() != null) {
+            //获取旧丹方-主药1药性
+            YaoCaiMainEffectEnum oldMainEffect1 = oldFormula.getMainHerb1().getYaoCai().getMainEffect();
+            //获取旧丹方-主药1总药力
+            Integer oldTotalPower1 = oldFormula.getMainHerb1().getTotalPower();
+            //获取新丹方-主药1总药力
+            Integer newTotalPower1 = newMainHerbMap.getOrDefault(oldMainEffect1, 0);
+            //判断是否完全覆盖
+            if (newTotalPower1 < oldTotalPower1) {
+                //不完全覆盖,返回false
+                return false;
+            }
+        }
+        //如果有主药2
+        if (oldFormula.getMainHerb2() != null) {
+            //获取旧丹方-主药2药性
+            YaoCaiMainEffectEnum oldMainEffect2 = oldFormula.getMainHerb2().getYaoCai().getMainEffect();
+            //获取旧丹方-主药2总药力
+            Integer oldTotalPower2 = oldFormula.getMainHerb2().getTotalPower();
+            //获取新丹方-主药2总药力
+            Integer newTotalPower2 = newMainHerbMap.getOrDefault(oldMainEffect2, 0);
+            //判断是否完全覆盖
+            if (newTotalPower2 < oldTotalPower2) {
+                //不完全覆盖,返回false
+                return false;
+            }
+        }
 
-        //默认覆盖
+        //全部满足,视为覆盖
         return true;
     }
 
