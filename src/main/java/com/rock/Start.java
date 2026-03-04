@@ -104,6 +104,11 @@ public class Start {
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
+
+                /**
+                 * 生成本次单方
+                 */
+
                 //开始时间
                 long startTime = System.currentTimeMillis();
                 //生成本次组合
@@ -117,6 +122,11 @@ public class Start {
                 );
                 //结束时间
                 long endTime = System.currentTimeMillis();
+
+                /**
+                 * 输出
+                 */
+
                 //打印丹药+丹炉+丹方数量
                 System.out.println(
                         "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
