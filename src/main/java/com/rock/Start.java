@@ -100,21 +100,27 @@ public class Start {
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
 
+        //所有单方列表
+        List<DanFangDoc> allDanFangDocList = new ArrayList<>();
         //丹方map
         Map<DanYaoDoc, List<DanFangDoc>> danFangDocMap = new HashMap<>();
         //循环所有丹药
         for (DanYaoDoc danYaoDoc : danYaoDocList) {
             //使用所有丹炉
             for (DanLuEnum danLuEnum : DanLuEnum.values()) {
-                //生成所有组合,并加入map
-                danFangDocMap.put(danYaoDoc, combinationService.combination(
+                //生成本次组合
+                List<DanFangDoc> combinationList = combinationService.combination(
                         danYaoDoc,
                         danLuEnum,
                         yaoCaiDocAndNullList,
                         yaoCaiMainEffectMap,
                         yaoCaiSecondaryEffectMap,
                         danFangGroupMap
-                ));
+                );
+                //加入maap
+                danFangDocMap.put(danYaoDoc, combinationList);
+                //加入列表
+                allDanFangDocList.addAll(combinationList);
             }
         }
         System.out.println();
