@@ -11,6 +11,7 @@ import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -117,84 +118,98 @@ public class Start {
         //创建表格
         BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
 
-        //设置表头
-        writer.addHeaderAlias("danYaoName", "丹药名称");
-        writer.addHeaderAlias("danLuName", "丹炉名称");
-        writer.addHeaderAlias("mainHerb1", "主药1");
-        writer.addHeaderAlias("mainHerb2", "主药2");
-        writer.addHeaderAlias("secondaryHerb1", "辅药1");
-        writer.addHeaderAlias("secondaryHerb2", "辅药2");
-        writer.addHeaderAlias("guideHerb", "药引");
-        writer.addHeaderAlias("yaoCaiCount", "药材总数");
-        writer.addHeaderAlias("heatAndColdValue", "寒热数值");
-
-
         //所有药材列表(包含NULL)
         List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
 
-        //循环所有丹药
-        for (DanYaoDoc danYaoDoc : danYaoDocList) {
-            //使用所有丹炉
-            for (DanLuEnum danLuEnum : DanLuEnum.values()) {
+        //按顺序循环品级
+        for (GroupEnum groupEnum : GroupEnum.values()) {
 
-                /**
-                 * 生成本次单方
-                 */
+            //当前品级丹药列表
+            List<DanYaoDoc> thisGroupDanYaoDocList = danYaoDocGroupMap.get(groupEnum);
+            //判空
+            if (CollectionUtils.isEmpty(thisGroupDanYaoDocList)) {
+                //本轮过
+                continue;
+            }
 
-                //开始时间
-                long startTime = System.currentTimeMillis();
-                //生成本次组合
-                List<DanFangDoc> combinationList = combinationService.combination(
-                        danYaoDoc,
-                        danLuEnum,
-                        yaoCaiDocAndNullList,
-                        yaoCaiMainEffectMap,
-                        yaoCaiSecondaryEffectMap,
-                        danFangGroupMap
-                );
-                //结束时间
-                long endTime = System.currentTimeMillis();
+            //每个分组创建一个新的Sheet
+            writer.setSheet(groupEnum.getCode());
 
-                /**
-                 * 写入excel
-                 */
+            //每个Sheet都要重新设置表头
+            writer.addHeaderAlias("danYaoName", "丹药名称");
+            writer.addHeaderAlias("danLuName", "丹炉名称");
+            writer.addHeaderAlias("mainHerb1", "主药1");
+            writer.addHeaderAlias("mainHerb2", "主药2");
+            writer.addHeaderAlias("secondaryHerb1", "辅药1");
+            writer.addHeaderAlias("secondaryHerb2", "辅药2");
+            writer.addHeaderAlias("guideHerb", "药引");
+            writer.addHeaderAlias("yaoCaiCount", "药材总数");
+            writer.addHeaderAlias("heatAndColdValue", "寒热数值");
 
-                //如果有内容
-                if (combinationList.isEmpty() == false) {
-                    //准备数据
-                    List<Map<String, Object>> dataList = new ArrayList<>();
-                    //循环
-                    for (DanFangDoc danFangDoc : combinationList) {
-                        //初始化行
-                        Map<String, Object> row = new HashMap<>();
-                        //写入key、value
-                        row.put("danYaoName", danYaoDoc.getName());
-                        row.put("danLuName", danLuEnum.getCode());
-                        row.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
-                        row.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
-                        row.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
-                        row.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
-                        row.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
-                        row.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
-                        row.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
-                        //组装
-                        dataList.add(row);
+            //循环丹药
+            for (DanYaoDoc danYaoDoc : thisGroupDanYaoDocList) {
+                //使用所有丹炉
+                for (DanLuEnum danLuEnum : DanLuEnum.values()) {
+
+                    /**
+                     * 生成本次单方
+                     */
+
+                    //开始时间
+                    long startTime = System.currentTimeMillis();
+                    //生成本次组合
+                    List<DanFangDoc> combinationList = combinationService.combination(
+                            danYaoDoc,
+                            danLuEnum,
+                            yaoCaiDocAndNullList,
+                            yaoCaiMainEffectMap,
+                            yaoCaiSecondaryEffectMap,
+                            danFangGroupMap
+                    );
+                    //结束时间
+                    long endTime = System.currentTimeMillis();
+
+                    /**
+                     * 写入excel
+                     */
+
+                    //如果有内容
+                    if (combinationList.isEmpty() == false) {
+                        //准备数据
+                        List<Map<String, Object>> dataList = new ArrayList<>();
+                        //循环
+                        for (DanFangDoc danFangDoc : combinationList) {
+                            //初始化行
+                            Map<String, Object> row = new HashMap<>();
+                            //写入key、value
+                            row.put("danYaoName", danYaoDoc.getName());
+                            row.put("danLuName", danLuEnum.getCode());
+                            row.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
+                            row.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
+                            row.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
+                            row.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
+                            row.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
+                            row.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
+                            row.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
+                            //组装
+                            dataList.add(row);
+                        }
+                        //写入数据
+                        writer.write(dataList, true);
                     }
-                    //写入数据
-                    writer.write(dataList, true);
+
+                    /**
+                     * 输出
+                     */
+
+                    //打印丹药+丹炉+丹方数量
+                    System.out.println(
+                            "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
+                                    "]的丹方,丹炉是[" + danLuEnum.getCode() +
+                                    "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
                 }
-
-                /**
-                 * 输出
-                 */
-
-                //打印丹药+丹炉+丹方数量
-                System.out.println(
-                        "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
-                                "]的丹方,丹炉是[" + danLuEnum.getCode() +
-                                "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
             }
         }
 
