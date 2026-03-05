@@ -48,6 +48,11 @@ public class Start {
 
         //读取药材数据
         List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
+        //如果不需要妖丹
+        if (Config.NEED_YAO_DAN == false) {
+            //过滤掉妖丹
+            yaoCaiDocList = yaoCaiDocList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
+        }
 
         /**
          * 读取 丹药(包含丹方) 配置

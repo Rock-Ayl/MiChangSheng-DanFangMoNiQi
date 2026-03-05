@@ -17,7 +17,7 @@ public class Config {
      */
 
     //药材是否包含妖丹
-    public static final boolean NEED_YAO_DAN = true;
+    public static final boolean NEED_YAO_DAN = false;
 
     /**
      * 开关-额外平衡寒热
