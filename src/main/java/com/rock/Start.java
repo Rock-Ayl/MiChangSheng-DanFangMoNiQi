@@ -189,46 +189,56 @@ public class Start {
                             rowMap.put("mainHerb1Name", danFangDoc.getMainHerb1().getYaoCai().getName());
                             rowMap.put("mainHerb1Quantity", danFangDoc.getMainHerb1().getQuantity());
                             rowMap.put("mainHerb1Grade", danFangDoc.getMainHerb1().getYaoCai().getGrade().getCode());
+                            rowMap.put("mainHerb1YaoDan", danFangDoc.getMainHerb1().getYaoCai().getYaoDan() == true ? "是" : "否");
                         } else {
                             rowMap.put("mainHerb1Name", "无");
                             rowMap.put("mainHerb1Quantity", 0);
                             rowMap.put("mainHerb1Grade", "无");
+                            rowMap.put("mainHerb1YaoDan", "无");
                         }
                         if (danFangDoc.getMainHerb2() != null) {
                             rowMap.put("mainHerb2Name", danFangDoc.getMainHerb2().getYaoCai().getName());
                             rowMap.put("mainHerb2Quantity", danFangDoc.getMainHerb2().getQuantity());
                             rowMap.put("mainHerb2Grade", danFangDoc.getMainHerb2().getYaoCai().getGrade().getCode());
+                            rowMap.put("mainHerb2YaoDan", danFangDoc.getMainHerb2().getYaoCai().getYaoDan() == true ? "是" : "否");
                         } else {
                             rowMap.put("mainHerb2Name", "无");
                             rowMap.put("mainHerb2Quantity", 0);
                             rowMap.put("mainHerb2Grade", "无");
+                            rowMap.put("mainHerb2YaoDan", "无");
                         }
                         if (danFangDoc.getSecondaryHerb1() != null) {
                             rowMap.put("secondaryHerb1Name", danFangDoc.getSecondaryHerb1().getYaoCai().getName());
                             rowMap.put("secondaryHerb1Quantity", danFangDoc.getSecondaryHerb1().getQuantity());
                             rowMap.put("secondaryHerb1Grade", danFangDoc.getSecondaryHerb1().getYaoCai().getGrade().getCode());
+                            rowMap.put("secondaryHerb1YaoDan", danFangDoc.getSecondaryHerb1().getYaoCai().getYaoDan() == true ? "是" : "否");
                         } else {
                             rowMap.put("secondaryHerb1Name", "无");
                             rowMap.put("secondaryHerb1Quantity", 0);
                             rowMap.put("secondaryHerb1Grade", "无");
+                            rowMap.put("secondaryHerb1YaoDan", "无");
                         }
                         if (danFangDoc.getSecondaryHerb2() != null) {
                             rowMap.put("secondaryHerb2Name", danFangDoc.getSecondaryHerb2().getYaoCai().getName());
                             rowMap.put("secondaryHerb2Quantity", danFangDoc.getSecondaryHerb2().getQuantity());
                             rowMap.put("secondaryHerb2Grade", danFangDoc.getSecondaryHerb2().getYaoCai().getGrade().getCode());
+                            rowMap.put("secondaryHerb2YaoDan", danFangDoc.getSecondaryHerb2().getYaoCai().getYaoDan() == true ? "是" : "否");
                         } else {
                             rowMap.put("secondaryHerb2Name", "无");
                             rowMap.put("secondaryHerb2Quantity", 0);
                             rowMap.put("secondaryHerb2Grade", "无");
+                            rowMap.put("secondaryHerb2YaoDan", "无");
                         }
                         if (danFangDoc.getGuideHerb() != null) {
                             rowMap.put("guideHerbName", danFangDoc.getGuideHerb().getYaoCai().getName());
                             rowMap.put("guideHerbQuantity", danFangDoc.getGuideHerb().getQuantity());
                             rowMap.put("guideHerbGrade", danFangDoc.getGuideHerb().getYaoCai().getGrade().getCode());
+                            rowMap.put("guideHerbYaoDan", danFangDoc.getGuideHerb().getYaoCai().getYaoDan() == true ? "是" : "否");
                         } else {
                             rowMap.put("guideHerbName", "无");
                             rowMap.put("guideHerbQuantity", 0);
                             rowMap.put("guideHerbGrade", "无");
+                            rowMap.put("guideHerbYaoDan", "无");
                         }
                         rowMap.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
                         //组装到品级集合
@@ -289,22 +299,27 @@ public class Start {
                 writer.addHeaderAlias("mainHerb1Name", "主药1名称");
                 writer.addHeaderAlias("mainHerb1Quantity", "主药1数量");
                 writer.addHeaderAlias("mainHerb1Grade", "主药1品级");
+                writer.addHeaderAlias("mainHerb1YaoDan", "主药1是妖丹");
 
                 writer.addHeaderAlias("mainHerb2Name", "主药2名称");
                 writer.addHeaderAlias("mainHerb2Quantity", "主药2数量");
                 writer.addHeaderAlias("mainHerb2Grade", "主药2品级");
+                writer.addHeaderAlias("mainHerb2YaoDan", "主药2是妖丹");
 
                 writer.addHeaderAlias("secondaryHerb1Name", "辅药1名称");
                 writer.addHeaderAlias("secondaryHerb1Quantity", "辅药1数量");
                 writer.addHeaderAlias("secondaryHerb1Grade", "辅药1品级");
+                writer.addHeaderAlias("secondaryHerb1YaoDan", "辅药1是妖丹");
 
                 writer.addHeaderAlias("secondaryHerb2Name", "辅药2名称");
                 writer.addHeaderAlias("secondaryHerb2Quantity", "辅药2数量");
                 writer.addHeaderAlias("secondaryHerb2Grade", "辅药2品级");
+                writer.addHeaderAlias("secondaryHerb2YaoDan", "辅药2是妖丹");
 
                 writer.addHeaderAlias("guideHerbName", "药引名称");
                 writer.addHeaderAlias("guideHerbQuantity", "药引数量");
                 writer.addHeaderAlias("guideHerbGrade", "药引品级");
+                writer.addHeaderAlias("guideHerbYaoDan", "药引是妖丹");
 
                 //设置sheet名称
                 writer.setSheet(groupEnum.getCode() + "丹方_" + (i + 1));
