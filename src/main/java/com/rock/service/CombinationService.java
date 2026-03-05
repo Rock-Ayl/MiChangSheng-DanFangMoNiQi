@@ -58,6 +58,11 @@ public class CombinationService {
         int danYaoLevel = danYaoDoc.getGrade().getLevel();
         //丹炉品级
         int danLulevel = danLuEnum.getGroupEnum().getLevel();
+        //如果丹炉比丹药小超过2个层级(三品丹炉炼制六品丹药)
+        if (danYaoLevel - danLulevel > 2) {
+            //过
+            return new ArrayList<>();
+        }
 
         /**
          * 所需其他参数
