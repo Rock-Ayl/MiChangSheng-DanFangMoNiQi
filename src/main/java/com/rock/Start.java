@@ -6,6 +6,7 @@ import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
+import com.rock.enums.GroupEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
@@ -99,6 +100,15 @@ public class Start {
                 danFangGroupMap.put(key, keyGroupList);
             }
         }
+
+        /**
+         * 按照品级分组
+         */
+
+        //按照品级分组
+        Map<GroupEnum, List<DanYaoDoc>> danYaoDocGroupMap = danYaoDocList
+                .stream()
+                .collect(Collectors.groupingBy(DanYaoDoc::getGrade));
 
         /**
          * 组合排列生成所有丹方
