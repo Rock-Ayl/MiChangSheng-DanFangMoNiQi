@@ -154,11 +154,11 @@ public class Start {
                 //如果有内容
                 if (combinationList.isEmpty() == false) {
                     //准备数据
-                    List<Map<String, Object>> dataList = new java.util.ArrayList<>();
+                    List<Map<String, Object>> dataList = new ArrayList<>();
                     //循环
                     for (DanFangDoc danFangDoc : combinationList) {
                         //初始化行
-                        Map<String, Object> row = new java.util.HashMap<>();
+                        Map<String, Object> row = new HashMap<>();
                         //写入key、value
                         row.put("danYaoName", danYaoDoc.getName());
                         row.put("danLuName", danLuEnum.getCode());
