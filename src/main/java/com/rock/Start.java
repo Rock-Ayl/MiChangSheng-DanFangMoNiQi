@@ -179,16 +179,6 @@ public class Start {
                         rowMap.put("danYaoName", danYaoDoc.getName());
                         rowMap.put("danLuName", danLuEnum.getCode());
 
-                        //品级
-                        rowMap.put("pinJi", groupEnum.getCode());
-
-                        //原有合并字段（保持不变，兼容旧逻辑）
-                        rowMap.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
-                        rowMap.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
-                        rowMap.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
-                        rowMap.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
-                        rowMap.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
-
                         //新增：将 名称 与 数量 单独拆分为两个字段，便于后续处理或筛选
                         if (danFangDoc.getMainHerb1() != null) {
                             rowMap.put("mainHerb1Name", danFangDoc.getMainHerb1().getYaoCai().getName());
@@ -226,7 +216,6 @@ public class Start {
                             rowMap.put("guideHerbQuantity", 0);
                         }
                         rowMap.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
-                        rowMap.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
                         //组装到品级集合
                         groupDataList.add(rowMap);
                     }
@@ -279,13 +268,7 @@ public class Start {
                 //每个Sheet都要重新设置表头（与你原代码保持一致）
                 writer.addHeaderAlias("danYaoName", "丹药名称");
                 writer.addHeaderAlias("danLuName", "丹炉名称");
-                writer.addHeaderAlias("mainHerb1", "主药1");
-                writer.addHeaderAlias("mainHerb2", "主药2");
-                writer.addHeaderAlias("secondaryHerb1", "辅药1");
-                writer.addHeaderAlias("secondaryHerb2", "辅药2");
-                writer.addHeaderAlias("guideHerb", "药引");
                 writer.addHeaderAlias("yaoCaiCount", "药材总数");
-                writer.addHeaderAlias("heatAndColdValue", "寒热数值");
 
                 //新增表头别名(拆分后的名称与数量字段)
                 writer.addHeaderAlias("mainHerb1Name", "主药1名称");
@@ -299,9 +282,6 @@ public class Start {
                 writer.addHeaderAlias("guideHerbName", "药引名称");
                 writer.addHeaderAlias("guideHerbQuantity", "药引数量");
 
-                //新增品级列
-                writer.addHeaderAlias("pinJi", "品级");
-
                 //设置sheet名称
                 writer.setSheet(groupEnum.getCode() + "丹方_" + (i + 1));
 
@@ -311,9 +291,6 @@ public class Start {
             }
 
         }
-
-        //删除第一个sheet
-        writer.getSheets().remove(0);
 
         //统一关闭 writer
         writer.close();
