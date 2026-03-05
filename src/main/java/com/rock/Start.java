@@ -137,7 +137,7 @@ public class Start {
                  */
 
                 //如果有内容
-                if (combinationList.isEmpty()) {
+                if (combinationList.isEmpty() == false) {
 
                     //创建BigExcelWriter
                     BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
