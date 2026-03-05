@@ -55,9 +55,9 @@ public class CombinationService {
         }
 
         //丹药品级
-        GroupEnum danYaoGroup = danYaoDoc.getGrade();
+        int danYaoLevel = danYaoDoc.getGrade().getLevel();
         //丹炉品级
-        GroupEnum danLuGroup = danLuEnum.getGroupEnum();
+        int danLulevel = danLuEnum.getGroupEnum().getLevel();
 
         /**
          * 所需其他参数

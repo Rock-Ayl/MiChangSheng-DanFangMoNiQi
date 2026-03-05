@@ -10,14 +10,14 @@ import lombok.ToString;
 @ToString
 public enum GroupEnum {
 
-    NONE("none", -1),
+    NONE("none", -1, 0),
 
-    ONE("一品", 1),
-    TWO("二品", 3),
-    THREE("三品", 9),
-    FOUR("四品", 36),
-    FIVE("五品", 180),
-    SIX("六品", 1080),
+    ONE("一品", 1, 1),
+    TWO("二品", 3, 2),
+    THREE("三品", 9, 3),
+    FOUR("四品", 36, 4),
+    FIVE("五品", 180, 5),
+    SIX("六品", 1080, 6),
 
     ;
 
@@ -27,9 +27,13 @@ public enum GroupEnum {
     //单个药材,对应品级,对应的药力
     private final Integer power;
 
-    GroupEnum(String code, Integer power) {
+    //等级
+    private final Integer level;
+
+    GroupEnum(String code, Integer power, Integer level) {
         this.code = code;
         this.power = power;
+        this.level = level;
     }
 
     /**
