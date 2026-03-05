@@ -13,6 +13,13 @@ public class Config {
     public static final String OUT_EXCEL_FILE_PATH = "/Users/ayl/Downloads/out.xlsx";
 
     /**
+     * 开关-一般
+     */
+
+    //药材是否包含妖丹
+    public static final boolean NEED_YAO_DAN = true;
+
+    /**
      * 开关-额外平衡寒热
      */
 
