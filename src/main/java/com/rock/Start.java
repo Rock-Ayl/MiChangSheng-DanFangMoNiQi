@@ -104,6 +104,21 @@ public class Start {
          * 组合排列生成所有丹方
          */
 
+        //创建表格
+        BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
+
+        //设置表头
+        writer.addHeaderAlias("danYaoName", "丹药名称");
+        writer.addHeaderAlias("danLuName", "丹炉名称");
+        writer.addHeaderAlias("mainHerb1", "主药1");
+        writer.addHeaderAlias("mainHerb2", "主药2");
+        writer.addHeaderAlias("secondaryHerb1", "辅药1");
+        writer.addHeaderAlias("secondaryHerb2", "辅药2");
+        writer.addHeaderAlias("guideHerb", "药引");
+        writer.addHeaderAlias("yaoCaiCount", "药材总数");
+        writer.addHeaderAlias("heatAndColdValue", "寒热数值");
+
+
         //所有药材列表(包含NULL)
         List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
         //把空也放里面,这也是一种情况
@@ -138,21 +153,6 @@ public class Start {
 
                 //如果有内容
                 if (combinationList.isEmpty() == false) {
-
-                    //创建BigExcelWriter
-                    BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
-
-                    //设置表头
-                    writer.addHeaderAlias("danYaoName", "丹药名称");
-                    writer.addHeaderAlias("danLuName", "丹炉名称");
-                    writer.addHeaderAlias("mainHerb1", "主药1");
-                    writer.addHeaderAlias("mainHerb2", "主药2");
-                    writer.addHeaderAlias("secondaryHerb1", "辅药1");
-                    writer.addHeaderAlias("secondaryHerb2", "辅药2");
-                    writer.addHeaderAlias("guideHerb", "药引");
-                    writer.addHeaderAlias("yaoCaiCount", "药材总数");
-                    writer.addHeaderAlias("heatAndColdValue", "寒热数值");
-
                     //准备数据
                     List<Map<String, Object>> dataList = new java.util.ArrayList<>();
                     //循环
@@ -174,8 +174,6 @@ public class Start {
                     }
                     //写入数据
                     writer.write(dataList, true);
-                    //关闭writer，释放资源
-                    writer.close();
                 }
 
                 /**
@@ -189,6 +187,10 @@ public class Start {
                                 "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
             }
         }
+
+        //最后统一关闭excel
+        writer.close();
+
         System.out.println();
 
     }
