@@ -1,5 +1,6 @@
 package com.rock.service;
 
+import com.rock.Config;
 import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
@@ -192,6 +193,11 @@ public class CombinationService {
         Integer requiredPower = null;
         //如果不需要主药2
         if (mainHerb2 == null) {
+            //如果不需要平衡寒热
+            if (Config.SWITCH_MAIN_1_GUIDE == false) {
+                //直接返回
+                return danFangDocList;
+            }
             //尝试用每种药材填充(平衡寒热)
             main2YaoCaiList = yaoCaiDocAndNullList;
         } else {
@@ -293,6 +299,11 @@ public class CombinationService {
         Integer requiredPower = null;
         //如果不需要辅药1
         if (baseSecondaryHerb1 == null) {
+            //如果不需要平衡寒热
+            if (Config.SWITCH_SEC_1_GUIDE == false) {
+                //直接返回
+                return danFangDocList;
+            }
             //尝试用每种药材填充(平衡寒热)
             secondary1YaocaiList = yaoCaiDocAndNullList;
         } else {
@@ -376,6 +387,11 @@ public class CombinationService {
         Integer requiredPower = null;
         //如果不需要辅药2
         if (baseSecondaryHerb2 == null) {
+            //如果不需要平衡寒热
+            if (Config.SWITCH_SEC_2_GUIDE == false) {
+                //直接返回
+                return danFangDocList;
+            }
             //尝试用每种药材填充(平衡寒热)
             secondary2YaocaiList = yaoCaiDocAndNullList;
         } else {

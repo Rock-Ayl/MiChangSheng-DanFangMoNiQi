@@ -5,6 +5,10 @@ package com.rock;
  */
 public class Config {
 
+    /**
+     * 开关-额外平衡寒热
+     */
+
     //当单方没有主药2,是否将其用于平衡寒热(会大幅增加计算时间)
     public static final boolean SWITCH_MAIN_1_GUIDE = false;
 
