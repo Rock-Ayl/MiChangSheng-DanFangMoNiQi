@@ -60,7 +60,7 @@ public class CombinationService {
         int danLulevel = danLuEnum.getGroupEnum().getLevel();
         //如果丹炉比丹药小超过2个层级(三品丹炉炼制六品丹药)
         if (danYaoLevel - danLulevel > 2) {
-            //过
+            //炸炉,直接过
             return new ArrayList<>();
         }
 
