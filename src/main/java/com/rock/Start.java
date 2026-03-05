@@ -115,9 +115,6 @@ public class Start {
          * 组合排列生成所有丹方
          */
 
-        //创建表格
-        BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
-
         //所有药材列表(包含NULL)
         List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
         //把空也放里面,这也是一种情况
@@ -134,8 +131,8 @@ public class Start {
                 continue;
             }
 
-            //每个分组创建一个新的Sheet
-            writer.setSheet(groupEnum.getCode());
+            //创建表格
+            BigExcelWriter writer = ExcelUtil.getBigWriter(new File(String.format(Config.OUT_EXCEL_FILE_PATH, groupEnum.getCode())));
 
             //每个Sheet都要重新设置表头
             writer.addHeaderAlias("danYaoName", "丹药名称");
@@ -211,10 +208,11 @@ public class Start {
                                     "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
                 }
             }
-        }
 
-        //最后统一关闭excel
-        writer.close();
+            //统一关闭excel
+            writer.close();
+
+        }
 
         System.out.println();
 
