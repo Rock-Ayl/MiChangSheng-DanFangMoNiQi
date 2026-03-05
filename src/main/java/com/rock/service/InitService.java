@@ -1,5 +1,6 @@
 package com.rock.service;
 
+import com.rock.Config;
 import com.rock.entity.DanFangDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
@@ -18,9 +19,6 @@ import java.util.Map;
  */
 public class InitService {
 
-    //配置资源
-    private static final String FILE_PATH_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
-    private static final String FILE_PATH_PILL_FILE = "/觅长生-丹药.txt";
 
     /**
      * 读取所有-药材数据
@@ -31,7 +29,7 @@ public class InitService {
         //初始化药材列表
         List<YaoCaiDoc> medicineDocList = new ArrayList<>();
         //读取资源
-        try (InputStream is = getClass().getResourceAsStream(FILE_PATH_HERBAL_MEDICINE_FILE);
+        try (InputStream is = getClass().getResourceAsStream(Config.FILE_PATH_HERBAL_MEDICINE_FILE);
              //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             //当前行
@@ -82,7 +80,7 @@ public class InitService {
         //初始化丹药列表
         List<DanYaoDoc> danYaoDocList = new ArrayList<>();
         //读取资源
-        try (InputStream is = getClass().getResourceAsStream(FILE_PATH_PILL_FILE);
+        try (InputStream is = getClass().getResourceAsStream(Config.FILE_PATH_PILL_FILE);
              //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             //当前行
