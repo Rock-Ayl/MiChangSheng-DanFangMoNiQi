@@ -6,6 +6,7 @@ import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
+import com.rock.enums.GroupEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.FastJsonExtraUtils;
@@ -52,6 +53,11 @@ public class CombinationService {
             //过
             return new ArrayList<>();
         }
+
+        //丹药品级
+        GroupEnum danYaoGroup = danYaoDoc.getGrade();
+        //丹炉品级
+        GroupEnum danLuGroup = danLuEnum.getGroupEnum();
 
         /**
          * 所需其他参数
