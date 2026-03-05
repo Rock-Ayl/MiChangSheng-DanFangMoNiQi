@@ -6,6 +6,13 @@ package com.rock;
 public class Config {
 
     /**
+     * 写入文件地址
+     */
+
+    //输出excel的路径
+    public static final String OUT_EXCEL_FILE_PATH = "/Users/ayl/Downloads/out.xlsx";
+
+    /**
      * 开关-额外平衡寒热
      */
 
