@@ -120,17 +120,17 @@ public class Start {
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
 
-        //每个品级的分片
-        int sheetsPerGroup = 2;
-
-        //目标文件（所有品级写入同一个 excel）
-        File outFile = new File(String.format(Config.OUT_EXCEL_FILE_PATH, "ALL"));
-
         //创建单个 BigExcelWriter（所有 sheet 都写到这个 writer 中）
-        BigExcelWriter writer = ExcelUtil.getBigWriter(outFile);
+        BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
 
         //按顺序循环分组
         for (GroupEnum groupEnum : GroupEnum.values()) {
+
+            //判空
+            if (groupEnum == GroupEnum.NONE) {
+                //本轮过
+                continue;
+            }
 
             //当前品级丹药列表
             List<DanYaoDoc> thisGroupDanYaoDocList = danYaoDocGroupMap.get(groupEnum);
@@ -214,8 +214,10 @@ public class Start {
                 continue;
             }
 
+            //获取品级对应的分片数量
+            Integer sheetsPerGroup = groupEnum.getSheetPart();
             //计算每份大小（向上取整）
-            int partSize = (total + sheetsPerGroup - 1) / sheetsPerGroup;
+            int partSize = (total + groupEnum.getSheetPart() - 1) / sheetsPerGroup;
             //循环
             for (int i = 0; i < sheetsPerGroup; i++) {
                 //计算当前分段的起始索引
@@ -242,7 +244,7 @@ public class Start {
                 writer.addHeaderAlias("heatAndColdValue", "寒热数值");
 
                 //设置sheet名称
-                writer.setSheet(groupEnum.getCode() + "_" + (i + 1));
+                writer.setSheet(groupEnum.getCode() + "丹方_" + (i + 1));
 
                 //写入数据（追加模式为 false，因为每次切分写入的都是该 sheet 的所有行）
                 writer.write(subList, true);
@@ -253,8 +255,6 @@ public class Start {
 
         //统一关闭 writer
         writer.close();
-
-        System.out.println();
 
     }
 

@@ -10,14 +10,14 @@ import lombok.ToString;
 @ToString
 public enum GroupEnum {
 
-    NONE("none", -1, 0),
+    NONE("none", -1, 0, 1),
 
-    ONE("一品", 1, 1),
-    TWO("二品", 3, 2),
-    THREE("三品", 9, 3),
-    FOUR("四品", 36, 4),
-    FIVE("五品", 180, 5),
-    SIX("六品", 1080, 6),
+    ONE("一品", 1, 1, 1),
+    TWO("二品", 3, 2, 1),
+    THREE("三品", 9, 3, 2),
+    FOUR("四品", 36, 4, 1),
+    FIVE("五品", 180, 5, 1),
+    SIX("六品", 1080, 6, 1),
 
     ;
 
@@ -30,10 +30,14 @@ public enum GroupEnum {
     //等级
     private final Integer level;
 
-    GroupEnum(String code, Integer power, Integer level) {
+    //对应品级的丹方的sheet分片(单个丹方超过100万就需要分片)
+    private final Integer sheetPart;
+
+    GroupEnum(String code, Integer power, Integer level, Integer sheetPart) {
         this.code = code;
         this.power = power;
         this.level = level;
+        this.sheetPart = sheetPart;
     }
 
     /**
