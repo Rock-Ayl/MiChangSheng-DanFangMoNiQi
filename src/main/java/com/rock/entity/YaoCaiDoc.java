@@ -49,4 +49,9 @@ public class YaoCaiDoc {
      */
     private YaoCaiPropertyEnum property;
 
+    /**
+     * 是否为妖丹
+     */
+    private Boolean yaoDan;
+
 }

@@ -59,6 +59,8 @@ public class InitService {
                 yaoCaiDoc.setSecondaryEffect(YaoCaiSecondaryEffectEnum.parseByCode(ArrayExtraUtils.getString(partArr, 3)));
                 //解析枚举
                 yaoCaiDoc.setProperty(YaoCaiPropertyEnum.parseByCode(ArrayExtraUtils.getString(partArr, 4)));
+                //是否为妖丹
+                yaoCaiDoc.setYaoDan("是".equals(ArrayExtraUtils.getString(partArr, 5)));
                 //组装到列表
                 medicineDocList.add(yaoCaiDoc);
             }
