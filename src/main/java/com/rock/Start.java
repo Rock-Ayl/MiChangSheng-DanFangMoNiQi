@@ -11,6 +11,7 @@ import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.service.CombinationService;
 import com.rock.service.InitService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,43 +136,47 @@ public class Start {
                  * 写入excel
                  */
 
-                //创建BigExcelWriter
-                BigExcelWriter writer = ExcelUtil.getBigWriter(Config.OUT_EXCEL_FILE_PATH);
+                //如果有内容
+                if (combinationList.isEmpty()) {
 
-                //设置表头
-                writer.addHeaderAlias("danYaoName", "丹药名称");
-                writer.addHeaderAlias("danLuName", "丹炉名称");
-                writer.addHeaderAlias("mainHerb1", "主药1");
-                writer.addHeaderAlias("mainHerb2", "主药2");
-                writer.addHeaderAlias("secondaryHerb1", "辅药1");
-                writer.addHeaderAlias("secondaryHerb2", "辅药2");
-                writer.addHeaderAlias("guideHerb", "药引");
-                writer.addHeaderAlias("yaoCaiCount", "药材总数");
-                writer.addHeaderAlias("heatAndColdValue", "寒热数值");
+                    //创建BigExcelWriter
+                    BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
 
-                //准备数据
-                List<Map<String, Object>> dataList = new java.util.ArrayList<>();
-                //循环
-                for (DanFangDoc danFangDoc : combinationList) {
-                    //初始化行
-                    Map<String, Object> row = new java.util.HashMap<>();
-                    //写入key、value
-                    row.put("danYaoName", danYaoDoc.getName());
-                    row.put("danLuName", danLuEnum.getCode());
-                    row.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
-                    row.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
-                    row.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
-                    row.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
-                    row.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
-                    row.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
-                    row.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
-                    //组装
-                    dataList.add(row);
+                    //设置表头
+                    writer.addHeaderAlias("danYaoName", "丹药名称");
+                    writer.addHeaderAlias("danLuName", "丹炉名称");
+                    writer.addHeaderAlias("mainHerb1", "主药1");
+                    writer.addHeaderAlias("mainHerb2", "主药2");
+                    writer.addHeaderAlias("secondaryHerb1", "辅药1");
+                    writer.addHeaderAlias("secondaryHerb2", "辅药2");
+                    writer.addHeaderAlias("guideHerb", "药引");
+                    writer.addHeaderAlias("yaoCaiCount", "药材总数");
+                    writer.addHeaderAlias("heatAndColdValue", "寒热数值");
+
+                    //准备数据
+                    List<Map<String, Object>> dataList = new java.util.ArrayList<>();
+                    //循环
+                    for (DanFangDoc danFangDoc : combinationList) {
+                        //初始化行
+                        Map<String, Object> row = new java.util.HashMap<>();
+                        //写入key、value
+                        row.put("danYaoName", danYaoDoc.getName());
+                        row.put("danLuName", danLuEnum.getCode());
+                        row.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
+                        row.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
+                        row.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
+                        row.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
+                        row.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
+                        row.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
+                        row.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
+                        //组装
+                        dataList.add(row);
+                    }
+                    //写入数据
+                    writer.write(dataList, true);
+                    //关闭writer，释放资源
+                    writer.close();
                 }
-                //写入数据
-                writer.write(dataList, true);
-                //关闭writer，释放资源
-                writer.close();
 
                 /**
                  * 输出
