@@ -120,7 +120,16 @@ public class Start {
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
 
-        //按顺序循环品级
+        //每个品级的分片
+        int sheetsPerGroup = 2;
+
+        //目标文件（所有品级写入同一个 excel）
+        File outFile = new File(String.format(Config.OUT_EXCEL_FILE_PATH, "ALL"));
+
+        //创建单个 BigExcelWriter（所有 sheet 都写到这个 writer 中）
+        BigExcelWriter writer = ExcelUtil.getBigWriter(outFile);
+
+        //按顺序循环分组
         for (GroupEnum groupEnum : GroupEnum.values()) {
 
             //当前品级丹药列表
@@ -131,20 +140,8 @@ public class Start {
                 continue;
             }
 
-            //创建表格
-            BigExcelWriter writer = ExcelUtil.getBigWriter(new File(String.format(Config.OUT_EXCEL_FILE_PATH, groupEnum.getCode())));
-
-            //每个Sheet都要重新设置表头
-            writer.addHeaderAlias("danYaoName", "丹药名称");
-            writer.addHeaderAlias("danLuName", "丹炉名称");
-            writer.addHeaderAlias("mainHerb1", "主药1");
-            writer.addHeaderAlias("mainHerb2", "主药2");
-            writer.addHeaderAlias("secondaryHerb1", "辅药1");
-            writer.addHeaderAlias("secondaryHerb2", "辅药2");
-            writer.addHeaderAlias("guideHerb", "药引");
-            writer.addHeaderAlias("yaoCaiCount", "药材总数");
-            writer.addHeaderAlias("heatAndColdValue", "寒热数值");
-
+            //为当前品级汇总所有要写入的行（每一项对应一行 Map）
+            List<Map<String, Object>> groupDataList = new ArrayList<>();
             //循环丹药
             for (DanYaoDoc danYaoDoc : thisGroupDanYaoDocList) {
                 //使用所有丹炉
@@ -169,50 +166,93 @@ public class Start {
                     long endTime = System.currentTimeMillis();
 
                     /**
-                     * 写入excel
+                     * 准备数据（先不写入 excel，先汇总到 groupDataList）
                      */
 
-                    //如果有内容
-                    if (combinationList.isEmpty() == false) {
-                        //准备数据
-                        List<Map<String, Object>> dataList = new ArrayList<>();
-                        //循环
-                        for (DanFangDoc danFangDoc : combinationList) {
-                            //初始化行
-                            Map<String, Object> row = new HashMap<>();
-                            //写入key、value
-                            row.put("danYaoName", danYaoDoc.getName());
-                            row.put("danLuName", danLuEnum.getCode());
-                            row.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
-                            row.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
-                            row.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
-                            row.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
-                            row.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
-                            row.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
-                            row.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
-                            //组装
-                            dataList.add(row);
-                        }
-                        //写入数据
-                        writer.write(dataList, true);
+                    //循环
+                    for (DanFangDoc danFangDoc : combinationList) {
+                        //初始化行
+                        Map<String, Object> rowMap = new HashMap<>();
+                        //写入key、value
+                        rowMap.put("danYaoName", danYaoDoc.getName());
+                        rowMap.put("danLuName", danLuEnum.getCode());
+                        rowMap.put("mainHerb1", danFangDoc.getMainHerb1() != null ? danFangDoc.getMainHerb1().getYaoCai().getName() + "(" + danFangDoc.getMainHerb1().getQuantity() + ")" : "无");
+                        rowMap.put("mainHerb2", danFangDoc.getMainHerb2() != null ? danFangDoc.getMainHerb2().getYaoCai().getName() + "(" + danFangDoc.getMainHerb2().getQuantity() + ")" : "无");
+                        rowMap.put("secondaryHerb1", danFangDoc.getSecondaryHerb1() != null ? danFangDoc.getSecondaryHerb1().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb1().getQuantity() + ")" : "无");
+                        rowMap.put("secondaryHerb2", danFangDoc.getSecondaryHerb2() != null ? danFangDoc.getSecondaryHerb2().getYaoCai().getName() + "(" + danFangDoc.getSecondaryHerb2().getQuantity() + ")" : "无");
+                        rowMap.put("guideHerb", danFangDoc.getGuideHerb() != null ? danFangDoc.getGuideHerb().getYaoCai().getName() + "(" + danFangDoc.getGuideHerb().getQuantity() + ")" : "无");
+                        rowMap.put("yaoCaiCount", danFangDoc.getCurrentYaoCaiCount());
+                        rowMap.put("heatAndColdValue", danFangDoc.getCurrentYaoCaiHeatAndColdValue());
+                        //组装到品级集合
+                        groupDataList.add(rowMap);
                     }
 
                     /**
-                     * 输出
+                     * 输出日志（生成信息）
                      */
 
                     //打印丹药+丹炉+丹方数量
-                    System.out.println(
-                            "成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
-                                    "]的丹方,丹炉是[" + danLuEnum.getCode() +
-                                    "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
+                    System.out.println("成功生成[" + combinationList.size() + "]个[" + danYaoDoc.getName() +
+                            "]的丹方,丹炉是[" + danLuEnum.getCode() +
+                            "],耗时:" + (endTime - startTime) / 1000.0 + "秒");
                 }
             }
 
-            //统一关闭excel
-            writer.close();
+            /**
+             * 将当前品级的所有数据切为 N 份，写入不同 sheet
+             *
+             * 规则：
+             *  - 每个 sheet 只放当前品级的一部分
+             *  - 每写入一个 sheet 前都重新设置表头别名（和你之前逻辑保持一致）
+             */
+
+            //总数
+            int total = groupDataList.size();
+            //判空
+            if (total == 0) {
+                //本轮过
+                continue;
+            }
+
+            //计算每份大小（向上取整）
+            int partSize = (total + sheetsPerGroup - 1) / sheetsPerGroup;
+            //循环
+            for (int i = 0; i < sheetsPerGroup; i++) {
+                //计算当前分段的起始索引
+                int start = i * partSize;
+                //如果结束
+                if (start >= total) {
+                    //超过总数,跳出
+                    break;
+                }
+                //结束索引
+                int end = Math.min(start + partSize, total);
+                //切分
+                List<Map<String, Object>> subList = groupDataList.subList(start, end);
+
+                //每个Sheet都要重新设置表头（与你原代码保持一致）
+                writer.addHeaderAlias("danYaoName", "丹药名称");
+                writer.addHeaderAlias("danLuName", "丹炉名称");
+                writer.addHeaderAlias("mainHerb1", "主药1");
+                writer.addHeaderAlias("mainHerb2", "主药2");
+                writer.addHeaderAlias("secondaryHerb1", "辅药1");
+                writer.addHeaderAlias("secondaryHerb2", "辅药2");
+                writer.addHeaderAlias("guideHerb", "药引");
+                writer.addHeaderAlias("yaoCaiCount", "药材总数");
+                writer.addHeaderAlias("heatAndColdValue", "寒热数值");
+
+                //设置sheet名称
+                writer.setSheet(groupEnum.getCode() + "_" + (i + 1));
+
+                //写入数据（追加模式为 false，因为每次切分写入的都是该 sheet 的所有行）
+                writer.write(subList, true);
+
+            }
 
         }
+
+        //统一关闭 writer
+        writer.close();
 
         System.out.println();
 
