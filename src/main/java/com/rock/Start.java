@@ -289,15 +289,19 @@ public class Start {
                 writer.addHeaderAlias("mainHerb1Name", "主药1名称");
                 writer.addHeaderAlias("mainHerb1Quantity", "主药1数量");
                 writer.addHeaderAlias("mainHerb1Grade", "主药1品级");
+
                 writer.addHeaderAlias("mainHerb2Name", "主药2名称");
                 writer.addHeaderAlias("mainHerb2Quantity", "主药2数量");
                 writer.addHeaderAlias("mainHerb2Grade", "主药2品级");
+
                 writer.addHeaderAlias("secondaryHerb1Name", "辅药1名称");
                 writer.addHeaderAlias("secondaryHerb1Quantity", "辅药1数量");
                 writer.addHeaderAlias("secondaryHerb1Grade", "辅药1品级");
+
                 writer.addHeaderAlias("secondaryHerb2Name", "辅药2名称");
                 writer.addHeaderAlias("secondaryHerb2Quantity", "辅药2数量");
                 writer.addHeaderAlias("secondaryHerb2Grade", "辅药2品级");
+
                 writer.addHeaderAlias("guideHerbName", "药引名称");
                 writer.addHeaderAlias("guideHerbQuantity", "药引数量");
                 writer.addHeaderAlias("guideHerbGrade", "药引品级");
