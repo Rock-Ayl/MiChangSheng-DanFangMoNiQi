@@ -129,8 +129,16 @@ public class Start {
          * 组合排列生成所有丹方
          */
 
+
+        //获取文件
+        File file = new File(Config.OUT_EXCEL_FILE_PATH);
+        //如果存在
+        if (file.exists()) {
+            //删除
+            file.delete();
+        }
         //创建单个 BigExcelWriter（所有 sheet 都写到这个 writer 中）
-        BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
+        BigExcelWriter writer = ExcelUtil.getBigWriter(file);
 
         //按顺序循环分组
         for (GroupEnum groupEnum : GroupEnum.values()) {

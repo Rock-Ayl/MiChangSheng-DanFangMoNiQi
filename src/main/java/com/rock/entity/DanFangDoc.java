@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 丹方 实体类
@@ -164,7 +161,7 @@ public class DanFangDoc {
     public List<String> getKey() {
 
         //key列表
-        List<String> keyList = new ArrayList<>();
+        Set<String> keySet = new HashSet<>();
 
         /**
          * 主药药性
@@ -210,15 +207,15 @@ public class DanFangDoc {
             //循环2
             for (String secKey : secKeyList) {
                 //加入key列表
-                keyList.add(mainKey + "_" + secKey);
+                keySet.add(mainKey + "_" + secKey);
             }
         }
         //如果没有辅药
-        if (keyList.isEmpty()) {
+        if (keySet.isEmpty()) {
             //循环
             for (String mainKey : mainKeyList) {
                 //加入key列表
-                keyList.add(mainKey + "_" + "无");
+                keySet.add(mainKey + "_" + "无");
             }
         }
 
@@ -227,7 +224,7 @@ public class DanFangDoc {
          */
 
         //返回
-        return keyList;
+        return new ArrayList<>(keySet);
     }
 
 }
