@@ -170,37 +170,56 @@ public class DanFangDoc {
          * 主药药性
          */
 
-        //主药1
-        String mainHerb1Key = this.mainHerb1 != null ? this.mainHerb1.getYaoCai().getMainEffect().getCode() : "";
-        //主药2
-        String mainHerb2Key = this.mainHerb2 != null ? this.mainHerb2.getYaoCai().getMainEffect().getCode() : "";
-
-        //主药1和主药2的key,按字典顺序排序
-        String mainHerbKey = mainHerb1Key.compareTo(mainHerb2Key) < 0 ? mainHerb1Key + mainHerb2Key : mainHerb2Key + mainHerb1Key;
+        //主药1和主药2的key
+        List<String> mainKeyList = new ArrayList<>();
+        //判空
+        if (this.mainHerb1 != null) {
+            //加入
+            mainKeyList.add(this.mainHerb1.getYaoCai().getMainEffect().getCode());
+        }
+        //判空
+        if (this.mainHerb2 != null) {
+            //加入
+            mainKeyList.add(this.mainHerb2.getYaoCai().getMainEffect().getCode());
+        }
 
         /**
          * 辅药药性
          *
          */
 
-        //辅药1
-        String secondaryHerb1Key = this.secondaryHerb1 != null ? this.secondaryHerb1.getYaoCai().getSecondaryEffect().getCode() : null;
+        //辅药1和辅药2的key
+        List<String> secKeyList = new ArrayList<>();
         //判空
-        if (secondaryHerb1Key != null) {
-            //加入key列表
-            keyList.add(mainHerbKey + "_" + secondaryHerb1Key);
+        if (this.secondaryHerb1 != null) {
+            //加入
+            secKeyList.add(this.secondaryHerb1.getYaoCai().getSecondaryEffect().getCode());
         }
-        //辅药2
-        String secondaryHerb2Key = this.secondaryHerb2 != null ? this.secondaryHerb2.getYaoCai().getSecondaryEffect().getCode() : null;
         //判空
-        if (secondaryHerb2Key != null) {
-            //加入key列表
-            keyList.add(mainHerbKey + "_" + secondaryHerb2Key);
+        if (this.secondaryHerb2 != null) {
+            //加入
+            secKeyList.add(this.secondaryHerb2.getYaoCai().getSecondaryEffect().getCode());
+        }
+
+        /**
+         * 组合
+         */
+
+        //循环1
+        for (String mainKey : mainKeyList) {
+            //循环2
+            for (String secKey : secKeyList) {
+                //加入key列表
+                keyList.add(mainKey + "_" + secKey);
+            }
         }
         //如果没有辅药
         if (keyList.isEmpty()) {
-            //加入key列表
-            keyList.add(mainHerbKey + "_" + "无");
+            //循环
+            for (String mainKey : mainKeyList) {
+                //加入key列表
+                keyList.add(mainKey + "_" + "无");
+            }
         }
 
         /**
