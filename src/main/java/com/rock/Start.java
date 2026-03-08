@@ -116,7 +116,7 @@ public class Start {
          */
 
         //所有药材列表(包含NULL)
-        List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
+        List<YaoCaiDoc> yaoCaiDocAndNullList = dataService.loadYaoCai(Config.SWITCH_YAO_CAI_FILE_PATH);
         //如果不需要妖丹
         if (Config.NEED_YAO_DAN == false) {
             //过滤掉妖丹
