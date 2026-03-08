@@ -526,6 +526,11 @@ public class CombinationService {
                             //本轮过
                             continue;
                         }
+                        //如果当前丹方品级更高
+                        if (danYaoDoc.getGrade().getLevel() > sameDanYaoDoc.getGrade().getLevel()) {
+                            //覆盖也无所谓,优先级更高
+                            continue;
+                        }
                         //获取对应单方单方
                         DanFangDoc sameFormula = sameDanYaoDoc.getFormula();
                         //检查新丹方是否完全覆盖其他单方药性
