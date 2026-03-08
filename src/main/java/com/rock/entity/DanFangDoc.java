@@ -126,12 +126,11 @@ public class DanFangDoc {
     }
 
     /**
-     * 返回该单方 寒热数值总和
-     * 热+1，寒-1，主要辅药药引均算，不考虑数量
+     * 返回该单方,寒热是否平衡
      *
      * @return
      */
-    public int getCurrentYaoCaiHeatAndColdValue() {
+    public boolean getCurrentYaoCaiHeatAndColdValue() {
         //所有可能的寒热平衡列表
         List<DanFangItemDoc> danFangItemDocList = new ArrayList<>();
         //按顺序添加
@@ -139,9 +138,8 @@ public class DanFangDoc {
         danFangItemDocList.add(this.mainHerb2);
         danFangItemDocList.add(this.secondaryHerb1);
         danFangItemDocList.add(this.secondaryHerb2);
-        danFangItemDocList.add(this.guideHerb);
-        //返回寒热总和
-        return danFangItemDocList
+        //求出主药辅药寒热和
+        int sum = danFangItemDocList
                 .stream()
                 //过滤空的
                 .filter(Objects::nonNull)
@@ -151,6 +149,21 @@ public class DanFangDoc {
                 .map(YaoCaiPropertyEnum::getValue)
                 //求和
                 .reduce(0, Integer::sum);
+        //如果主药辅药热
+        if (sum > 0) {
+            //药引必须是寒
+            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.COLD;
+        }
+        //如果主药辅药寒
+        else if (sum < 0) {
+            //药引必须是热
+            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.HOT;
+        }
+        //如果主药辅药平
+        else {
+            //药引必须是平
+            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.NEUTRAL;
+        }
     }
 
     /**

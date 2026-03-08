@@ -378,11 +378,6 @@ public class CombinationService {
                     //炸炉,过
                     continue;
                 }
-                //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
-                    //寒热肯定不平,过
-                    continue;
-                }
                 //添加到结果列表
                 newResultList.add(newDanFang);
             }
@@ -502,11 +497,6 @@ public class CombinationService {
                     //炸炉,过
                     continue;
                 }
-                //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
-                    //寒热肯定不平,过
-                    continue;
-                }
 
                 /**
                  * 检查 主药1+主药2+辅药1+辅药2 满足其他单方,则略过
@@ -612,7 +602,7 @@ public class CombinationService {
                     continue;
                 }
                 //判断寒热
-                if (Math.abs(newDanFang.getCurrentYaoCaiHeatAndColdValue()) > maxHotAndCold) {
+                if (newDanFang.getCurrentYaoCaiHeatAndColdValue() == false) {
                     //寒热不平,过
                     continue;
                 }
