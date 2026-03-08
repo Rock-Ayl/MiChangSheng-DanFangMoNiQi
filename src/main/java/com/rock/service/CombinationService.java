@@ -99,14 +99,20 @@ public class CombinationService {
         //构建主药1
         result = buildMain1(result, baseFormula, maxCount, useYaoCaiNameSet, yaoCaiMainEffectMap);
 
-        //构建主药2
-        result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiMainEffectMap);
+        //如果支持主药2
+        if (danLuEnum.isMain2()) {
+            //构建主药2
+            result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiMainEffectMap);
+        }
 
         //构建辅药1
         result = buildSecondary1(result, baseFormula, maxCount, 2, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap);
 
-        //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
+        //如果丹炉支持辅药2
+        if (danLuEnum.isSecondary2()) {
+            //构建辅药2
+            result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
+        }
 
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, useYaoCaiDocList, useYaoCaiNameSet);
