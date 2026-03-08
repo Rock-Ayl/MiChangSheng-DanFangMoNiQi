@@ -18,12 +18,11 @@ public class Config {
 
     //药材配置-所有
     public static final String FILE_PATH_ALL_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
+    //药材配置-宗门库房-金虹
+    public static final String FILE_PATH_ZONG_MEN_JIN_HONG_FILE = "/觅长生-药材-金虹剑派库房.txt";
 
     //丹药配置-所有
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
-
-    //药材配置-宗门库房-金虹
-    public static final String FILE_PATH_ZONG_MEN_JIN_HONG_FILE = "/觅长生-药材-金虹剑派库房.txt";
 
     /**
      * 开关-一般
