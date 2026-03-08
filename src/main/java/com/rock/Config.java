@@ -6,7 +6,7 @@ package com.rock;
 public class Config {
 
     /**
-     * 写入文件地址
+     * 输出文件地址
      */
 
     //输出excel的路径
@@ -21,6 +21,9 @@ public class Config {
 
     //所有丹药配置
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
+
+    //宗门库房药材配置
+    public static final String FILE_PATH_ZONG_MEN_JIN_HONG_FILE = "/觅长生-药材-金虹剑派库房.txt";
 
     /**
      * 开关-一般
