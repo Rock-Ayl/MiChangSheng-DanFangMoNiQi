@@ -30,7 +30,7 @@ public class Config {
      */
 
     //开关-使用哪种-药材配置-作为药材组合单方
-    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_ZONG_MEN_JIN_HONG_FILE;
+    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_ALL_HERBAL_MEDICINE_FILE;
 
     //药材是否包含妖丹
     public static final boolean NEED_YAO_DAN = true;
