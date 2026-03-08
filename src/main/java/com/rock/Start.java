@@ -47,7 +47,7 @@ public class Start {
          */
 
         //读取 药材 配置
-        List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai(Config.SWITCH_YAO_CAI_FILE_PATH);
+        List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai(Config.FILE_PATH_ALL_HERBAL_MEDICINE_FILE);
 
         /**
          * 读取 丹药(包含丹方) 配置
