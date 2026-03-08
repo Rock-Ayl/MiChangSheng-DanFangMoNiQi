@@ -53,12 +53,10 @@ public class Start {
          * 读取所有 丹药(包含丹方) 配置
          */
 
-        //转为 药材名称map
-        Map<String, YaoCaiDoc> yaoCaiDocMap = yaoCaiDocList
+        //基于所有药材,读取丹药数据
+        List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocList
                 .stream()
-                .collect(Collectors.toMap(YaoCaiDoc::getName, p -> p));
-        //基于药材,读取丹药数据
-        List<DanYaoDoc> danYaoDocList = dataService.loadDanYao(yaoCaiDocMap);
+                .collect(Collectors.toMap(YaoCaiDoc::getName, p -> p)));
 
         /**
          * 转为 主药药性map(同药性药材一组)
