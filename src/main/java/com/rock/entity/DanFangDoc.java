@@ -149,20 +149,27 @@ public class DanFangDoc {
                 .map(YaoCaiPropertyEnum::getValue)
                 //求和
                 .reduce(0, Integer::sum);
+        //获取药引
+        YaoCaiPropertyEnum property = this.getGuideHerb().getYaoCai().getProperty();
+        //判空
+        if (property == null) {
+            //不平
+            return false;
+        }
         //如果主药辅药热
         if (sum > 0) {
             //药引必须是寒
-            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.COLD;
+            return property == YaoCaiPropertyEnum.COLD;
         }
         //如果主药辅药寒
         else if (sum < 0) {
             //药引必须是热
-            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.HOT;
+            return property == YaoCaiPropertyEnum.HOT;
         }
         //如果主药辅药平
         else {
             //药引必须是平
-            return this.getGuideHerb().getYaoCai().getProperty() == YaoCaiPropertyEnum.NEUTRAL;
+            return property == YaoCaiPropertyEnum.NEUTRAL;
         }
     }
 
