@@ -113,15 +113,15 @@ public class Start {
          * 本次生成要使用的药材
          */
 
-        //所有药材列表(包含NULL)
-        List<YaoCaiDoc> yaoCaiDocAndNullList = dataService.loadYaoCai(Config.SWITCH_YAO_CAI_FILE_PATH);
+        //本次要使用的药材列表
+        List<YaoCaiDoc> useYaoCaiDocList = dataService.loadYaoCai(Config.SWITCH_YAO_CAI_FILE_PATH);
         //如果不需要妖丹
         if (Config.NEED_YAO_DAN == false) {
             //过滤掉妖丹
-            yaoCaiDocAndNullList = yaoCaiDocAndNullList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
+            useYaoCaiDocList = useYaoCaiDocList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
         }
         //把空也放里面,这也是一种情况
-        yaoCaiDocAndNullList.add(null);
+        useYaoCaiDocList.add(null);
 
         /**
          * 组合排列生成所有丹方
@@ -164,7 +164,7 @@ public class Start {
                     List<DanFangDoc> combinationList = combinationService.combination(
                             danYaoDoc,
                             danLuEnum,
-                            yaoCaiDocAndNullList,
+                            useYaoCaiDocList,
                             yaoCaiMainEffectMap,
                             yaoCaiSecondaryEffectMap,
                             danFangGroupMap

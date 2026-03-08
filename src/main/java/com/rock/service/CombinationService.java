@@ -22,7 +22,7 @@ public class CombinationService {
      *
      * @param danYaoDoc                丹药
      * @param danLuEnum                丹炉
-     * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
+     * @param useYaoCaiDocList         本次要使用的药材列表
      * @param yaoCaiMainEffectMap      药材主药分组map
      * @param yaoCaiSecondaryEffectMap 药材副药分组map
      * @param danFangGroupMap          丹方分组map
@@ -31,7 +31,7 @@ public class CombinationService {
     public List<DanFangDoc> combination(
             DanYaoDoc danYaoDoc,
             DanLuEnum danLuEnum,
-            List<YaoCaiDoc> yaoCaiDocAndNullList,
+            List<YaoCaiDoc> useYaoCaiDocList,
             Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
             Map<String, List<DanYaoDoc>> danFangGroupMap) {
@@ -98,16 +98,16 @@ public class CombinationService {
         result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
 
         //构建主药2
-        result = buildMain2(result, baseFormula, maxCount, yaoCaiDocAndNullList, yaoCaiMainEffectMap);
+        result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, yaoCaiMainEffectMap);
 
         //构建辅药1
-        result = buildSecondary1(result, baseFormula, maxCount, 2, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap);
+        result = buildSecondary1(result, baseFormula, maxCount, 2, useYaoCaiDocList, yaoCaiSecondaryEffectMap);
 
         //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, 1, yaoCaiDocAndNullList, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
+        result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
 
         //构建药引
-        result = buildGuideHerb(result, baseFormula, maxCount, 0, yaoCaiDocAndNullList);
+        result = buildGuideHerb(result, baseFormula, maxCount, 0, useYaoCaiDocList);
 
         /**
          * 返回结果
@@ -177,18 +177,18 @@ public class CombinationService {
     /**
      * 构建主药2
      *
-     * @param danFangDocList       当前丹方列表
-     * @param baseFormula          基础丹方
-     * @param maxCount             丹炉最大药材数量
-     * @param yaoCaiDocAndNullList 所有药材列表(包含NULL)
-     * @param yaoCaiMainEffectMap  药材主药分组map
+     * @param danFangDocList      当前丹方列表
+     * @param baseFormula         基础丹方
+     * @param maxCount            丹炉最大药材数量
+     * @param useYaoCaiDocList    所有药材列表(包含NULL)
+     * @param yaoCaiMainEffectMap 药材主药分组map
      * @return
      */
     private List<DanFangDoc> buildMain2(
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
-            List<YaoCaiDoc> yaoCaiDocAndNullList,
+            List<YaoCaiDoc> useYaoCaiDocList,
             Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap) {
 
         /**
@@ -209,7 +209,7 @@ public class CombinationService {
                 return danFangDocList;
             }
             //尝试用每种药材填充(平衡寒热)
-            main2YaoCaiList = yaoCaiDocAndNullList;
+            main2YaoCaiList = useYaoCaiDocList;
         } else {
             //获取主药2-所需总药力
             requiredPower = mainHerb2.getTotalPower();
@@ -285,7 +285,7 @@ public class CombinationService {
      * @param baseFormula              基础丹方
      * @param maxCount                 丹炉最大药材数量
      * @param maxHotAndCold            最大寒热数值
-     * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
+     * @param useYaoCaiDocList         所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @returno
      */
@@ -294,7 +294,7 @@ public class CombinationService {
             DanFangDoc baseFormula,
             Integer maxCount,
             Integer maxHotAndCold,
-            List<YaoCaiDoc> yaoCaiDocAndNullList,
+            List<YaoCaiDoc> useYaoCaiDocList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
         /**
@@ -315,7 +315,7 @@ public class CombinationService {
                 return danFangDocList;
             }
             //尝试用每种药材填充(平衡寒热)
-            secondary1YaocaiList = yaoCaiDocAndNullList;
+            secondary1YaocaiList = useYaoCaiDocList;
         } else {
             //获取辅药1-所需总药力
             requiredPower = baseSecondaryHerb1.getTotalPower();
@@ -369,7 +369,7 @@ public class CombinationService {
      * @param baseFormula              基础丹方
      * @param maxCount                 丹炉最大药材数量
      * @param maxHotAndCold            最大寒热数值
-     * @param yaoCaiDocAndNullList     所有药材列表(包含NULL)
+     * @param useYaoCaiDocList         所有药材列表(包含NULL)
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @param danFangGroupMap          丹方分组map
      * @param danYaoDoc                当前丹药
@@ -380,7 +380,7 @@ public class CombinationService {
             DanFangDoc baseFormula,
             Integer maxCount,
             Integer maxHotAndCold,
-            List<YaoCaiDoc> yaoCaiDocAndNullList,
+            List<YaoCaiDoc> useYaoCaiDocList,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
             Map<String, List<DanYaoDoc>> danFangGroupMap,
             DanYaoDoc danYaoDoc) {
@@ -403,7 +403,7 @@ public class CombinationService {
                 return danFangDocList;
             }
             //尝试用每种药材填充(平衡寒热)
-            secondary2YaocaiList = yaoCaiDocAndNullList;
+            secondary2YaocaiList = useYaoCaiDocList;
         } else {
             //获取辅药2-所需总药力
             requiredPower = baseSecondaryHerb2.getTotalPower();
@@ -515,11 +515,11 @@ public class CombinationService {
     /**
      * 构建药引
      *
-     * @param danFangDocList       当前丹方列表
-     * @param baseFormula          基础丹方
-     * @param maxCount             丹炉最大药材数量
-     * @param maxHotAndCold        最大寒热数值
-     * @param yaoCaiDocAndNullList 所有药材列表(包含NULL)
+     * @param danFangDocList   当前丹方列表
+     * @param baseFormula      基础丹方
+     * @param maxCount         丹炉最大药材数量
+     * @param maxHotAndCold    最大寒热数值
+     * @param useYaoCaiDocList 所有药材列表(包含NULL)
      * @return
      */
     private List<DanFangDoc> buildGuideHerb(
@@ -527,7 +527,7 @@ public class CombinationService {
             DanFangDoc baseFormula,
             Integer maxCount,
             Integer maxHotAndCold,
-            List<YaoCaiDoc> yaoCaiDocAndNullList) {
+            List<YaoCaiDoc> useYaoCaiDocList) {
 
         /**
          * 获取药引
@@ -536,7 +536,7 @@ public class CombinationService {
         //获取基础丹方-药引
         DanFangItemDoc baseGuideHerb = baseFormula.getGuideHerb();
         //目标药引列表
-        List<YaoCaiDoc> guideYaoCaiList = new ArrayList<>(yaoCaiDocAndNullList);
+        List<YaoCaiDoc> guideYaoCaiList = new ArrayList<>(useYaoCaiDocList);
         //不能有空的药引
         guideYaoCaiList.remove(null);
         //获取药引-所需总药力
