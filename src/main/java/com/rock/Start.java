@@ -48,11 +48,6 @@ public class Start {
 
         //读取药材数据
         List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
-        //如果不需要妖丹
-        if (Config.NEED_YAO_DAN == false) {
-            //过滤掉妖丹
-            yaoCaiDocList = yaoCaiDocList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
-        }
 
         /**
          * 读取 丹药(包含丹方) 配置
@@ -117,13 +112,22 @@ public class Start {
                 .collect(Collectors.groupingBy(DanYaoDoc::getGrade));
 
         /**
-         * 组合排列生成所有丹方
+         * 本次生成要使用的药材
          */
 
         //所有药材列表(包含NULL)
         List<YaoCaiDoc> yaoCaiDocAndNullList = new ArrayList<>(yaoCaiDocList);
+        //如果不需要妖丹
+        if (Config.NEED_YAO_DAN == false) {
+            //过滤掉妖丹
+            yaoCaiDocAndNullList = yaoCaiDocAndNullList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
+        }
         //把空也放里面,这也是一种情况
         yaoCaiDocAndNullList.add(null);
+
+        /**
+         * 组合排列生成所有丹方
+         */
 
         //创建单个 BigExcelWriter（所有 sheet 都写到这个 writer 中）
         BigExcelWriter writer = ExcelUtil.getBigWriter(new File(Config.OUT_EXCEL_FILE_PATH));
