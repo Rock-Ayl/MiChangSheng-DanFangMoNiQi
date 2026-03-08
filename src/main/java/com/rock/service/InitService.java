@@ -105,8 +105,15 @@ public class InitService {
                 danYaoDoc.setGrade(GroupEnum.parseByCode(ArrayExtraUtils.getString(partArr, 1)));
                 //解析枚举
                 danYaoDoc.setType(DanYaoTypeEnum.parseByCode(ArrayExtraUtils.getString(partArr, 2)));
+                //解析单方
+                DanFangDoc danFangDoc = DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap);
+                //如果根据药材,无法生成单方
+                if (danFangDoc == null) {
+                    //本轮过
+                    continue;
+                }
                 //解析丹方并组装
-                danYaoDoc.setFormula(DanFangDoc.parse(ArrayExtraUtils.getString(partArr, 3), yaoCaiDocMap));
+                danYaoDoc.setFormula(danFangDoc);
                 //解析价格
                 danYaoDoc.setAmount(Integer.parseInt(ArrayExtraUtils.getString(partArr, 4)));
                 //组装到列表
