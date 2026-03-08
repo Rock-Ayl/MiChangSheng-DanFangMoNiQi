@@ -97,7 +97,7 @@ public class CombinationService {
         result.add(new DanFangDoc());
 
         //构建主药1
-        result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap);
+        result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap, useYaoCaiNameSet);
 
         //构建主药2
         result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, yaoCaiMainEffectMap);
@@ -132,7 +132,7 @@ public class CombinationService {
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
-            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap) {
+            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap, Set<String> useYaoCaiNameSet) {
 
         /**
          * 获取主药1
@@ -155,6 +155,11 @@ public class CombinationService {
         List<DanFangDoc> newResultList = new ArrayList<>();
         //循环
         for (YaoCaiDoc main1YaoCai : Main1YaocaiList) {
+            //如果不是本次使用的药材
+            if (useYaoCaiNameSet.contains(main1YaoCai.getName()) == false) {
+                //过
+                continue;
+            }
             //计算需要的最小数量
             Integer minCount = calculateMinCount(requiredPower, main1YaoCai.getGrade().getPower());
             //为单方新增新的组合
