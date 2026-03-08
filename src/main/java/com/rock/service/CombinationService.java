@@ -109,7 +109,7 @@ public class CombinationService {
         result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
 
         //构建药引
-        result = buildGuideHerb(result, baseFormula, maxCount, 0, useYaoCaiDocList);
+        result = buildGuideHerb(result, baseFormula, maxCount, 0, useYaoCaiDocList, useYaoCaiNameSet);
 
         /**
          * 返回结果
@@ -550,6 +550,7 @@ public class CombinationService {
      * @param maxCount         丹炉最大药材数量
      * @param maxHotAndCold    最大寒热数值
      * @param useYaoCaiDocList 所有药材列表(包含NULL)
+     * @param useYaoCaiNameSet 本次要使用的药材名称集合
      * @return
      */
     private List<DanFangDoc> buildGuideHerb(
@@ -557,7 +558,8 @@ public class CombinationService {
             DanFangDoc baseFormula,
             Integer maxCount,
             Integer maxHotAndCold,
-            List<YaoCaiDoc> useYaoCaiDocList) {
+            List<YaoCaiDoc> useYaoCaiDocList,
+            Set<String> useYaoCaiNameSet) {
 
         /**
          * 获取药引
@@ -580,6 +582,11 @@ public class CombinationService {
         List<DanFangDoc> newResultList = new ArrayList<>();
         //循环
         for (YaoCaiDoc guideYaoCai : guideYaoCaiList) {
+            //如果不是本次使用的药材
+            if (useYaoCaiNameSet.contains(guideYaoCai.getName()) == false) {
+                //过
+                continue;
+            }
             //计算需要的最小数量,如果不需要药引,则默认1个填充平衡
             Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, guideYaoCai.getGrade().getPower());
             //为单方新增新的组合
