@@ -97,7 +97,7 @@ public class CombinationService {
         result.add(new DanFangDoc());
 
         //构建主药1
-        result = buildMain1(result, baseFormula, maxCount, yaoCaiMainEffectMap, useYaoCaiNameSet);
+        result = buildMain1(result, baseFormula, maxCount, useYaoCaiNameSet, yaoCaiMainEffectMap);
 
         //构建主药2
         result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiMainEffectMap);
@@ -125,16 +125,16 @@ public class CombinationService {
      * @param danFangDocList      当前丹方列表
      * @param baseFormula         基础丹方
      * @param maxCount            丹炉最大药材数量
-     * @param yaoCaiMainEffectMap 药材主药分组map
      * @param useYaoCaiNameSet    本次要使用的药材名称集合
+     * @param yaoCaiMainEffectMap 药材主药分组map
      * @return
      */
     private List<DanFangDoc> buildMain1(
             List<DanFangDoc> danFangDocList,
             DanFangDoc baseFormula,
             Integer maxCount,
-            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap,
-            Set<String> useYaoCaiNameSet) {
+            Set<String> useYaoCaiNameSet,
+            Map<YaoCaiMainEffectEnum, List<YaoCaiDoc>> yaoCaiMainEffectMap) {
 
         /**
          * 获取主药1
