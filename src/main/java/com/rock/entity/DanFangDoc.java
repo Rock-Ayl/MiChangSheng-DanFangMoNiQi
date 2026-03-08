@@ -159,8 +159,12 @@ public class DanFangDoc {
                 .map(YaoCaiPropertyEnum::getValue)
                 //求和
                 .reduce(0, Integer::sum);
-        //获取药引
-        YaoCaiPropertyEnum property = this.getGuideHerb().getYaoCai().getProperty();
+        //获取药引药性
+        YaoCaiPropertyEnum property = Optional.ofNullable(this)
+                .map(DanFangDoc::getGuideHerb)
+                .map(DanFangItemDoc::getYaoCai)
+                .map(YaoCaiDoc::getProperty)
+                .orElse(null);
         //判空
         if (property == null) {
             //不平
