@@ -14,10 +14,7 @@ import com.rock.service.InitService;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -120,6 +117,11 @@ public class Start {
             //过滤掉妖丹
             useYaoCaiDocList = useYaoCaiDocList.stream().filter(p -> p.getYaoDan() == false).collect(Collectors.toList());
         }
+        //本次使用的药材名称集合
+        Set<String> useYaoCaiNameSet = useYaoCaiDocList
+                .stream()
+                .map(YaoCaiDoc::getName)
+                .collect(Collectors.toSet());
         //把空也放里面,这也是一种情况
         useYaoCaiDocList.add(null);
 
@@ -165,6 +167,7 @@ public class Start {
                             danYaoDoc,
                             danLuEnum,
                             useYaoCaiDocList,
+                            useYaoCaiNameSet,
                             yaoCaiMainEffectMap,
                             yaoCaiSecondaryEffectMap,
                             danFangGroupMap
