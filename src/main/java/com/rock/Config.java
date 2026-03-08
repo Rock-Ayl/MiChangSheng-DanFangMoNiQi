@@ -16,11 +16,11 @@ public class Config {
      * 资源地址
      */
 
-    //药材配置
-    public static final String FILE_PATH_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
+    //所有药材配置
+    public static final String FILE_PATH_ALL_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
 
-    //丹药配置
-    public static final String FILE_PATH_PILL_FILE = "/觅长生-丹药.txt";
+    //所有丹药配置
+    public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
 
     /**
      * 开关-一般

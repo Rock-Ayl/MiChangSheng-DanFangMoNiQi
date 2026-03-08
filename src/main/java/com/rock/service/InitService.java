@@ -23,13 +23,14 @@ public class InitService {
     /**
      * 读取所有-药材数据
      *
+     * @param filePath 药材文件路径
      * @return 药材列表
      */
-    public List<YaoCaiDoc> loadYaoCai() {
+    public List<YaoCaiDoc> loadYaoCai(String filePath) {
         //初始化药材列表
         List<YaoCaiDoc> medicineDocList = new ArrayList<>();
         //读取资源
-        try (InputStream is = getClass().getResourceAsStream(Config.FILE_PATH_HERBAL_MEDICINE_FILE);
+        try (InputStream is = getClass().getResourceAsStream(filePath);
              //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             //当前行
@@ -80,7 +81,7 @@ public class InitService {
         //初始化丹药列表
         List<DanYaoDoc> danYaoDocList = new ArrayList<>();
         //读取资源
-        try (InputStream is = getClass().getResourceAsStream(Config.FILE_PATH_PILL_FILE);
+        try (InputStream is = getClass().getResourceAsStream(Config.FILE_PATH_ALL_PILL_FILE);
              //读取流
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             //当前行

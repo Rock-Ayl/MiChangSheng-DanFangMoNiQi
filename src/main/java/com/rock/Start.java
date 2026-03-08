@@ -43,14 +43,14 @@ public class Start {
         CombinationService combinationService = new CombinationService();
 
         /**
-         * 读取 药材 配置
+         * 读取所有 药材 配置
          */
 
-        //读取药材数据
-        List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai();
+        //读取所有 药材 配置
+        List<YaoCaiDoc> yaoCaiDocList = dataService.loadYaoCai(Config.FILE_PATH_ALL_HERBAL_MEDICINE_FILE);
 
         /**
-         * 读取 丹药(包含丹方) 配置
+         * 读取所有 丹药(包含丹方) 配置
          */
 
         //转为 药材名称map
