@@ -46,11 +46,26 @@ public class Config {
 
     //当单方没有主药2,是否将其用于平衡寒热(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_MAIN_1_GUIDE = true;
-
     //当单方没有辅药1,是否将其用于平衡寒热(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_SEC_1_GUIDE = true;
-
     //当单方没有辅药2,是否将妻用于平衡寒热(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_SEC_2_GUIDE = true;
+
+    /**
+     * 开关-每品丹方分片数量
+     */
+
+    //一品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_ONE = 1;
+    //二品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_TWO = 1;
+    //三品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_THREE = 1;
+    //四品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_FOUR = 1;
+    //五品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_FIVE = 1;
+    //六品丹方-sheet分片-数量
+    public static final int SHEET_PART_PIN_SIX = 1;
 
 }

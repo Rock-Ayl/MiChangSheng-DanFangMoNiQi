@@ -1,5 +1,6 @@
 package com.rock.enums;
 
+import com.rock.Config;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,14 +11,14 @@ import lombok.ToString;
 @ToString
 public enum GroupEnum {
 
-    NONE("none", -1, 0, 1),
+    NONE("none", -1, 0, 0),
 
-    ONE("一品", 1, 1, 1),
-    TWO("二品", 3, 2, 1),
-    THREE("三品", 9, 3, 2),
-    FOUR("四品", 36, 4, 1),
-    FIVE("五品", 180, 5, 1),
-    SIX("六品", 1080, 6, 1),
+    ONE("一品", 1, 1, Config.SHEET_PART_PIN_ONE),
+    TWO("二品", 3, 2, Config.SHEET_PART_PIN_TWO),
+    THREE("三品", 9, 3, Config.SHEET_PART_PIN_THREE),
+    FOUR("四品", 36, 4, Config.SHEET_PART_PIN_FOUR),
+    FIVE("五品", 180, 5, Config.SHEET_PART_PIN_FIVE),
+    SIX("六品", 1080, 6, Config.SHEET_PART_PIN_SIX),
 
     ;
 
