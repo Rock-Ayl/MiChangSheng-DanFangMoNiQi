@@ -103,10 +103,10 @@ public class CombinationService {
         result = buildMain2(result, baseFormula, maxCount, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiMainEffectMap);
 
         //构建辅药1
-        result = buildSecondary1(result, baseFormula, maxCount, 2, useYaoCaiDocList, yaoCaiSecondaryEffectMap);
+        result = buildSecondary1(result, baseFormula, maxCount, 2, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap);
 
         //构建辅药2
-        result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
+        result = buildSecondary2(result, baseFormula, maxCount, 1, useYaoCaiDocList, useYaoCaiNameSet, yaoCaiSecondaryEffectMap, danFangGroupMap, danYaoDoc);
 
         //构建药引
         result = buildGuideHerb(result, baseFormula, maxCount, 0, useYaoCaiDocList);
@@ -302,8 +302,9 @@ public class CombinationService {
      * @param maxCount                 丹炉最大药材数量
      * @param maxHotAndCold            最大寒热数值
      * @param useYaoCaiDocList         所有药材列表(包含NULL)
+     * @param useYaoCaiNameSet         本次要使用的药材名称集合
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
-     * @returno
+     * @return
      */
     private List<DanFangDoc> buildSecondary1(
             List<DanFangDoc> danFangDocList,
@@ -311,6 +312,7 @@ public class CombinationService {
             Integer maxCount,
             Integer maxHotAndCold,
             List<YaoCaiDoc> useYaoCaiDocList,
+            Set<String> useYaoCaiNameSet,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap) {
 
         /**
@@ -349,6 +351,11 @@ public class CombinationService {
         List<DanFangDoc> newResultList = new ArrayList<>();
         //循环
         for (YaoCaiDoc secondary1YaoCai : secondary1YaocaiList) {
+            //如果不是本次使用的药材
+            if (secondary1YaoCai != null && useYaoCaiNameSet.contains(secondary1YaoCai.getName()) == false) {
+                //过
+                continue;
+            }
             //计算需要的最小数量,如果不需要辅药1,则默认1个填充平衡
             Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary1YaoCai.getGrade().getPower());
             //为单方新增新的组合
@@ -386,6 +393,7 @@ public class CombinationService {
      * @param maxCount                 丹炉最大药材数量
      * @param maxHotAndCold            最大寒热数值
      * @param useYaoCaiDocList         所有药材列表(包含NULL)
+     * @param useYaoCaiNameSet         本次要使用的药材名称集合
      * @param yaoCaiSecondaryEffectMap 药材辅药分组map
      * @param danFangGroupMap          丹方分组map
      * @param danYaoDoc                当前丹药
@@ -397,6 +405,7 @@ public class CombinationService {
             Integer maxCount,
             Integer maxHotAndCold,
             List<YaoCaiDoc> useYaoCaiDocList,
+            Set<String> useYaoCaiNameSet,
             Map<YaoCaiSecondaryEffectEnum, List<YaoCaiDoc>> yaoCaiSecondaryEffectMap,
             Map<String, List<DanYaoDoc>> danFangGroupMap,
             DanYaoDoc danYaoDoc) {
@@ -437,6 +446,11 @@ public class CombinationService {
         List<DanFangDoc> newResultList = new ArrayList<>();
         //循环
         for (YaoCaiDoc secondary2YaoCai : secondary2YaocaiList) {
+            //如果不是本次使用的药材
+            if (secondary2YaoCai != null && useYaoCaiNameSet.contains(secondary2YaoCai.getName()) == false) {
+                //过
+                continue;
+            }
             //计算需要的最小数量,如果不需要辅药2,则默认1个填充平衡
             Integer minCount = requiredPower == null ? 1 : calculateMinCount(requiredPower, secondary2YaoCai.getGrade().getPower());
             //跳出标记
