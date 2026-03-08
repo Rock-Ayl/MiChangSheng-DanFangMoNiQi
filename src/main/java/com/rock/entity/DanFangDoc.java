@@ -145,8 +145,19 @@ public class DanFangDoc {
                 //过滤空的
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        //如果没有主要辅药
+        //如果没有主药辅药
         if (danFangItemDocList.isEmpty()) {
+            //不平
+            return false;
+        }
+        //获取药引药性
+        YaoCaiPropertyEnum property = Optional.ofNullable(this)
+                .map(DanFangDoc::getGuideHerb)
+                .map(DanFangItemDoc::getYaoCai)
+                .map(YaoCaiDoc::getProperty)
+                .orElse(null);
+        //如果没有药引
+        if (property == null) {
             //不平
             return false;
         }
@@ -159,17 +170,6 @@ public class DanFangDoc {
                 .map(YaoCaiPropertyEnum::getValue)
                 //求和
                 .reduce(0, Integer::sum);
-        //获取药引药性
-        YaoCaiPropertyEnum property = Optional.ofNullable(this)
-                .map(DanFangDoc::getGuideHerb)
-                .map(DanFangItemDoc::getYaoCai)
-                .map(YaoCaiDoc::getProperty)
-                .orElse(null);
-        //判空
-        if (property == null) {
-            //不平
-            return false;
-        }
         //如果主药辅药热
         if (sum > 0) {
             //药引必须是寒
