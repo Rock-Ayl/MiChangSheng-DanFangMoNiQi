@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 丹方 实体类
@@ -138,11 +139,20 @@ public class DanFangDoc {
         danFangItemDocList.add(this.mainHerb2);
         danFangItemDocList.add(this.secondaryHerb1);
         danFangItemDocList.add(this.secondaryHerb2);
-        //求出主药辅药寒热和
-        int sum = danFangItemDocList
+        //过滤空的
+        danFangItemDocList = danFangItemDocList
                 .stream()
                 //过滤空的
                 .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        //如果没有主要辅药
+        if (danFangItemDocList.isEmpty()) {
+            //不平
+            return false;
+        }
+        //求出主药辅药寒热和
+        int sum = danFangItemDocList
+                .stream()
                 //收集寒热属性
                 .map(DanFangItemDoc::getYaoCai)
                 .map(YaoCaiDoc::getProperty)
