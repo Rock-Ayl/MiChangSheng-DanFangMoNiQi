@@ -30,6 +30,8 @@ public class Config {
     public static final String FILE_PATH_ZONG_MEN_XIANG_HUA_FILE = "/觅长生-药材-星河剑派库房.txt";
     //药材配置-中药阁1楼
     public static final String FILE_PATH_ZHONG_YAO_GE_ONE = "/觅长生-药材-中药阁[1楼].txt";
+    //药材配置-中药阁1楼2楼
+    public static final String FILE_PATH_ZHONG_YAO_GE_TWO = "/觅长生-药材-中药阁[1楼][2楼].txt";
 
     //丹药配置-所有
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
