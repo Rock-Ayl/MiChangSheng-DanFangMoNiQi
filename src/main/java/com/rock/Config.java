@@ -18,6 +18,7 @@ public class Config {
 
     //药材配置-所有
     public static final String FILE_PATH_ALL_HERBAL_MEDICINE_FILE = "/觅长生-药材.txt";
+
     //药材配置-宗门库房-金虹
     public static final String FILE_PATH_ZONG_MEN_JIN_HONG_FILE = "/觅长生-药材-金虹剑派库房.txt";
     //药材配置-宗门库房-竹山
@@ -28,10 +29,13 @@ public class Config {
     public static final String FILE_PATH_ZONG_MEN_IZHAN_FILE = "/觅长生-药材-化尘教库房.txt";
     //药材配置-宗门库房-星河
     public static final String FILE_PATH_ZONG_MEN_XIANG_HUA_FILE = "/觅长生-药材-星河剑派库房.txt";
+
     //药材配置-中药阁1楼
     public static final String FILE_PATH_ZHONG_YAO_GE_ONE = "/觅长生-药材-中药阁[1楼].txt";
     //药材配置-中药阁1楼2楼
     public static final String FILE_PATH_ZHONG_YAO_GE_TWO = "/觅长生-药材-中药阁[1楼][2楼].txt";
+    //药材配置-中药阁1楼2楼+天衍阁草药
+    public static final String FILE_PATH_ZHONG_YAO_GE_THREE = "/觅长生-药材-中药阁[1楼][2楼][天衍阁草药].txt";
 
     //丹药配置-所有
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
