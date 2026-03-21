@@ -6,11 +6,13 @@ import com.rock.entity.DanFangItemDoc;
 import com.rock.entity.DanYaoDoc;
 import com.rock.entity.YaoCaiDoc;
 import com.rock.enums.DanLuEnum;
+import com.rock.enums.GroupEnum;
 import com.rock.enums.YaoCaiMainEffectEnum;
 import com.rock.enums.YaoCaiSecondaryEffectEnum;
 import com.rock.util.FastJsonExtraUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 组合排列服务
@@ -225,8 +227,18 @@ public class CombinationService {
                 //直接返回
                 return danFangDocList;
             }
-            //尝试用每种药材填充(平衡寒热)
-            main2YaoCaiList = useYaoCaiDocList;
+            //如果只用一品药材填充
+            if (Config.SWITCH_ONLY_ONE_HERBAL_MEDICINE) {
+                //尝试用一品药材每种药材填充(平衡寒热)
+                main2YaoCaiList = useYaoCaiDocList
+                        .stream()
+                        //只需要一品的
+                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        .collect(Collectors.toList());
+            } else {
+                //尝试用每种药材填充(平衡寒热)
+                main2YaoCaiList = useYaoCaiDocList;
+            }
         } else {
             //获取主药2-所需总药力
             requiredPower = mainHerb2.getTotalPower();
@@ -338,8 +350,18 @@ public class CombinationService {
                 //直接返回
                 return danFangDocList;
             }
-            //尝试用每种药材填充(平衡寒热)
-            secondary1YaocaiList = useYaoCaiDocList;
+            //如果只用一品药材填充
+            if (Config.SWITCH_ONLY_ONE_HERBAL_MEDICINE) {
+                //尝试用一品药材每种药材填充(平衡寒热)
+                secondary1YaocaiList = useYaoCaiDocList
+                        .stream()
+                        //只需要一品的
+                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        .collect(Collectors.toList());
+            } else {
+                //尝试用每种药材填充(平衡寒热)
+                secondary1YaocaiList = useYaoCaiDocList;
+            }
         } else {
             //获取辅药1-所需总药力
             requiredPower = baseSecondaryHerb1.getTotalPower();
@@ -428,8 +450,18 @@ public class CombinationService {
                 //直接返回
                 return danFangDocList;
             }
-            //尝试用每种药材填充(平衡寒热)
-            secondary2YaocaiList = useYaoCaiDocList;
+            //如果只用一品药材填充
+            if (Config.SWITCH_ONLY_ONE_HERBAL_MEDICINE) {
+                //尝试用一品药材每种药材填充(平衡寒热)
+                secondary2YaocaiList = useYaoCaiDocList
+                        .stream()
+                        //只需要一品的
+                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        .collect(Collectors.toList());
+            } else {
+                //尝试用每种药材填充(平衡寒热)
+                secondary2YaocaiList = useYaoCaiDocList;
+            }
         } else {
             //获取辅药2-所需总药力
             requiredPower = baseSecondaryHerb2.getTotalPower();
