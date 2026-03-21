@@ -54,14 +54,15 @@ public class Config {
      * 开关-额外平衡寒热
      */
 
-    //当单方没有主药2,是否将其用于平衡寒热(如果是true,会大幅增加计算时间)
+    //当单方没有主药2,是否将其用于【填充物平衡寒热】(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_MAIN_1_GUIDE = true;
-    //当单方没有辅药1,是否将其用于平衡寒热(如果是true,会大幅增加计算时间)
+    //当单方没有辅药1,是否将其用于【填充物平衡寒热】(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_SEC_1_GUIDE = true;
-    //当单方没有辅药2,是否将妻用于平衡寒热(如果是true,会大幅增加计算时间)
+    //当单方没有辅药2,是否将其用于【填充物平衡寒热】(如果是true,会大幅增加计算时间)
     public static final boolean SWITCH_SEC_2_GUIDE = true;
 
-    //todo 仅考虑 一品药材 and 对应辅药主药作为平衡寒热药材(如果是false,会大幅增加计算时间)
+    //仅考虑一品药材作为【填充物平衡寒热】(如果是false,会大幅增加计算时间)
+    public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = true;
 
     /**
      * 开关-每品丹方分片数量
