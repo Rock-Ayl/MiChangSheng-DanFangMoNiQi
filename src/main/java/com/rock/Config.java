@@ -51,7 +51,7 @@ public class Config {
     public static final boolean NEED_YAO_DAN = true;
 
     /**
-     * 开关-填充物平衡寒热
+     * 开关-填充物平衡寒热(当丹炉格子为空时,填充药材平衡寒热)
      */
 
     //当单方没有主药2,是否将其用于【填充物平衡寒热】(如果是true,会大幅增加计算时间)
@@ -65,7 +65,7 @@ public class Config {
     public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = true;
 
     /**
-     * 开关-每品丹方分片数量
+     * 开关-每品丹方分片数量(当一个sheet超过100万的时候,需要对sheet切片)
      */
 
     //一品丹方-sheet分片-数量
