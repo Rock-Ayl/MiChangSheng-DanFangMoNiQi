@@ -51,7 +51,7 @@ public class Config {
     public static final boolean NEED_YAO_DAN = true;
 
     /**
-     * 开关-额外平衡寒热
+     * 开关-填充物平衡寒热
      */
 
     //当单方没有主药2,是否将其用于【填充物平衡寒热】(如果是true,会大幅增加计算时间)
