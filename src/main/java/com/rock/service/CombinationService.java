@@ -232,8 +232,8 @@ public class CombinationService {
                 //尝试用一品药材每种药材填充(平衡寒热)
                 main2YaoCaiList = useYaoCaiDocList
                         .stream()
-                        //只需要一品的
-                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        //只需要一品的 or null
+                        .filter(p -> p == null || p.getGrade() == GroupEnum.ONE)
                         .collect(Collectors.toList());
             } else {
                 //尝试用每种药材填充(平衡寒热)
@@ -355,8 +355,8 @@ public class CombinationService {
                 //尝试用一品药材每种药材填充(平衡寒热)
                 secondary1YaocaiList = useYaoCaiDocList
                         .stream()
-                        //只需要一品的
-                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        //只需要一品的 or null
+                        .filter(p -> p == null || p.getGrade() == GroupEnum.ONE)
                         .collect(Collectors.toList());
             } else {
                 //尝试用每种药材填充(平衡寒热)
@@ -455,8 +455,8 @@ public class CombinationService {
                 //尝试用一品药材每种药材填充(平衡寒热)
                 secondary2YaocaiList = useYaoCaiDocList
                         .stream()
-                        //只需要一品的
-                        .filter(p -> p.getGrade() == GroupEnum.ONE)
+                        //只需要一品的 or null
+                        .filter(p -> p == null || p.getGrade() == GroupEnum.ONE)
                         .collect(Collectors.toList());
             } else {
                 //尝试用每种药材填充(平衡寒热)
