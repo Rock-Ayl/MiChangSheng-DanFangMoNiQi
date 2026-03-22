@@ -37,8 +37,10 @@ public class Config {
     //药材配置-中药阁1楼2楼+天衍阁草药
     public static final String FILE_PATH_ZHONG_YAO_GE_THREE = "/觅长生-药材-中药阁[1楼][2楼][天衍阁草药].txt";
 
-    //药材配置-天机阁-无限兑换
+    //药材配置-天机阁-无冷却兑换
     public static final String FILE_PATH_TIAN_JI_GE_ONE = "/觅长生-药材-天机阁[元婴交易会-无冷却草药][所有一品草药].txt";
+    //药材配置-天机阁-所有可兑换
+    public static final String FILE_PATH_TIAN_JI_GE_TWO = "/觅长生-药材-天机阁[元婴交易会-所有可兑换草药][所有一品草药].txt";
 
     //丹药配置-所有
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
@@ -48,7 +50,7 @@ public class Config {
      */
 
     //开关-使用哪种-药材配置-作为药材组合单方
-    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_TIAN_JI_GE_ONE;
+    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_TIAN_JI_GE_TWO;
 
     //使用的药材是否包含妖丹
     public static final boolean NEED_YAO_DAN = true;
