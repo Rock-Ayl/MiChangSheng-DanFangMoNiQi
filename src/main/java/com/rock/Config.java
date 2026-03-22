@@ -37,6 +37,9 @@ public class Config {
     //药材配置-中药阁1楼2楼+天衍阁草药
     public static final String FILE_PATH_ZHONG_YAO_GE_THREE = "/觅长生-药材-中药阁[1楼][2楼][天衍阁草药].txt";
 
+    //药材配置-天机阁-无限兑换
+    public static final String FILE_PATH_TIAN_JI_GE_ONE = "/觅长生-药材-天机阁[元婴交易会无限兑换草药][所有一品草药].txt";
+
     //丹药配置-所有
     public static final String FILE_PATH_ALL_PILL_FILE = "/觅长生-丹药.txt";
 
@@ -45,7 +48,7 @@ public class Config {
      */
 
     //开关-使用哪种-药材配置-作为药材组合单方
-    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_ZHONG_YAO_GE_ONE;
+    public static final String SWITCH_YAO_CAI_FILE_PATH = FILE_PATH_TIAN_JI_GE_ONE;
 
     //使用的药材是否包含妖丹
     public static final boolean NEED_YAO_DAN = true;
@@ -62,7 +65,7 @@ public class Config {
     public static final boolean SWITCH_SEC_2_GUIDE = true;
 
     //仅考虑一品药材作为【填充物平衡寒热】(如果是false,会大幅增加计算时间)
-    public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = true;
+    public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = false;
 
     /**
      * 开关-每品丹方分片数量(当一个sheet超过100万的时候,需要对sheet切片)
