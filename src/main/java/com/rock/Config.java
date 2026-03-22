@@ -67,7 +67,7 @@ public class Config {
     public static final boolean SWITCH_SEC_2_GUIDE = true;
 
     //仅考虑一品药材作为【填充物平衡寒热】(如果是false,会大幅增加计算时间)
-    public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = false;
+    public static final boolean SWITCH_ONLY_ONE_HERBAL_MEDICINE = true;
 
     /**
      * 开关-每品丹方分片数量(当一个sheet超过100万的时候,需要对sheet切片)
